@@ -6,13 +6,15 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Videoteka {
-    public partial class FormMovies : Form {
+    public partial class FormMovies : TemplatedForm {
 
         public const int MOVIES_PER_PAGE = 10;
         public Control[] movies = new Control[MOVIES_PER_PAGE];
+        public bool canDelete = false;
 
         public FormMovies() {
             StartPosition = FormStartPosition.Manual;
@@ -24,58 +26,21 @@ namespace Videoteka {
             Paint += Movies_Paint;
 
             var template = panelMovies.Controls[0];
-            var offset = template.Location.Y + template.Height;
+
+            CreateControlsFromTemplate(panelMovies.Controls[0], panelMovies, "movie", movies, MOVIES_PER_PAGE);
+            Debug.WriteLine(1);
+
             for (int i = 0; i < MOVIES_PER_PAGE; i++) {
-                var movie = new GroupBox {
-                    Width = template.Width,
-                    Height = template.Height,
-                    Location = new Point(template.Location.X, offset * i + template.Location.Y),
-                    Name = "movie" + i,
-                    Text = "Movie " + i
+                var movie = movies[i];
+                var curi = i;
+                movie.Controls["buttonReviews"].Click += (object s, EventArgs ee) => {
+                    new FormSingleMovie().Show();
                 };
-
-                foreach (Control control in template.Controls) {
-                    Control newControl = null;
-                    if(control is Label) {
-                        newControl = new Label {
-                            Text = control.Text,
-                            Width = control.Width,
-                            Height = control.Height,
-                            Location = control.Location,
-                            Font = control.Font,
-                            Name = control.Name + i
-                        };
-                        movie.Controls.Add(newControl);
-                    }
-                    else if(control is Button) {
-                        newControl = new Button {
-                            Text = control.Text,
-                            Width = control.Width,
-                            Height = control.Height,
-                            Location = control.Location,
-                            Name = control.Name + i
-                        };
-                    }
-                    else if(control is PictureBox) {
-                        newControl = new PictureBox {
-                            Text = control.Text,
-                            Width = control.Width,
-                            Height = control.Height,
-                            Location = control.Location,
-                            Name = control.Name + i
-                        };
-                    }
-                    if (newControl != null) {
-                        movie.Controls.Add(newControl);
-                    }
-                }
-                movie.Hide();
-                movies[i] = movie;
-                panelMovies.Controls.Add(movie);
+                movie.Controls["buttonDeleteMovie"].DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
             }
-            panelMovies.Controls.Remove(template);
-            template.Dispose();
 
+            buttonAddMovie.DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
+            buttonLogin.DataBindings.Add(Profile.GetFormattedBindingLoggedIn("Text"));
         }
 
         private void FormMovies_Closed(Object sender, FormClosedEventArgs e) {
@@ -83,17 +48,7 @@ namespace Videoteka {
         }
 
         private void Movies_Paint(object sender, PaintEventArgs e) {
-            Pen blackpen = new Pen(Color.Gray, 1);
-            Graphics g = e.Graphics;
-
-            var x1 = new Point(panelMovies.Location.X, panelMovies.Location.Y - 1);
-            var x2 = new Point(panelMovies.Location.X + panelMovies.Width, panelMovies.Location.Y - 1);
-            var x3 = new Point(panelMovies.Location.X, panelMovies.Location.Y + panelMovies.Height);
-            var x4 = new Point(panelMovies.Location.X + panelMovies.Width, panelMovies.Location.Y + panelMovies.Height);
-            g.DrawLine(blackpen, x1, x2);
-            g.DrawLine(blackpen, x3, x4);
-
-            g.Dispose();
+            DrawDividers(panelMovies, e.Graphics);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e) {
@@ -105,6 +60,9 @@ namespace Videoteka {
         }
 
         private void buttonLogin_Click(object sender, EventArgs e) {
+            if (Profile.IsLoggedIn.Checked) {
+                Profile.Logout();
+            }
             Program.formLogin.ShowDialog();
         }
 

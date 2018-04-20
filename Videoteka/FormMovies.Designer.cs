@@ -38,6 +38,8 @@ namespace Videoteka {
             this.labelMovieInfo = new System.Windows.Forms.Label();
             this.panelMovies = new System.Windows.Forms.Panel();
             this.groupFilter = new System.Windows.Forms.GroupBox();
+            this.labelSortBy = new System.Windows.Forms.Label();
+            this.filterSortBy = new System.Windows.Forms.ComboBox();
             this.buttonFilterReset = new System.Windows.Forms.Button();
             this.buttonFilter = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -61,8 +63,8 @@ namespace Videoteka {
             this.buttonPrev = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
             this.labelPagination = new System.Windows.Forms.Label();
-            this.filterSortBy = new System.Windows.Forms.ComboBox();
-            this.labelSortBy = new System.Windows.Forms.Label();
+            this.labelSortOrder = new System.Windows.Forms.Label();
+            this.filterSortOrder = new System.Windows.Forms.ComboBox();
             this.groupMovie.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.templatePoster)).BeginInit();
             this.panelMovies.SuspendLayout();
@@ -196,6 +198,8 @@ namespace Videoteka {
             // 
             // groupFilter
             // 
+            this.groupFilter.Controls.Add(this.labelSortOrder);
+            this.groupFilter.Controls.Add(this.filterSortOrder);
             this.groupFilter.Controls.Add(this.labelSortBy);
             this.groupFilter.Controls.Add(this.filterSortBy);
             this.groupFilter.Controls.Add(this.buttonFilterReset);
@@ -221,6 +225,23 @@ namespace Videoteka {
             this.groupFilter.TabStop = false;
             this.groupFilter.Text = "Filter Movies";
             this.groupFilter.Enter += new System.EventHandler(this.groupFilter_Enter);
+            // 
+            // labelSortBy
+            // 
+            this.labelSortBy.AutoSize = true;
+            this.labelSortBy.Location = new System.Drawing.Point(235, 77);
+            this.labelSortBy.Name = "labelSortBy";
+            this.labelSortBy.Size = new System.Drawing.Size(40, 13);
+            this.labelSortBy.TabIndex = 23;
+            this.labelSortBy.Text = "Sort by";
+            // 
+            // filterSortBy
+            // 
+            this.filterSortBy.FormattingEnabled = true;
+            this.filterSortBy.Location = new System.Drawing.Point(284, 74);
+            this.filterSortBy.Name = "filterSortBy";
+            this.filterSortBy.Size = new System.Drawing.Size(142, 21);
+            this.filterSortBy.TabIndex = 22;
             // 
             // buttonFilterReset
             // 
@@ -259,7 +280,7 @@ namespace Videoteka {
             // labelFilterRating
             // 
             this.labelFilterRating.AutoSize = true;
-            this.labelFilterRating.Location = new System.Drawing.Point(235, 74);
+            this.labelFilterRating.Location = new System.Drawing.Point(235, 50);
             this.labelFilterRating.Name = "labelFilterRating";
             this.labelFilterRating.Size = new System.Drawing.Size(38, 13);
             this.labelFilterRating.TabIndex = 17;
@@ -268,7 +289,7 @@ namespace Videoteka {
             // filterRating
             // 
             this.filterRating.FormattingEnabled = true;
-            this.filterRating.Location = new System.Drawing.Point(285, 71);
+            this.filterRating.Location = new System.Drawing.Point(285, 47);
             this.filterRating.Name = "filterRating";
             this.filterRating.Size = new System.Drawing.Size(142, 21);
             this.filterRating.TabIndex = 16;
@@ -276,7 +297,7 @@ namespace Videoteka {
             // labelFilterYear
             // 
             this.labelFilterYear.AutoSize = true;
-            this.labelFilterYear.Location = new System.Drawing.Point(235, 47);
+            this.labelFilterYear.Location = new System.Drawing.Point(235, 23);
             this.labelFilterYear.Name = "labelFilterYear";
             this.labelFilterYear.Size = new System.Drawing.Size(29, 13);
             this.labelFilterYear.TabIndex = 15;
@@ -285,7 +306,7 @@ namespace Videoteka {
             // filterYear
             // 
             this.filterYear.FormattingEnabled = true;
-            this.filterYear.Location = new System.Drawing.Point(285, 44);
+            this.filterYear.Location = new System.Drawing.Point(285, 20);
             this.filterYear.Name = "filterYear";
             this.filterYear.Size = new System.Drawing.Size(142, 21);
             this.filterYear.TabIndex = 14;
@@ -293,7 +314,7 @@ namespace Videoteka {
             // labelFilterGenre
             // 
             this.labelFilterGenre.AutoSize = true;
-            this.labelFilterGenre.Location = new System.Drawing.Point(235, 20);
+            this.labelFilterGenre.Location = new System.Drawing.Point(7, 127);
             this.labelFilterGenre.Name = "labelFilterGenre";
             this.labelFilterGenre.Size = new System.Drawing.Size(36, 13);
             this.labelFilterGenre.TabIndex = 13;
@@ -302,7 +323,7 @@ namespace Videoteka {
             // filterGenre
             // 
             this.filterGenre.FormattingEnabled = true;
-            this.filterGenre.Location = new System.Drawing.Point(285, 17);
+            this.filterGenre.Location = new System.Drawing.Point(57, 124);
             this.filterGenre.Name = "filterGenre";
             this.filterGenre.Size = new System.Drawing.Size(142, 21);
             this.filterGenre.TabIndex = 12;
@@ -422,22 +443,22 @@ namespace Videoteka {
             this.labelPagination.Text = "1 / 10";
             this.labelPagination.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // filterSortBy
+            // labelSortOrder
             // 
-            this.filterSortBy.FormattingEnabled = true;
-            this.filterSortBy.Location = new System.Drawing.Point(284, 98);
-            this.filterSortBy.Name = "filterSortBy";
-            this.filterSortBy.Size = new System.Drawing.Size(142, 21);
-            this.filterSortBy.TabIndex = 22;
+            this.labelSortOrder.AutoSize = true;
+            this.labelSortOrder.Location = new System.Drawing.Point(236, 104);
+            this.labelSortOrder.Name = "labelSortOrder";
+            this.labelSortOrder.Size = new System.Drawing.Size(33, 13);
+            this.labelSortOrder.TabIndex = 25;
+            this.labelSortOrder.Text = "Order";
             // 
-            // labelSortBy
+            // filterSortOrder
             // 
-            this.labelSortBy.AutoSize = true;
-            this.labelSortBy.Location = new System.Drawing.Point(235, 101);
-            this.labelSortBy.Name = "labelSortBy";
-            this.labelSortBy.Size = new System.Drawing.Size(40, 13);
-            this.labelSortBy.TabIndex = 23;
-            this.labelSortBy.Text = "Sort by";
+            this.filterSortOrder.FormattingEnabled = true;
+            this.filterSortOrder.Location = new System.Drawing.Point(285, 101);
+            this.filterSortOrder.Name = "filterSortOrder";
+            this.filterSortOrder.Size = new System.Drawing.Size(142, 21);
+            this.filterSortOrder.TabIndex = 24;
             // 
             // FormMovies
             // 
@@ -510,6 +531,8 @@ namespace Videoteka {
         private System.Windows.Forms.Label labelPagination;
         private System.Windows.Forms.Label labelSortBy;
         private System.Windows.Forms.ComboBox filterSortBy;
+        private System.Windows.Forms.Label labelSortOrder;
+        private System.Windows.Forms.ComboBox filterSortOrder;
     }
 }
 

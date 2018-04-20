@@ -1,22 +1,33 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Videoteka {
     static class Program {
 
-        static public FormLogin formLogin;
-        static public FormMovies formMovies;
-        static public FormWatchlist formWatchlist;
-        static public FormReviews formReviews;
-        static public FormAddMovie formAddMovie;
+        public static FormLogin formLogin;
+        public static FormMovies formMovies;
+        public static FormWatchlist formWatchlist;
+        public static FormReviews formReviews;
+        public static FormAddMovie formAddMovie;
+
+        public static DB db;
 
         [STAThread]
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            Profile.Init();
+
+            db = new DB("localhost", "videoteka", "root");
+
             formLogin = new FormLogin();
             formMovies = new FormMovies();
             formWatchlist = null;
@@ -39,5 +50,7 @@ namespace Videoteka {
             }
             formWatchlist.Focus();
         }
+
+        
     }
 }
