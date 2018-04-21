@@ -92,7 +92,7 @@ namespace Videoteka {
                 Program.ShowErrorBox("Please select genre", errorTitle);
             }
             else {
-                var id = DB.AddMovie(
+                return DB.AddMovie(
                     title,
                     (int)year,
                     (int)genre,
@@ -102,7 +102,6 @@ namespace Videoteka {
                     description,
                     poster
                 );
-                return id;
             }
             return -1;
         }

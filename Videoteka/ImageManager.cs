@@ -18,7 +18,7 @@ namespace Videoteka {
     public static class ImageManager {
 
         private static Image defaultPoster = null;
-        private static string defaultPosterResourceName = "Videoteka.no_poster.jpg";
+        private static string defaultPosterResourceName = "Videoteka.Resources.no_poster.jpg";
 
         public static Image GetDefaultPoster() {
             if (defaultPoster != null) {

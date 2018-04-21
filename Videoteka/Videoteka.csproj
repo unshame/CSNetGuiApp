@@ -47,40 +47,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB.cs" />
-    <Compile Include="FormAddMovie.cs">
+    <Compile Include="Forms\FormAddMovie.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddMovie.Designer.cs">
+    <Compile Include="Forms\FormAddMovie.Designer.cs">
       <DependentUpon>FormAddMovie.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormLogin.cs">
+    <Compile Include="Forms\FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormLogin.Designer.cs">
+    <Compile Include="Forms\FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormReviews.cs">
+    <Compile Include="Forms\FormReviews.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormReviews.Designer.cs">
+    <Compile Include="Forms\FormReviews.Designer.cs">
       <DependentUpon>FormReviews.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormSingleMovie.cs">
+    <Compile Include="Forms\FormSingleMovie.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSingleMovie.Designer.cs">
+    <Compile Include="Forms\FormSingleMovie.Designer.cs">
       <DependentUpon>FormSingleMovie.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMovies.cs">
+    <Compile Include="Forms\FormMovies.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMovies.Designer.cs">
+    <Compile Include="Forms\FormMovies.Designer.cs">
       <DependentUpon>FormMovies.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormWatchlist.cs">
+    <Compile Include="Forms\FormWatchlist.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormWatchlist.Designer.cs">
+    <Compile Include="Forms\FormWatchlist.Designer.cs">
       <DependentUpon>FormWatchlist.cs</DependentUpon>
     </Compile>
     <Compile Include="ImageManager.cs" />
@@ -89,25 +89,25 @@
     <Compile Include="Profile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TemplatedForm.cs">
+    <Compile Include="Forms\TemplatedForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <EmbeddedResource Include="FormAddMovie.resx">
+    <EmbeddedResource Include="Forms\FormAddMovie.resx">
       <DependentUpon>FormAddMovie.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormLogin.resx">
+    <EmbeddedResource Include="Forms\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMovies.resx">
+    <EmbeddedResource Include="Forms\FormMovies.resx">
       <DependentUpon>FormMovies.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormReviews.resx">
+    <EmbeddedResource Include="Forms\FormReviews.resx">
       <DependentUpon>FormReviews.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSingleMovie.resx">
+    <EmbeddedResource Include="Forms\FormSingleMovie.resx">
       <DependentUpon>FormSingleMovie.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormWatchlist.resx">
+    <EmbeddedResource Include="Forms\FormWatchlist.resx">
       <DependentUpon>FormWatchlist.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -119,7 +119,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="TemplatedForm.resx">
+    <EmbeddedResource Include="Forms\TemplatedForm.resx">
       <DependentUpon>TemplatedForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -136,7 +136,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="no_poster.jpg" />
+    <EmbeddedResource Include="Resources\no_poster.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
