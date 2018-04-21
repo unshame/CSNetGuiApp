@@ -99,21 +99,25 @@ namespace Videoteka {
         }
 
         static public int AddMovie(string title, int year, int genre, int duration, string director, string stars, string description, byte[] poster) {
-            var query = "INSERT INTO movies (title, year, genre, duration, director, stars, description, poster) values ('" +
-                MySqlHelper.EscapeString(title) +
-                "', " + year + ", " + genre + ", " + duration + ", '" +
-                MySqlHelper.EscapeString(director) + "', '" +
-                MySqlHelper.EscapeString(stars) + "', '" +
-                MySqlHelper.EscapeString(description) + "', " +
-                "@poster" + 
-           ");";
+            var query = "INSERT INTO movies " + 
+                "(title, year, genre, duration, director, stars, description, poster) " +
+                "values (@title, @year, @genre, @duration, @director, @stars, @description, @poster);";
 
             var cmd = new MySqlCommand(query, connection);
-            var paramPoster = poster == null ? new MySqlParameter("@poster", MySqlDbType.Blob) : new MySqlParameter("@poster", MySqlDbType.Blob, poster.Length) {
-                Value = poster
-            };
+            var paramPoster = new MySqlParameter("@poster", MySqlDbType.Blob);
+            if (poster != null) {
+                paramPoster.Size = poster.Length;
+                paramPoster.Value = poster;
+            }
 
             cmd.Parameters.Add(paramPoster);
+            cmd.Parameters.AddWithValue("@title", title);
+            cmd.Parameters.AddWithValue("@year", year);
+            cmd.Parameters.AddWithValue("@genre", genre);
+            cmd.Parameters.AddWithValue("@duration", duration);
+            cmd.Parameters.AddWithValue("@director", MySqlHelper.EscapeString(director));
+            cmd.Parameters.AddWithValue("@stars", MySqlHelper.EscapeString(stars));
+            cmd.Parameters.AddWithValue("@description", MySqlHelper.EscapeString(description));
 
             var result = -1;
 
@@ -123,7 +127,7 @@ namespace Videoteka {
                     result = (int)cmd.LastInsertedId;
                 }
                 catch (MySqlException e) {
-                    Debug.WriteLine(e.Message);
+                    Program.ShowErrorBox(e.Message, "Failed to add movie");
                 }
 
                 CloseConnection();

@@ -323,7 +323,7 @@ namespace Videoteka {
             this.MaximizeBox = false;
             this.Name = "FormWatchlist";
             this.Text = "FormWatchlist";
-            this.Load += new System.EventHandler(this.FormWatchlist_Load);
+            this.Load += new System.EventHandler(this.OnLoad);
             this.panelMovies.ResumeLayout(false);
             this.groupMovie.ResumeLayout(false);
             this.groupMovie.PerformLayout();

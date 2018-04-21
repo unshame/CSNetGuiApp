@@ -18,13 +18,14 @@ namespace Videoteka {
     public static class ImageManager {
 
         private static Image defaultPoster = null;
+        private static string defaultPosterResourceName = "Videoteka.no_poster.jpg";
 
         public static Image GetDefaultPoster() {
             if (defaultPoster != null) {
                 return defaultPoster;
             }
             try {
-                return Image.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("Videoteka.no_poster.jpg"));
+                return Image.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream(defaultPosterResourceName));
             }
             catch {
                 return null;

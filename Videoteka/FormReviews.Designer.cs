@@ -331,7 +331,7 @@
             this.MaximizeBox = false;
             this.Name = "FormReviews";
             this.Text = "Reviews";
-            this.Load += new System.EventHandler(this.FormReviews_Load);
+            this.Load += new System.EventHandler(this.OnLoad);
             this.groupFilter.ResumeLayout(false);
             this.groupFilter.PerformLayout();
             this.panelReviews.ResumeLayout(false);

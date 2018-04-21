@@ -11,62 +11,42 @@ using System.IO;
 
 namespace Videoteka {
     public partial class FormAddMovie : Form {
+
         public FormAddMovie() {
             InitializeComponent();
         }
 
-        private void FormAddMovie_Load(object sender, EventArgs e) {
-            FormClosing += FormAddMovie_Closing;
+        // Events
+        private void OnLoad(object sender, EventArgs e) {
+            FormClosing += OnClosing;
             MovieManager.AddGenresToDropdown(addGenre);
         }
 
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e) {
-
+        private void OnClosing(Object sender, FormClosingEventArgs e) {
+            Program.formAddMovie = null;
         }
 
-        private void button1_Click(object sender, EventArgs e) {
+        private void addPosterButton_Click(object sender, EventArgs e) {
             DialogResult result = addPosterDialog.ShowDialog();
             addPosterPath.Text = addPosterDialog.FileName;
         }
 
+        // Click events
         private void buttonAdd_Click(object sender, EventArgs e) {
-            byte[] poster = null;
-            var errorTitle = "Failed to add movie";
-            if (addPosterPath.Text != "") {
-                try {
-                    poster = File.ReadAllBytes(addPosterPath.Text);
-                }
-                catch {
-                    Program.ShowErrorBox("Failed to open poster image", errorTitle);
-                    return;
-                }
+            var id = MovieManager.AddMovie(
+                addTitle.Text,
+                addYear.Value,
+                addGenre.SelectedValue,
+                addDuration.Value,
+                addDirector.Text,
+                addStars.Text,
+                addDescription.Text,
+                addPosterPath.Text
+            );
+            if (id != -1) {
+                Program.OpenMovieForm(id);
+                Close();
             }
-            if (addTitle.Text == "") {
-                Program.ShowErrorBox("Please enter title", errorTitle);
-            }
-            else if (addGenre.SelectedValue == null) {
-                Program.ShowErrorBox("Please select genre", errorTitle);
-            }
-            else {
-                var id = DB.AddMovie(
-                    addTitle.Text,
-                    (int)addYear.Value,
-                    (int)addGenre.SelectedValue,
-                    (int)addDuration.Value,
-                    addDirector.Text,
-                    addStars.Text,
-                    addDescription.Text,
-                    poster
-                );
-                if(id != -1) {
-                    Program.OpenMovieForm(id);
-                    Close();
-                }
-            }
-        }
-
-        private void FormAddMovie_Closing(Object sender, FormClosingEventArgs e) {
-            Program.formAddMovie = null;
         }
     }
 }

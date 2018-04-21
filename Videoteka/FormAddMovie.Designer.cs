@@ -1,4 +1,4 @@
-﻿namespace Videoteka {
+namespace Videoteka {
     partial class FormAddMovie {
         /// <summary>
         /// Required designer variable.
@@ -124,9 +124,24 @@
             // addDuration
             // 
             this.addDuration.Location = new System.Drawing.Point(65, 146);
+            this.addDuration.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.addDuration.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.addDuration.Name = "addDuration";
             this.addDuration.Size = new System.Drawing.Size(93, 20);
             this.addDuration.TabIndex = 15;
+            this.addDuration.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // labelDurationExt
             // 
@@ -175,7 +190,7 @@
             this.addPosterButton.TabIndex = 21;
             this.addPosterButton.Text = "Select...";
             this.addPosterButton.UseVisualStyleBackColor = true;
-            this.addPosterButton.Click += new System.EventHandler(this.button1_Click);
+            this.addPosterButton.Click += new System.EventHandler(this.addPosterButton_Click);
             // 
             // addPosterPath
             // 
@@ -253,7 +268,7 @@
             this.MaximizeBox = false;
             this.Name = "FormAddMovie";
             this.Text = "Add Movie";
-            this.Load += new System.EventHandler(this.FormAddMovie_Load);
+            this.Load += new System.EventHandler(this.OnLoad);
             ((System.ComponentModel.ISupportInitialize)(this.addDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.addYear)).EndInit();
             this.ResumeLayout(false);

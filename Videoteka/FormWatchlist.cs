@@ -8,12 +8,13 @@ namespace Videoteka {
         public Control[] movies = new Control[MOVIES_PER_PAGE];
 
         public FormWatchlist() {
-            FormClosing += FormWatchlist_Closing;
+            FormClosing += OnClosing;
             InitializeComponent();
         }
 
-        private void FormWatchlist_Load(object sender, EventArgs e) {
-            Paint += FormWatchlist_Paint;
+        // Events
+        private void OnLoad(object sender, EventArgs e) {
+            Paint += OnPaint;
             CreateControlsFromTemplate(panelMovies.Controls[0], panelMovies, "movie", movies, MOVIES_PER_PAGE);
             for (int i = 0; i < MOVIES_PER_PAGE; i++) {
                 var movie = movies[i];
@@ -24,11 +25,11 @@ namespace Videoteka {
             }
         }
 
-        private void FormWatchlist_Closing(Object sender, FormClosingEventArgs e) {
+        private void OnClosing(Object sender, FormClosingEventArgs e) {
             Program.formWatchlist = null;
         }
 
-        private void FormWatchlist_Paint(object sender, PaintEventArgs e) {
+        private void OnPaint(object sender, PaintEventArgs e) {
             DrawDividers(panelMovies, e.Graphics);
         }
     }

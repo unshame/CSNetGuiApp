@@ -53,6 +53,8 @@ namespace Videoteka {
             UID = -1;
             IsLoggedIn.Checked = false;
             IsAdmin.Checked = false;
+            Program.CloseAddMovieForm();
+            Program.CloseWatchListForm();
         }
     }
 

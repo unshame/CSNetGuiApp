@@ -343,7 +343,7 @@ namespace Videoteka {
             this.MaximizeBox = false;
             this.Name = "FormSingleMovie";
             this.Text = "Movie";
-            this.Load += new System.EventHandler(this.FormSingleMovie_Load);
+            this.Load += new System.EventHandler(this.OnLoad);
             this.groupMyReview.ResumeLayout(false);
             this.groupMyReview.PerformLayout();
             this.groupMyReviewPublished.ResumeLayout(false);

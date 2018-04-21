@@ -109,6 +109,7 @@ namespace Videoteka {
             this.textMovieRating.Size = new System.Drawing.Size(286, 13);
             this.textMovieRating.TabIndex = 10;
             this.textMovieRating.Text = "5/10 stars - 15 reviews";
+            this.textMovieRating.UseMnemonic = false;
             // 
             // textMovieStars
             // 
@@ -179,7 +180,6 @@ namespace Videoteka {
             this.poster.Size = new System.Drawing.Size(122, 170);
             this.poster.TabIndex = 1;
             this.poster.TabStop = false;
-            this.poster.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // textMovieInfo
             // 
@@ -227,7 +227,6 @@ namespace Videoteka {
             this.groupFilter.TabIndex = 11;
             this.groupFilter.TabStop = false;
             this.groupFilter.Text = "Filter Movies";
-            this.groupFilter.Enter += new System.EventHandler(this.groupFilter_Enter);
             // 
             // labelDurationExt
             // 
@@ -506,7 +505,7 @@ namespace Videoteka {
             this.Name = "FormMovies";
             this.RightToLeftLayout = true;
             this.Text = "Movies";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.OnLoad);
             this.groupMovie.ResumeLayout(false);
             this.groupMovie.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();

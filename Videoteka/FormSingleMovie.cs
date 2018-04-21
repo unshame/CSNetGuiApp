@@ -23,16 +23,30 @@ namespace Videoteka {
             InitializeComponent();
         }
 
-        private void FormSingleMovie_Load(object sender, EventArgs e) {
-            Paint += FormSingleMovie_Paint;
+        // Events
+        private void OnLoad(object sender, EventArgs e) {
+            Paint += OnPaint;
+            FormClosing += OnClosing;
             CreateControlsFromTemplate(panelReviews.Controls[0], panelReviews, "review", reviews, REVIEWS_PER_PAGE);
-
             labelRatingValue.DataBindings.Add("Text", reviewRating, "Value");
             buttonDeleteMovie.DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
+            LoadMovie();
+        }
 
+        private void OnPaint(object sender, PaintEventArgs e) {
+            DrawDividers(panelReviews, e.Graphics);
+        }
+
+        private void OnClosing(object sender, EventArgs e) {
+            Program.RemoveFormFromOpened(this);
+        }
+
+        // Methods
+        public void LoadMovie() {
             try {
                 movieData = DB.GetMovies(1, 0, "id = " + id)[0];
-            } catch {
+            }
+            catch {
                 Program.ShowErrorBox("Movie doesn't exist in the database", "Failed to open movie");
                 Close();
                 return;
@@ -48,14 +62,13 @@ namespace Videoteka {
             textMovieStars.Text = movieData.stars;
         }
 
-        private void FormSingleMovie_Paint(object sender, PaintEventArgs e) {
-            DrawDividers(panelReviews, e.Graphics);
-        }
-
+        // Click events
         private void buttonDeleteMovie_Click(object sender, EventArgs e) {
             if (MovieManager.DeleteMovie(id)) {
                 Close();
             }
         }
+
+
     }
 }

@@ -88,7 +88,6 @@
     <Compile Include="MovieManager.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Prompt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemplatedForm.cs">
       <SubType>Form</SubType>

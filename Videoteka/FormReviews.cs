@@ -17,12 +17,13 @@ namespace Videoteka {
 
         public FormReviews() {
             StartPosition = FormStartPosition.Manual;
-            FormClosed += FormReviews_Closed;
+            FormClosed += OnClosed;
             InitializeComponent();
         }
 
-        private void FormReviews_Load(object sender, EventArgs e) {
-            Paint += FormReviews_Paint;
+        // Events
+        private void OnLoad(object sender, EventArgs e) {
+            Paint += OnPaint;
             CreateControlsFromTemplate(panelReviews.Controls[0], panelReviews, "review", reviews, REVIEWS_PER_PAGE);
             buttonAddMovie.DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
             buttonWatchlist.DataBindings.Add("Enabled", Profile.IsLoggedIn, "Checked");
@@ -33,10 +34,16 @@ namespace Videoteka {
             }
         }
 
-        private void FormReviews_Closed(Object sender, FormClosedEventArgs e) {
+        private void OnClosed(Object sender, FormClosedEventArgs e) {
             Application.Exit();
         }
 
+        private void OnPaint(object sender, PaintEventArgs e) {
+            DrawDividers(panelReviews, e.Graphics);
+        }
+
+
+        // Click events 
         private void buttonAllMovies_click(object sender, EventArgs e) {
             Hide();
             Program.formMovies.Location = Location;
@@ -55,11 +62,7 @@ namespace Videoteka {
         }
 
         private void buttonAddMovie_Click(object sender, EventArgs e) {
-            Program.OpenAddMovie();
-        }
-
-        private void FormReviews_Paint(object sender, PaintEventArgs e) {
-            DrawDividers(panelReviews, e.Graphics);
+            Program.OpenAddMovieForm();
         }
     }
 }

@@ -11,18 +11,12 @@ using System.Diagnostics;
 
 namespace Videoteka {
     public partial class FormLogin : Form {
+
         public FormLogin() {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e) {
-
-        }
-
-        private void Login_Load(object sender, EventArgs e) {
-
-        }
-
+        // Click events
         private void buttonGuest_Click(object sender, EventArgs e) {
             Close();
         }

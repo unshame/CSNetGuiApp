@@ -1,4 +1,4 @@
-﻿namespace Videoteka {
+namespace Videoteka {
     partial class FormLogin {
         /// <summary>
         /// Required designer variable.
@@ -42,7 +42,6 @@
             this.labelUsername.Size = new System.Drawing.Size(55, 13);
             this.labelUsername.TabIndex = 0;
             this.labelUsername.Text = "Username";
-            this.labelUsername.Click += new System.EventHandler(this.label1_Click);
             // 
             // textBoxUsername
             // 
@@ -125,7 +124,6 @@
             this.MaximizeBox = false;
             this.Name = "FormLogin";
             this.Text = "Login";
-            this.Load += new System.EventHandler(this.Login_Load);
             this.groupLogin.ResumeLayout(false);
             this.groupLogin.PerformLayout();
             this.ResumeLayout(false);
