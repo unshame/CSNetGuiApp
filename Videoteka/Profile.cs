@@ -30,7 +30,7 @@ namespace Videoteka {
         }
 
         public static bool Login(string username, string password) {
-            var result = Program.db.Login(username, password);
+            var result = DB.Login(username, password);
             if (result != null) {
                 UID = result.Item1;
                 Username = result.Item2;
@@ -42,7 +42,7 @@ namespace Videoteka {
         }
 
         public static bool Register(string username, string password) {
-            if(Program.db.Register(username, password)) {
+            if(DB.Register(username, password)) {
                 return Login(username, password);
             }
             return false;

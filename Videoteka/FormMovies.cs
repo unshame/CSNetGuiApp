@@ -33,7 +33,7 @@ namespace Videoteka {
                 var movie = movies[i];
                 var curi = i;
                 movie.Controls["buttonReviews"].Click += (object s, EventArgs ee) => {
-                    new FormSingleMovie(moviesData[curi].id).Show();
+                    Program.OpenMovieForm(moviesData[curi].id);
                 };
                 movie.Controls["buttonDeleteMovie"].DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
                 movie.Controls["buttonDeleteMovie"].Click += (object s, EventArgs ee) => {
@@ -45,8 +45,6 @@ namespace Videoteka {
             buttonWatchlist.DataBindings.Add("Enabled", Profile.IsLoggedIn, "Checked");
             buttonAddMovie.DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
             buttonLogin.DataBindings.Add(Profile.GetFormattedBindingLoggedIn("Text"));
-
-            LoadMovies();
         }
 
         private void FormMovies_Closed(Object sender, FormClosedEventArgs e) {
@@ -73,7 +71,7 @@ namespace Videoteka {
         }
 
         private void buttonWatchlist_Click(object sender, EventArgs e) {
-            Program.OpenWatchList();
+            Program.OpenWatchListForm();
         }
 
         private void buttonAddMovie_Click(object sender, EventArgs e) {
@@ -86,8 +84,8 @@ namespace Videoteka {
             Program.formReviews.Show();
         }
 
-        void LoadMovies() {
-            var newMoviesData = Program.db.GetMovies(MOVIES_PER_PAGE, 0);
+        public void LoadMovies() {
+            var newMoviesData = DB.GetMovies(MOVIES_PER_PAGE, 0);
             for(int i = 0; i < MOVIES_PER_PAGE; i++) {
                 var movie = movies[i];
                 if(i >= newMoviesData.Count) {

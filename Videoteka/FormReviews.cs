@@ -44,7 +44,7 @@ namespace Videoteka {
         }
 
         private void buttonWatchlist_Click(object sender, EventArgs e) {
-            Program.OpenWatchList();
+            Program.OpenWatchListForm();
         }
 
         private void buttonLogin_Click(object sender, EventArgs e) {

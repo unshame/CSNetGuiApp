@@ -37,18 +37,18 @@ namespace Videoteka {
                     poster = File.ReadAllBytes(addPosterPath.Text);
                 }
                 catch {
-                    MessageBox.Show("Failed to open poster image", errorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Program.ShowErrorBox("Failed to open poster image", errorTitle);
                     return;
                 }
             }
             if (addTitle.Text == "") {
-                MessageBox.Show("Please enter title", errorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Program.ShowErrorBox("Please enter title", errorTitle);
             }
             else if (addGenre.SelectedValue == null) {
-                MessageBox.Show("Please select genre", errorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Program.ShowErrorBox("Please select genre", errorTitle);
             }
             else {
-                var id = Program.db.AddMovie(
+                var id = DB.AddMovie(
                     addTitle.Text,
                     (int)addYear.Value,
                     (int)addGenre.SelectedValue,
@@ -59,7 +59,7 @@ namespace Videoteka {
                     poster
                 );
                 if(id != -1) {
-                    new FormSingleMovie((int)id).Show();
+                    Program.OpenMovieForm(id);
                     Close();
                 }
             }

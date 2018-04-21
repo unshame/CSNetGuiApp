@@ -39,10 +39,10 @@ namespace Videoteka {
         public static List<Genre> GenresBindingWithEmpty = new List<Genre>();
 
         public static void Init() {
-            GenresBindingWithEmpty.Add(new Genre(-1, "Any"));
+            GenresBindingWithEmpty.Add(new Genre(0, "Any"));
             for (int i = 0; i < Genres.Length; i++) {
-                GenresBinding.Add(new Genre(i, Genres[i]));
-                GenresBindingWithEmpty.Add(new Genre(i, Genres[i]));
+                GenresBinding.Add(new Genre(i + 1, Genres[i]));
+                GenresBindingWithEmpty.Add(new Genre(i + 1, Genres[i]));
             }
         }
 
@@ -62,11 +62,11 @@ namespace Videoteka {
                 MessageBoxButtons.YesNo
             );
             if (confirmResult == DialogResult.Yes) {
-                if (Program.db.DeleteMovie(id) > 0) {
+                if (DB.DeleteMovie(id) > 0) {
                     return true;
                 }
                 else {
-                    MessageBox.Show("Movie couldn't be deleted", "Failed to delete movie", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Program.ShowErrorBox("Movie couldn't be deleted", "Failed to delete movie");
                 }
             }
             return false;

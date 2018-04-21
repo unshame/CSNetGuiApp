@@ -8,11 +8,10 @@ using MySql.Data.MySqlClient;
 using System.Diagnostics;
 
 namespace Videoteka {
-    class DB {
-        private MySqlConnection connection;
+    static class DB {
+        static private MySqlConnection connection;
 
-        //Constructor
-        public DB(string server, string database, string uid, string password = "") {
+        static public void Init(string server, string database, string uid, string password = "") {
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
             database + ";" + "UID=" + uid + ";" + (password == "" ? ("PASSWORD=" + password + ";") : "");
@@ -20,33 +19,19 @@ namespace Videoteka {
             connection = new MySqlConnection(connectionString);
         }
 
-        //open connection to database
-        private bool OpenConnection() {
+        static private bool OpenConnection() {
             try {
                 connection.Open();
                 return true;
             }
             catch (MySqlException ex) {
-                //When handling errors, you can your application's response based 
-                //on the error number.
-                //The two most common error numbers when connecting are as follows:
-                //0: Cannot connect to server.
-                //1045: Invalid user name and/or password.
-                switch (ex.Number) {
-                    case 0:
-                        MessageBox.Show("Cannot connect to server.  Contact administrator");
-                        break;
+                Program.ShowErrorBox(ex.Message, "Connection Error (" + ex.Number + ")");
 
-                    case 1045:
-                        MessageBox.Show("Invalid username/password, please try again");
-                        break;
-                }
                 return false;
             }
         }
 
-        //Close connection
-        private bool CloseConnection() {
+        static private bool CloseConnection() {
             try {
                 connection.Close();
                 return true;
@@ -57,8 +42,16 @@ namespace Videoteka {
             }
         }
 
+        static public bool ConnectionIsWorking() {
+            if (OpenConnection()) {
+                CloseConnection();
+                return true;
+            }
+            return false;
+        }
 
-        public Tuple<int, string, bool> Login(string username, string password) {
+
+        static public Tuple<int, string, bool> Login(string username, string password) {
             var query = "select id, username, password, is_admin from users where username = '" +
                 MySqlHelper.EscapeString(username) + 
                 "' AND password = SHA2('" +
@@ -81,7 +74,7 @@ namespace Videoteka {
             return result;
         }
 
-        public bool Register(string username, string password) {
+        static public bool Register(string username, string password) {
             var query = "INSERT INTO users (username, password, is_admin) values ('" +
                 MySqlHelper.EscapeString(username) +
                 "', SHA2('" +
@@ -105,7 +98,7 @@ namespace Videoteka {
             return result;
         }
 
-        public long AddMovie(string title, int year, int genre, int duration, string director, string stars, string description, byte[] poster) {
+        static public int AddMovie(string title, int year, int genre, int duration, string director, string stars, string description, byte[] poster) {
             var query = "INSERT INTO movies (title, year, genre, duration, director, stars, description, poster) values ('" +
                 MySqlHelper.EscapeString(title) +
                 "', " + year + ", " + genre + ", " + duration + ", '" +
@@ -122,12 +115,12 @@ namespace Videoteka {
 
             cmd.Parameters.Add(paramPoster);
 
-            var result = -1L;
+            var result = -1;
 
             if (OpenConnection()) {
                 try {
                     cmd.ExecuteNonQuery();
-                    result = cmd.LastInsertedId;
+                    result = (int)cmd.LastInsertedId;
                 }
                 catch (MySqlException e) {
                     Debug.WriteLine(e.Message);
@@ -139,7 +132,7 @@ namespace Videoteka {
             return result;
         }
 
-        public List<MovieData> GetMovies(int amount, int offset, string where = "") {
+        static public List<MovieData> GetMovies(int amount, int offset, string where = "") {
             var query = "select * from movies" + (where == "" ? "" : " where " + where) + " limit " + amount + " offset " + offset +  ";";
             var cmd = new MySqlCommand(query, connection);
             var results = new List<MovieData>();
@@ -166,13 +159,13 @@ namespace Videoteka {
                     CloseConnection();
                 }
                 catch (MySqlException e) {
-                    MessageBox.Show(e.Message, "Failed to add movie", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Program.ShowErrorBox(e.Message, "Failed to add movie");
                 }
             }
             return results;
         }
 
-        public int DeleteMovie(int id) {
+        static public int DeleteMovie(int id) {
             var query = "delete from movies where id=" + id + ";";
             if (OpenConnection()) {
                 var results = new MySqlCommand(query, connection).ExecuteNonQuery();

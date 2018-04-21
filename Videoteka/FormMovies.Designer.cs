@@ -241,9 +241,24 @@ namespace Videoteka {
             // filterDuration
             // 
             this.filterDuration.Location = new System.Drawing.Point(57, 98);
+            this.filterDuration.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.filterDuration.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.filterDuration.Name = "filterDuration";
             this.filterDuration.Size = new System.Drawing.Size(93, 20);
             this.filterDuration.TabIndex = 26;
+            this.filterDuration.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // labelSortOrder
             // 

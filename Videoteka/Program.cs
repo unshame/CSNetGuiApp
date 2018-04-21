@@ -17,34 +17,45 @@ namespace Videoteka {
         public static FormReviews formReviews;
         public static FormAddMovie formAddMovie;
 
-        public static DB db;
-
         [STAThread]
-        static void Main() {
+        static void Main(string[] args) {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             Profile.Init();
             MovieManager.Init();
 
-            db = new DB("localhost", "videoteka", "root");
+            var host = args.Length > 0 ? args[0] : "localhost";
+            var database = args.Length > 1 ? args[1] : "videoteka";
+            var username = args.Length > 2 ? args[2] : "root";
+            var password = args.Length > 3 ? args[3] : "";
 
-            formLogin = new FormLogin();
-            formMovies = new FormMovies();
-            formWatchlist = null;
-            formAddMovie = null;
-            formReviews = new FormReviews();
-            formMovies.Show();
-            formLogin.ShowDialog();
-            Application.Run();
+            DB.Init(host, database, username, password);
+            if (DB.ConnectionIsWorking()) {
+
+                formLogin = new FormLogin();
+                formMovies = new FormMovies();
+                formReviews = new FormReviews();
+
+                formWatchlist = null;
+                formAddMovie = null;
+
+                formMovies.Show();
+                formMovies.LoadMovies();
+                formLogin.ShowDialog();
+
+                Application.Run();
+            }
+            else {
+                Application.Exit();
+            }
         }
 
-        static public void OpenMovieForm() {
-            var form = new FormSingleMovie(0);
-            form.Show();
+        static public void OpenMovieForm(int id) {
+            new FormSingleMovie(id).Show();
         }
 
-        static public void OpenWatchList() {
+        static public void OpenWatchListForm() {
             if(formWatchlist == null) {
                 formWatchlist = new FormWatchlist();
                 formWatchlist.Show();
@@ -58,6 +69,10 @@ namespace Videoteka {
                 formAddMovie.Show();
             }
             formAddMovie.Focus();
+        }
+
+        static public void ShowErrorBox(string text, string title) {
+            MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
     }

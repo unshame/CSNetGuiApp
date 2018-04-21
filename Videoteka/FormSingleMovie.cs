@@ -16,6 +16,7 @@ namespace Videoteka {
         public const int REVIEWS_PER_PAGE = 10;
         public Control[] reviews = new Control[REVIEWS_PER_PAGE];
         public int id = -1;
+        public MovieData movieData;
 
         public FormSingleMovie(int id) {
             this.id = id;
@@ -29,11 +30,10 @@ namespace Videoteka {
             labelRatingValue.DataBindings.Add("Text", reviewRating, "Value");
             buttonDeleteMovie.DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
 
-            MovieData movieData;
             try {
-                movieData = Program.db.GetMovies(1, 0, "id = " + id)[0];
+                movieData = DB.GetMovies(1, 0, "id = " + id)[0];
             } catch {
-                MessageBox.Show("Movie doesn't exist in the database", "Failed to open movie", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Program.ShowErrorBox("Movie doesn't exist in the database", "Failed to open movie");
                 Close();
                 return;
             }
