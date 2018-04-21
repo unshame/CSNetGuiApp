@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
 
 namespace Videoteka {
     class DB {
@@ -58,7 +59,6 @@ namespace Videoteka {
 
 
         public Tuple<int, string, bool> Login(string username, string password) {
-            MySqlHelper.EscapeString(password);
             var query = "select id, username, password, is_admin from users where username = '" +
                 MySqlHelper.EscapeString(username) + 
                 "' AND password = SHA2('" +
@@ -82,7 +82,6 @@ namespace Videoteka {
         }
 
         public bool Register(string username, string password) {
-            MySqlHelper.EscapeString(password);
             var query = "INSERT INTO users (username, password, is_admin) values ('" +
                 MySqlHelper.EscapeString(username) +
                 "', SHA2('" +
@@ -96,6 +95,7 @@ namespace Videoteka {
                     new MySqlCommand(query, connection).ExecuteNonQuery();
                 }
                 catch(MySqlException e) {
+                    Debug.WriteLine(e.Message);
                     result = false;
                 }
 
@@ -104,5 +104,84 @@ namespace Videoteka {
             }
             return result;
         }
+
+        public long AddMovie(string title, int year, int genre, int duration, string director, string stars, string description, byte[] poster) {
+            var query = "INSERT INTO movies (title, year, genre, duration, director, stars, description, poster) values ('" +
+                MySqlHelper.EscapeString(title) +
+                "', " + year + ", " + genre + ", " + duration + ", '" +
+                MySqlHelper.EscapeString(director) + "', '" +
+                MySqlHelper.EscapeString(stars) + "', '" +
+                MySqlHelper.EscapeString(description) + "', " +
+                "@poster" + 
+           ");";
+
+            var cmd = new MySqlCommand(query, connection);
+            var paramPoster = poster == null ? new MySqlParameter("@poster", MySqlDbType.Blob) : new MySqlParameter("@poster", MySqlDbType.Blob, poster.Length) {
+                Value = poster
+            };
+
+            cmd.Parameters.Add(paramPoster);
+
+            var result = -1L;
+
+            if (OpenConnection()) {
+                try {
+                    cmd.ExecuteNonQuery();
+                    result = cmd.LastInsertedId;
+                }
+                catch (MySqlException e) {
+                    Debug.WriteLine(e.Message);
+                }
+
+                CloseConnection();
+
+            }
+            return result;
+        }
+
+        public List<MovieData> GetMovies(int amount, int offset, string where = "") {
+            var query = "select * from movies" + (where == "" ? "" : " where " + where) + " limit " + amount + " offset " + offset +  ";";
+            var cmd = new MySqlCommand(query, connection);
+            var results = new List<MovieData>();
+            if (OpenConnection()) {
+                try {
+                    cmd.ExecuteNonQuery();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read()) {
+                        results.Add(new MovieData {
+                            id = reader.GetInt32("id"),
+                            title = reader.GetString("title"),
+                            year = reader.GetInt32("year"),
+                            genre = reader.GetInt32("genre"),
+                            duration = reader.GetInt32("duration"),
+                            director = reader.GetString("director"),
+                            stars = reader.GetString("stars"),
+                            description = reader.GetString("description"),
+                            poster = reader["poster"] is DBNull ? null : (byte[])reader["poster"],
+                            ratingAmount = reader.GetInt32("rating_amount"),
+                            ratingSum = reader.GetInt32("rating_sum")
+                        });
+                    }
+                    reader.Close();
+                    CloseConnection();
+                }
+                catch (MySqlException e) {
+                    MessageBox.Show(e.Message, "Failed to add movie", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return results;
+        }
+
+        public int DeleteMovie(int id) {
+            var query = "delete from movies where id=" + id + ";";
+            if (OpenConnection()) {
+                var results = new MySqlCommand(query, connection).ExecuteNonQuery();
+                CloseConnection();
+                return results;
+            }
+            return 0;
+
+        }
+
     }
 }

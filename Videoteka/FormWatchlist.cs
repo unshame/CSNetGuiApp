@@ -19,7 +19,7 @@ namespace Videoteka {
                 var movie = movies[i];
                 var curi = i;
                 movie.Controls["buttonReviews"].Click += (object s, EventArgs ee) => {
-                    new FormSingleMovie().Show();
+                    new FormSingleMovie(0).Show();
                 };
             }
         }

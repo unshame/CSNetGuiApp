@@ -25,8 +25,9 @@ namespace Videoteka {
             Paint += FormReviews_Paint;
             CreateControlsFromTemplate(panelReviews.Controls[0], panelReviews, "review", reviews, REVIEWS_PER_PAGE);
             buttonAddMovie.DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
+            buttonWatchlist.DataBindings.Add("Enabled", Profile.IsLoggedIn, "Checked");
             buttonLogin.DataBindings.Add(Profile.GetFormattedBindingLoggedIn("Text"));
-            for(int i = 0; i < REVIEWS_PER_PAGE; i++) {
+            for (int i = 0; i < REVIEWS_PER_PAGE; i++) {
                 var review = reviews[i];
                 review.Controls["buttonDeleteReview"].DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
             }
@@ -54,7 +55,7 @@ namespace Videoteka {
         }
 
         private void buttonAddMovie_Click(object sender, EventArgs e) {
-            Program.formAddMovie.ShowDialog();
+            Program.OpenAddMovie();
         }
 
         private void FormReviews_Paint(object sender, PaintEventArgs e) {

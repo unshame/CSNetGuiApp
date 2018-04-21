@@ -95,7 +95,7 @@
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(239, 773);
+            this.buttonLogin.Location = new System.Drawing.Point(9, 773);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(108, 23);
             this.buttonLogin.TabIndex = 33;
@@ -105,7 +105,7 @@
             // 
             // buttonWatchlist
             // 
-            this.buttonWatchlist.Location = new System.Drawing.Point(123, 773);
+            this.buttonWatchlist.Location = new System.Drawing.Point(239, 773);
             this.buttonWatchlist.Name = "buttonWatchlist";
             this.buttonWatchlist.Size = new System.Drawing.Size(108, 23);
             this.buttonWatchlist.TabIndex = 32;
@@ -115,7 +115,7 @@
             // 
             // buttonAllMovies
             // 
-            this.buttonAllMovies.Location = new System.Drawing.Point(9, 773);
+            this.buttonAllMovies.Location = new System.Drawing.Point(125, 773);
             this.buttonAllMovies.Name = "buttonAllMovies";
             this.buttonAllMovies.Size = new System.Drawing.Size(108, 23);
             this.buttonAllMovies.TabIndex = 31;

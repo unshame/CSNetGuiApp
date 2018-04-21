@@ -25,21 +25,22 @@ namespace Videoteka {
             Application.SetCompatibleTextRenderingDefault(false);
 
             Profile.Init();
+            MovieManager.Init();
 
             db = new DB("localhost", "videoteka", "root");
 
             formLogin = new FormLogin();
             formMovies = new FormMovies();
             formWatchlist = null;
+            formAddMovie = null;
             formReviews = new FormReviews();
-            formAddMovie = new FormAddMovie();
             formMovies.Show();
             formLogin.ShowDialog();
             Application.Run();
         }
 
         static public void OpenMovieForm() {
-            var form = new FormSingleMovie();
+            var form = new FormSingleMovie(0);
             form.Show();
         }
 
@@ -51,6 +52,13 @@ namespace Videoteka {
             formWatchlist.Focus();
         }
 
-        
+        static public void OpenAddMovie() {
+            if (formAddMovie == null) {
+                formAddMovie = new FormAddMovie();
+                formAddMovie.Show();
+            }
+            formAddMovie.Focus();
+        }
+
     }
 }

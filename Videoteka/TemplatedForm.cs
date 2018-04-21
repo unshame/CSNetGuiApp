@@ -69,12 +69,28 @@ namespace Videoteka {
                         controlGroup.Controls.Add(newControl);
                     }
                 }
-                //controlGroup.Hide();
+                controlGroup.Hide();
                 controls[i] = controlGroup;
                 panel.Controls.Add(controlGroup);
             }
             panel.Controls.Remove(template);
             template.Dispose();
+        }
+
+        private void InitializeComponent() {
+            this.SuspendLayout();
+            // 
+            // TemplatedForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "TemplatedForm";
+            this.Load += new System.EventHandler(this.TemplatedForm_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void TemplatedForm_Load(object sender, EventArgs e) {
+
         }
     }
 }

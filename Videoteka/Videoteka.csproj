@@ -83,6 +83,9 @@
     <Compile Include="FormWatchlist.Designer.cs">
       <DependentUpon>FormWatchlist.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageManager.cs" />
+    <Compile Include="MovieData.cs" />
+    <Compile Include="MovieManager.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Prompt.cs" />
@@ -117,6 +120,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TemplatedForm.resx">
+      <DependentUpon>TemplatedForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -129,6 +135,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="no_poster.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
