@@ -68,9 +68,8 @@ namespace Videoteka {
                 }
 
                 reader.Close();
-                CloseConnection();
-
             }
+            CloseConnection();
             return result;
         }
 
@@ -91,10 +90,8 @@ namespace Videoteka {
                     Debug.WriteLine(e.Message);
                     result = false;
                 }
-
-                CloseConnection();
-
             }
+            CloseConnection();
             return result;
         }
 
@@ -129,15 +126,20 @@ namespace Videoteka {
                 catch (MySqlException e) {
                     Program.ShowErrorBox(e.Message, "Failed to add movie");
                 }
-
-                CloseConnection();
-
             }
+            CloseConnection();
             return result;
         }
 
-        static public List<MovieData> GetMovies(int amount, int offset, string where = "") {
-            var query = "select * from movies" + (where == "" ? "" : " where " + where) + " limit " + amount + " offset " + offset +  ";";
+        static public List<MovieData> GetMovies(int amount, int offset, string where = "", string sortBy = "", string order = "ASC") {
+            if(sortBy == "rating") {
+                sortBy = "if(rating_amount = 0, 1, rating_sum / rating_amount)";
+            }
+            var query = "select * from movies" + 
+                (where == "" ? "" : " where " + where) + 
+                (sortBy == "" ? "" : " order by " + sortBy + " " + order) + 
+                " limit " + amount + " offset " + offset +  ";";
+            Debug.WriteLine(query);
             var cmd = new MySqlCommand(query, connection);
             var results = new List<MovieData>();
             if (OpenConnection()) {
@@ -160,13 +162,37 @@ namespace Videoteka {
                         });
                     }
                     reader.Close();
-                    CloseConnection();
                 }
                 catch (MySqlException e) {
-                    Program.ShowErrorBox(e.Message, "Failed to add movie");
+                    Program.ShowErrorBox(e.Message, "Failed to get movies");
                 }
             }
+            CloseConnection();
             return results;
+        }
+
+        static public int GetMoviesCount(string where = "") {
+            var query = "select count(*) from movies" +
+                (where == "" ? "" : " where " + where);
+
+            Debug.WriteLine(query);
+            var cmd = new MySqlCommand(query, connection);
+            var result = 0;
+            if (OpenConnection()) {
+                try {
+                    cmd.ExecuteNonQuery();
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read()) {
+                        result = (int)(long)reader[0];
+                    }
+                    reader.Close();
+                }
+                catch (MySqlException e) {
+                    Program.ShowErrorBox(e.Message, "Failed to get movies");
+                }
+            }
+            CloseConnection();
+            return result;
         }
 
         static public int DeleteMovie(int id) {
@@ -176,8 +202,49 @@ namespace Videoteka {
                 CloseConnection();
                 return results;
             }
+            CloseConnection();
             return 0;
 
+        }
+
+        static string AddAnd(string query) {
+            if(query != "") {
+                return query + " AND ";
+            }
+            return query;
+        }
+
+        public static string FormatFilter(string title, string director, string star, int duration, int genre, int year, int rating) {
+            var filterStr = "";
+            if (title != "") {
+                filterStr += "INSTR(title, '" + MySqlHelper.EscapeString(title) + "') > 0";
+            }
+            if (director != "") {
+                filterStr = AddAnd(filterStr);
+                filterStr += "INSTR(director, '" + MySqlHelper.EscapeString(director) + "') > 0";
+            }
+            if (star != "") {
+                filterStr = AddAnd(filterStr);
+                filterStr += "INSTR(stars, '" + MySqlHelper.EscapeString(star) + "') > 0";
+            }
+            if(duration > 1) {
+                filterStr = AddAnd(filterStr);
+                filterStr += "duration >= " + duration;
+            }
+            if (genre > 0) {
+                filterStr = AddAnd(filterStr);
+                filterStr += "genre = " + genre;
+            }
+            if (year > 1950) {
+                filterStr = AddAnd(filterStr);
+                filterStr += "year >= " + year;
+            }
+            if (rating > 1) {
+                filterStr = AddAnd(filterStr);
+                filterStr += "if(rating_amount = 0, 1, rating_sum / rating_amount) >= " + rating;
+            }
+            Debug.WriteLine(filterStr);
+            return filterStr;
         }
 
     }

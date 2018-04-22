@@ -12,14 +12,14 @@ namespace Videoteka {
     public class TemplatedForm : Form {
 
         protected void DrawDividers(Control panel, Graphics g) {
-            Pen blackpen = new Pen(Color.Gray, 1);
+            Pen pen = new Pen(Color.Gray, 1);
 
             var x1 = new Point(panel.Location.X, panel.Location.Y - 1);
             var x2 = new Point(panel.Location.X + panel.Width, panel.Location.Y - 1);
             var x3 = new Point(panel.Location.X, panel.Location.Y + panel.Height);
             var x4 = new Point(panel.Location.X + panel.Width, panel.Location.Y + panel.Height);
-            g.DrawLine(blackpen, x1, x2);
-            g.DrawLine(blackpen, x3, x4);
+            g.DrawLine(pen, x1, x2);
+            g.DrawLine(pen, x3, x4);
 
             g.Dispose();
         }

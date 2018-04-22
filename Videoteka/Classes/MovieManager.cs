@@ -5,15 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Collections;
 
 namespace Videoteka {
 
     public class MovieManager {
 
-        public struct Genre {
+        class DropdownItemInt {
             public int Id { get; set; }
             public string Value { get; set; }
-            public Genre(int id, string value) {
+            public DropdownItemInt(int id, string value) {
+                Id = id;
+                Value = value;
+            }
+        }
+
+        class DropdownItemString {
+            public string Id { get; set; }
+            public string Value { get; set; }
+            public DropdownItemString(string id, string value) {
                 Id = id;
                 Value = value;
             }
@@ -35,24 +45,57 @@ namespace Videoteka {
             "Action-comedy"
         };
 
-        public static List<Genre> GenresBinding = new List<Genre>();
-        public static List<Genre> GenresBindingWithEmpty = new List<Genre>();
+        static ArrayList GenresBinding = new ArrayList();
+        static ArrayList GenresBindingWithEmpty = new ArrayList();
+
+        static ArrayList OrderingBinding = new ArrayList() {
+            new DropdownItemString("ASC", "Accending"),
+            new DropdownItemString("DESC", "Descending")
+        };
+
+        static ArrayList SortByBinding = new ArrayList() {
+            new DropdownItemString("title", "Title"),
+            new DropdownItemString("rating", "Rating"),
+            new DropdownItemString("year", "Year"),
+            new DropdownItemString("duration", "Duration")
+        };
+
+        static ArrayList RatingBinding = new ArrayList();
 
         public static void Init() {
-            GenresBindingWithEmpty.Add(new Genre(0, "Any"));
+            GenresBindingWithEmpty.Add(new DropdownItemInt(0, "Any"));
             for (int i = 0; i < Genres.Length; i++) {
-                GenresBinding.Add(new Genre(i + 1, Genres[i]));
-                GenresBindingWithEmpty.Add(new Genre(i + 1, Genres[i]));
+                GenresBinding.Add(new DropdownItemInt(i + 1, Genres[i]));
+                GenresBindingWithEmpty.Add(new DropdownItemInt(i + 1, Genres[i]));
+            }
+            for (int i = 1; i <= 10; i++) {
+                RatingBinding.Add(new DropdownItemInt(i, i + (i == 10 ? "" : "+")));
             }
         }
 
-        static public void AddGenresToDropdown(ComboBox dropdown, bool includeEmpty = false) {
+        static void AddBindingToDropdown(ComboBox dropdown, ArrayList bindData) {
             BindingSource source = new BindingSource {
-                DataSource = includeEmpty ? GenresBindingWithEmpty : GenresBinding
+                DataSource = bindData
             };
             dropdown.DataSource = source.DataSource;
             dropdown.ValueMember = "Id";
             dropdown.DisplayMember = "Value";
+        }
+
+        static public void AddGenresToDropdown(ComboBox dropdown, bool includeEmpty = false) {
+            AddBindingToDropdown(dropdown, includeEmpty ? GenresBindingWithEmpty : GenresBinding);
+        }
+
+        static public void AddOrderingBinding(ComboBox dropdown) {
+            AddBindingToDropdown(dropdown, OrderingBinding);
+        }
+
+        static public void AddSortByBinding(ComboBox dropdown) {
+            AddBindingToDropdown(dropdown, SortByBinding);
+        }
+
+        static public void AddRatingBinding(ComboBox dropdown) {
+            AddBindingToDropdown(dropdown, RatingBinding);
         }
 
         static public bool DeleteMovie(int id) {

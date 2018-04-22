@@ -38,6 +38,8 @@ namespace Videoteka {
             this.textMovieInfo = new System.Windows.Forms.Label();
             this.panelMovies = new System.Windows.Forms.Panel();
             this.groupFilter = new System.Windows.Forms.GroupBox();
+            this.labelYearPlus = new System.Windows.Forms.Label();
+            this.filterYear = new System.Windows.Forms.NumericUpDown();
             this.labelDurationExt = new System.Windows.Forms.Label();
             this.filterDuration = new System.Windows.Forms.NumericUpDown();
             this.labelSortOrder = new System.Windows.Forms.Label();
@@ -50,12 +52,11 @@ namespace Videoteka {
             this.labelFilterRating = new System.Windows.Forms.Label();
             this.filterRating = new System.Windows.Forms.ComboBox();
             this.labelFilterYear = new System.Windows.Forms.Label();
-            this.filterYear = new System.Windows.Forms.ComboBox();
             this.labelFilterGenre = new System.Windows.Forms.Label();
             this.filterGenre = new System.Windows.Forms.ComboBox();
-            this.labelFilterActor = new System.Windows.Forms.Label();
+            this.labelFilterStar = new System.Windows.Forms.Label();
             this.labelFilterDirector = new System.Windows.Forms.Label();
-            this.filterActor = new System.Windows.Forms.TextBox();
+            this.filterStar = new System.Windows.Forms.TextBox();
             this.filterDirector = new System.Windows.Forms.TextBox();
             this.filterTitle = new System.Windows.Forms.TextBox();
             this.labelFilterTitle = new System.Windows.Forms.Label();
@@ -70,6 +71,7 @@ namespace Videoteka {
             ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
             this.panelMovies.SuspendLayout();
             this.groupFilter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.filterYear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.filterDuration)).BeginInit();
             this.SuspendLayout();
             // 
@@ -200,6 +202,8 @@ namespace Videoteka {
             // 
             // groupFilter
             // 
+            this.groupFilter.Controls.Add(this.labelYearPlus);
+            this.groupFilter.Controls.Add(this.filterYear);
             this.groupFilter.Controls.Add(this.labelDurationExt);
             this.groupFilter.Controls.Add(this.filterDuration);
             this.groupFilter.Controls.Add(this.labelSortOrder);
@@ -212,12 +216,11 @@ namespace Videoteka {
             this.groupFilter.Controls.Add(this.labelFilterRating);
             this.groupFilter.Controls.Add(this.filterRating);
             this.groupFilter.Controls.Add(this.labelFilterYear);
-            this.groupFilter.Controls.Add(this.filterYear);
             this.groupFilter.Controls.Add(this.labelFilterGenre);
             this.groupFilter.Controls.Add(this.filterGenre);
-            this.groupFilter.Controls.Add(this.labelFilterActor);
+            this.groupFilter.Controls.Add(this.labelFilterStar);
             this.groupFilter.Controls.Add(this.labelFilterDirector);
-            this.groupFilter.Controls.Add(this.filterActor);
+            this.groupFilter.Controls.Add(this.filterStar);
             this.groupFilter.Controls.Add(this.filterDirector);
             this.groupFilter.Controls.Add(this.filterTitle);
             this.groupFilter.Controls.Add(this.labelFilterTitle);
@@ -228,14 +231,50 @@ namespace Videoteka {
             this.groupFilter.TabStop = false;
             this.groupFilter.Text = "Filter Movies";
             // 
+            // labelYearPlus
+            // 
+            this.labelYearPlus.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelYearPlus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelYearPlus.Location = new System.Drawing.Point(312, 22);
+            this.labelYearPlus.Margin = new System.Windows.Forms.Padding(0);
+            this.labelYearPlus.Name = "labelYearPlus";
+            this.labelYearPlus.Size = new System.Drawing.Size(95, 18);
+            this.labelYearPlus.TabIndex = 29;
+            this.labelYearPlus.Text = "+";
+            this.labelYearPlus.UseMnemonic = false;
+            // 
+            // filterYear
+            // 
+            this.filterYear.Location = new System.Drawing.Point(285, 21);
+            this.filterYear.Maximum = new decimal(new int[] {
+            2050,
+            0,
+            0,
+            0});
+            this.filterYear.Minimum = new decimal(new int[] {
+            1950,
+            0,
+            0,
+            0});
+            this.filterYear.Name = "filterYear";
+            this.filterYear.Size = new System.Drawing.Size(141, 20);
+            this.filterYear.TabIndex = 28;
+            this.filterYear.Value = new decimal(new int[] {
+            1950,
+            0,
+            0,
+            0});
+            // 
             // labelDurationExt
             // 
-            this.labelDurationExt.AutoSize = true;
-            this.labelDurationExt.Location = new System.Drawing.Point(156, 100);
+            this.labelDurationExt.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelDurationExt.Location = new System.Drawing.Point(141, 100);
+            this.labelDurationExt.Margin = new System.Windows.Forms.Padding(0);
             this.labelDurationExt.Name = "labelDurationExt";
-            this.labelDurationExt.Size = new System.Drawing.Size(43, 13);
+            this.labelDurationExt.Size = new System.Drawing.Size(55, 13);
             this.labelDurationExt.TabIndex = 27;
-            this.labelDurationExt.Text = "minutes";
+            this.labelDurationExt.Text = "+  minutes";
+            this.labelDurationExt.UseMnemonic = false;
             // 
             // filterDuration
             // 
@@ -251,7 +290,7 @@ namespace Videoteka {
             0,
             0});
             this.filterDuration.Name = "filterDuration";
-            this.filterDuration.Size = new System.Drawing.Size(93, 20);
+            this.filterDuration.Size = new System.Drawing.Size(84, 20);
             this.filterDuration.TabIndex = 26;
             this.filterDuration.Value = new decimal(new int[] {
             1,
@@ -301,6 +340,7 @@ namespace Videoteka {
             this.buttonFilterReset.TabIndex = 21;
             this.buttonFilterReset.Text = "Reset Filter";
             this.buttonFilterReset.UseVisualStyleBackColor = true;
+            this.buttonFilterReset.Click += new System.EventHandler(this.buttonFilterReset_Click);
             // 
             // buttonFilter
             // 
@@ -310,6 +350,7 @@ namespace Videoteka {
             this.buttonFilter.TabIndex = 20;
             this.buttonFilter.Text = "Apply Filter";
             this.buttonFilter.UseVisualStyleBackColor = true;
+            this.buttonFilter.Click += new System.EventHandler(this.buttonFilter_Click);
             // 
             // labelDuration
             // 
@@ -346,14 +387,6 @@ namespace Videoteka {
             this.labelFilterYear.TabIndex = 15;
             this.labelFilterYear.Text = "Year";
             // 
-            // filterYear
-            // 
-            this.filterYear.FormattingEnabled = true;
-            this.filterYear.Location = new System.Drawing.Point(285, 20);
-            this.filterYear.Name = "filterYear";
-            this.filterYear.Size = new System.Drawing.Size(142, 21);
-            this.filterYear.TabIndex = 14;
-            // 
             // labelFilterGenre
             // 
             this.labelFilterGenre.AutoSize = true;
@@ -371,14 +404,14 @@ namespace Videoteka {
             this.filterGenre.Size = new System.Drawing.Size(142, 21);
             this.filterGenre.TabIndex = 12;
             // 
-            // labelFilterActor
+            // labelFilterStar
             // 
-            this.labelFilterActor.AutoSize = true;
-            this.labelFilterActor.Location = new System.Drawing.Point(7, 75);
-            this.labelFilterActor.Name = "labelFilterActor";
-            this.labelFilterActor.Size = new System.Drawing.Size(32, 13);
-            this.labelFilterActor.TabIndex = 5;
-            this.labelFilterActor.Text = "Actor";
+            this.labelFilterStar.AutoSize = true;
+            this.labelFilterStar.Location = new System.Drawing.Point(7, 75);
+            this.labelFilterStar.Name = "labelFilterStar";
+            this.labelFilterStar.Size = new System.Drawing.Size(26, 13);
+            this.labelFilterStar.TabIndex = 5;
+            this.labelFilterStar.Text = "Star";
             // 
             // labelFilterDirector
             // 
@@ -389,12 +422,12 @@ namespace Videoteka {
             this.labelFilterDirector.TabIndex = 4;
             this.labelFilterDirector.Text = "Director";
             // 
-            // filterActor
+            // filterStar
             // 
-            this.filterActor.Location = new System.Drawing.Point(57, 72);
-            this.filterActor.Name = "filterActor";
-            this.filterActor.Size = new System.Drawing.Size(142, 20);
-            this.filterActor.TabIndex = 3;
+            this.filterStar.Location = new System.Drawing.Point(57, 72);
+            this.filterStar.Name = "filterStar";
+            this.filterStar.Size = new System.Drawing.Size(142, 20);
+            this.filterStar.TabIndex = 3;
             // 
             // filterDirector
             // 
@@ -461,21 +494,25 @@ namespace Videoteka {
             // 
             // buttonPrev
             // 
+            this.buttonPrev.Enabled = false;
             this.buttonPrev.Location = new System.Drawing.Point(9, 738);
             this.buttonPrev.Name = "buttonPrev";
             this.buttonPrev.Size = new System.Drawing.Size(108, 23);
             this.buttonPrev.TabIndex = 26;
             this.buttonPrev.Text = "Previous Page";
             this.buttonPrev.UseVisualStyleBackColor = true;
+            this.buttonPrev.Click += new System.EventHandler(this.buttonPrev_Click);
             // 
             // buttonNext
             // 
+            this.buttonNext.Enabled = false;
             this.buttonNext.Location = new System.Drawing.Point(353, 739);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(108, 23);
             this.buttonNext.TabIndex = 27;
             this.buttonNext.Text = "Next Page";
             this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // labelPagination
             // 
@@ -483,7 +520,6 @@ namespace Videoteka {
             this.labelPagination.Name = "labelPagination";
             this.labelPagination.Size = new System.Drawing.Size(100, 23);
             this.labelPagination.TabIndex = 28;
-            this.labelPagination.Text = "1 / 10";
             this.labelPagination.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormMovies
@@ -512,6 +548,7 @@ namespace Videoteka {
             this.panelMovies.ResumeLayout(false);
             this.groupFilter.ResumeLayout(false);
             this.groupFilter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.filterYear)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.filterDuration)).EndInit();
             this.ResumeLayout(false);
 
@@ -538,12 +575,11 @@ namespace Videoteka {
         private System.Windows.Forms.Label labelFilterRating;
         private System.Windows.Forms.ComboBox filterRating;
         private System.Windows.Forms.Label labelFilterYear;
-        private System.Windows.Forms.ComboBox filterYear;
         private System.Windows.Forms.Label labelFilterGenre;
         private System.Windows.Forms.ComboBox filterGenre;
-        private System.Windows.Forms.Label labelFilterActor;
+        private System.Windows.Forms.Label labelFilterStar;
         private System.Windows.Forms.Label labelFilterDirector;
-        private System.Windows.Forms.TextBox filterActor;
+        private System.Windows.Forms.TextBox filterStar;
         private System.Windows.Forms.TextBox filterDirector;
         private System.Windows.Forms.TextBox filterTitle;
         private System.Windows.Forms.Label labelFilterTitle;
@@ -561,6 +597,8 @@ namespace Videoteka {
         private System.Windows.Forms.ComboBox filterSortOrder;
         private System.Windows.Forms.Label labelDurationExt;
         private System.Windows.Forms.NumericUpDown filterDuration;
+        private System.Windows.Forms.NumericUpDown filterYear;
+        private System.Windows.Forms.Label labelYearPlus;
     }
 }
 
