@@ -36,6 +36,7 @@ namespace Videoteka {
                 Username = result.Item2;
                 IsAdmin.Checked = result.Item3;
                 IsLoggedIn.Checked = true;
+                Program.ReloadAllMovieForms();
                 return true;
             }
             return false;
@@ -55,6 +56,7 @@ namespace Videoteka {
             IsAdmin.Checked = false;
             Program.CloseAddMovieForm();
             Program.CloseWatchListForm();
+            Program.ReloadAllMovieForms();
         }
     }
 

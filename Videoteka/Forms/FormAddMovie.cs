@@ -19,7 +19,7 @@ namespace Videoteka {
         // Events
         private void OnLoad(object sender, EventArgs e) {
             FormClosing += OnClosing;
-            MovieManager.AddGenresToDropdown(addGenre);
+            BindingManager.AddGenresToDropdown(addGenre);
         }
 
         private void OnClosing(Object sender, FormClosingEventArgs e) {

@@ -19,7 +19,7 @@ namespace Videoteka {
         public int ratingAmount;
 
         public string FormatInfo() {
-            return year + " - " + duration + " min - " + (genre <= MovieManager.Genres.Length ? MovieManager.Genres[genre - 1] : "Unknown");
+            return year + " - " + duration + " min - " + (genre <= BindingManager.Genres.Length ? BindingManager.Genres[genre - 1] : "Unknown");
         }
 
         public string FormatRating() {

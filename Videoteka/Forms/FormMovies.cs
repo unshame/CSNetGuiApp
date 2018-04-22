@@ -12,11 +12,10 @@ using System.Windows.Forms;
 namespace Videoteka {
     public partial class FormMovies : TemplatedForm {
 
-        public const int moviesPerPage = 5;
-        public Control[] movies = new Control[moviesPerPage];
-        public MovieData[] moviesData = new MovieData[moviesPerPage];
+        public const int itemsPerPage = 5;
+        public Control[] movies = new Control[itemsPerPage];
+        public MovieData[] moviesData = new MovieData[itemsPerPage];
         public bool canDelete = false;
-        public int moviesPage = 0;
 
         public FormMovies() {
             StartPosition = FormStartPosition.Manual;
@@ -28,20 +27,22 @@ namespace Videoteka {
         // Events
         private void OnLoad(object sender, EventArgs e) {
             Paint += OnPaint;
-            CreateControlsFromTemplate(panelMovies.Controls[0], panelMovies, "movie", movies, moviesPerPage);
+            CreateControlsFromTemplate(panelMovies.Controls[0], panelMovies, "movie", movies, itemsPerPage);
 
-            MovieManager.AddGenresToDropdown(filterGenre, true);
-            MovieManager.AddOrderingBinding(filterSortOrder);
-            MovieManager.AddSortByBinding(filterSortBy);
-            MovieManager.AddRatingBinding(filterRating);
+            BindingManager.AddGenresToDropdown(filterGenre, true);
+            BindingManager.AddOrderingBinding(filterSortOrder);
+            BindingManager.AddSortByMoviesBinding(filterSortBy);
+            BindingManager.AddRatingBinding(filterRating);
 
-            for (int i = 0; i < moviesPerPage; i++) {
+            for (int i = 0; i < itemsPerPage; i++) {
                 var movie = movies[i];
                 var curi = i;
                 movie.Controls["buttonReviews"].Click += (object s, EventArgs ee) => {
                     Program.OpenMovieForm(moviesData[curi].id);
                 };
+                movie.Controls["buttonDeleteMovie"].DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
                 movie.Controls["buttonDeleteMovie"].DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
+                movie.Controls["buttonAddToWatchlist"].DataBindings.Add("Enabled", Profile.IsLoggedIn, "Checked");
                 movie.Controls["buttonDeleteMovie"].Click += (object s, EventArgs ee) => {
                     MovieManager.DeleteMovie(moviesData[curi].id);
                     LoadMovies();
@@ -66,7 +67,7 @@ namespace Videoteka {
         // Methods
         public void LoadMovies() {
             ValidateFilter();
-            var filterStr = DB.FormatFilter(
+            var filterStr = DB.FormatFilterMovies(
                 filterTitle.Text,
                 filterDirector.Text,
                 filterStar.Text,
@@ -75,9 +76,9 @@ namespace Videoteka {
                 (int)filterYear.Value,
                 (int)filterRating.SelectedValue
             );
-            UpdatePagination(DB.GetMoviesCount(filterStr));
-            var newMoviesData = DB.GetMovies(moviesPerPage, moviesPage * moviesPerPage, filterStr, (string)filterSortBy.SelectedValue, (string)filterSortOrder.SelectedValue);
-            for (int i = 0; i < moviesPerPage; i++) {
+            UpdatePagination(DB.GetMoviesCount(filterStr), itemsPerPage, buttonPrev, buttonNext, labelPagination);
+            var newMoviesData = DB.GetMovies(itemsPerPage, currentPage * itemsPerPage, filterStr, (string)filterSortBy.SelectedValue, (string)filterSortOrder.SelectedValue);
+            for (int i = 0; i < itemsPerPage; i++) {
                 var movie = movies[i];
                 if (i >= newMoviesData.Count) {
                     movie.Hide();
@@ -125,23 +126,6 @@ namespace Videoteka {
             filterSortOrder.SelectedIndex = 0;
         }
 
-        public void UpdatePagination(int total) {
-            var pageCount = total / moviesPerPage + (total % moviesPerPage > 0 ? 1 : 0);
-            if(moviesPage >= pageCount || moviesPage < 0) {
-                moviesPage = 0;
-            }
-            var offset = moviesPage * moviesPerPage;
-            if (total > 0) {
-                var rangeStart = offset + 1;
-                var rangeEnd = Math.Min(offset + moviesPerPage, total);
-                labelPagination.Text = rangeStart + " - " + rangeEnd + " / " + total;
-            }
-            else {
-                labelPagination.Text = "";
-            }
-            buttonPrev.Enabled = moviesPage > 0;
-            buttonNext.Enabled = moviesPage < (pageCount - 1);
-        }
 
 
         // Click events
@@ -167,23 +151,23 @@ namespace Videoteka {
         }
 
         private void buttonFilter_Click(object sender, EventArgs e) {
-            moviesPage = 0;
+            currentPage = 0;
             LoadMovies();
         }
 
         private void buttonFilterReset_Click(object sender, EventArgs e) {
-            moviesPage = 0;
+            currentPage = 0;
             ResetFilter();
             LoadMovies();
         }
 
         private void buttonNext_Click(object sender, EventArgs e) {
-            moviesPage++;
+            currentPage++;
             LoadMovies();
         }
 
         private void buttonPrev_Click(object sender, EventArgs e) {
-            moviesPage--;
+            currentPage--;
             LoadMovies();
         }
     }

@@ -25,7 +25,7 @@ namespace Videoteka {
             Application.SetCompatibleTextRenderingDefault(false);
 
             Profile.Init();
-            MovieManager.Init();
+            BindingManager.Init();
 
             var host = args.Length > 0 ? args[0] : "localhost";
             var database = args.Length > 1 ? args[1] : "videoteka";
@@ -55,7 +55,7 @@ namespace Videoteka {
 
         static public void OpenMovieForm(int id) {
             if (openedMovieForms.ContainsKey(id)) {
-                openedMovieForms[id].LoadMovie();
+                openedMovieForms[id].LoadData();
                 openedMovieForms[id].Focus();
             }
             else { 
@@ -68,6 +68,16 @@ namespace Videoteka {
         static public void CloseMovieForm(int id) {
             if (openedMovieForms.ContainsKey(id)) {
                 openedMovieForms[id].Close();
+            }
+        }
+
+        static public void ReloadAllMovieForms() {
+            var forms = new List<FormSingleMovie>();
+            foreach(var formPair in openedMovieForms) {
+                forms.Add(formPair.Value);
+            }
+            for(int i = 0; i < forms.Count; i++) {
+                forms[i].LoadData();
             }
         }
 
@@ -110,6 +120,10 @@ namespace Videoteka {
             if (formMovies.Visible) {
                 formMovies.LoadMovies();
             }
+            if (formReviews.Visible) {
+                formReviews.LoadReviews();
+            }
+            ReloadAllMovieForms();
         }
 
         static public void ShowErrorBox(string text, string title) {

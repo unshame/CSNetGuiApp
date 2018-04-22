@@ -46,7 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\BindingManager.cs" />
     <Compile Include="Classes\DB.cs" />
+    <Compile Include="Classes\ReviewData.cs" />
+    <Compile Include="Classes\ReviewManager.cs" />
     <Compile Include="Forms\FormAddMovie.cs">
       <SubType>Form</SubType>
     </Compile>

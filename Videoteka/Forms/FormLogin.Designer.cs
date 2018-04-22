@@ -79,7 +79,7 @@ namespace Videoteka {
             this.groupLogin.Location = new System.Drawing.Point(12, 12);
             this.groupLogin.Name = "groupLogin";
             this.groupLogin.Size = new System.Drawing.Size(260, 109);
-            this.groupLogin.TabIndex = 4;
+            this.groupLogin.TabIndex = 0;
             this.groupLogin.TabStop = false;
             this.groupLogin.Text = "Login or Register";
             // 
@@ -108,7 +108,7 @@ namespace Videoteka {
             this.buttonGuest.Location = new System.Drawing.Point(21, 127);
             this.buttonGuest.Name = "buttonGuest";
             this.buttonGuest.Size = new System.Drawing.Size(245, 23);
-            this.buttonGuest.TabIndex = 5;
+            this.buttonGuest.TabIndex = 1;
             this.buttonGuest.Text = "Continue as Guest";
             this.buttonGuest.UseVisualStyleBackColor = true;
             this.buttonGuest.Click += new System.EventHandler(this.buttonGuest_Click);

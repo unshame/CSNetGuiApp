@@ -23,7 +23,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormReviews));
             this.labelPagination = new System.Windows.Forms.Label();
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonPrev = new System.Windows.Forms.Button();
@@ -47,10 +46,10 @@
             this.panelReviews = new System.Windows.Forms.Panel();
             this.groupMovie = new System.Windows.Forms.GroupBox();
             this.buttonDeleteReview = new System.Windows.Forms.Button();
-            this.labelMovieRating = new System.Windows.Forms.Label();
+            this.labelReviewRating = new System.Windows.Forms.Label();
             this.buttonMovieInfo = new System.Windows.Forms.Button();
-            this.textMovieDescription = new System.Windows.Forms.Label();
-            this.labelMovieInfo = new System.Windows.Forms.Label();
+            this.textReview = new System.Windows.Forms.Label();
+            this.labelMovieTitle = new System.Windows.Forms.Label();
             this.groupFilter.SuspendLayout();
             this.panelReviews.SuspendLayout();
             this.groupMovie.SuspendLayout();
@@ -61,7 +60,7 @@
             this.labelPagination.Location = new System.Drawing.Point(177, 737);
             this.labelPagination.Name = "labelPagination";
             this.labelPagination.Size = new System.Drawing.Size(100, 23);
-            this.labelPagination.TabIndex = 37;
+            this.labelPagination.TabIndex = 3;
             this.labelPagination.Text = "1 / 10";
             this.labelPagination.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -70,25 +69,27 @@
             this.buttonNext.Location = new System.Drawing.Point(353, 738);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(108, 23);
-            this.buttonNext.TabIndex = 36;
+            this.buttonNext.TabIndex = 4;
             this.buttonNext.Text = "Next Page";
             this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // buttonPrev
             // 
             this.buttonPrev.Location = new System.Drawing.Point(9, 737);
             this.buttonPrev.Name = "buttonPrev";
             this.buttonPrev.Size = new System.Drawing.Size(108, 23);
-            this.buttonPrev.TabIndex = 35;
+            this.buttonPrev.TabIndex = 2;
             this.buttonPrev.Text = "Previous Page";
             this.buttonPrev.UseVisualStyleBackColor = true;
+            this.buttonPrev.Click += new System.EventHandler(this.buttonPrev_Click);
             // 
             // buttonAddMovie
             // 
             this.buttonAddMovie.Location = new System.Drawing.Point(353, 773);
             this.buttonAddMovie.Name = "buttonAddMovie";
             this.buttonAddMovie.Size = new System.Drawing.Size(108, 23);
-            this.buttonAddMovie.TabIndex = 34;
+            this.buttonAddMovie.TabIndex = 8;
             this.buttonAddMovie.Text = "Add Movie";
             this.buttonAddMovie.UseVisualStyleBackColor = true;
             this.buttonAddMovie.Click += new System.EventHandler(this.buttonAddMovie_Click);
@@ -98,7 +99,7 @@
             this.buttonLogin.Location = new System.Drawing.Point(9, 773);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(108, 23);
-            this.buttonLogin.TabIndex = 33;
+            this.buttonLogin.TabIndex = 5;
             this.buttonLogin.Text = "Login";
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
@@ -108,7 +109,7 @@
             this.buttonWatchlist.Location = new System.Drawing.Point(239, 773);
             this.buttonWatchlist.Name = "buttonWatchlist";
             this.buttonWatchlist.Size = new System.Drawing.Size(108, 23);
-            this.buttonWatchlist.TabIndex = 32;
+            this.buttonWatchlist.TabIndex = 7;
             this.buttonWatchlist.Text = "My Watchlist";
             this.buttonWatchlist.UseVisualStyleBackColor = true;
             this.buttonWatchlist.Click += new System.EventHandler(this.buttonWatchlist_Click);
@@ -118,7 +119,7 @@
             this.buttonAllMovies.Location = new System.Drawing.Point(125, 773);
             this.buttonAllMovies.Name = "buttonAllMovies";
             this.buttonAllMovies.Size = new System.Drawing.Size(108, 23);
-            this.buttonAllMovies.TabIndex = 31;
+            this.buttonAllMovies.TabIndex = 6;
             this.buttonAllMovies.Text = "Browse Movies";
             this.buttonAllMovies.UseVisualStyleBackColor = true;
             this.buttonAllMovies.Click += new System.EventHandler(this.buttonAllMovies_click);
@@ -140,7 +141,7 @@
             this.groupFilter.Location = new System.Drawing.Point(13, 12);
             this.groupFilter.Name = "groupFilter";
             this.groupFilter.Size = new System.Drawing.Size(443, 107);
-            this.groupFilter.TabIndex = 30;
+            this.groupFilter.TabIndex = 0;
             this.groupFilter.TabStop = false;
             this.groupFilter.Text = "Filter Movies";
             // 
@@ -150,7 +151,7 @@
             this.labelSortOrder.Location = new System.Drawing.Point(235, 49);
             this.labelSortOrder.Name = "labelSortOrder";
             this.labelSortOrder.Size = new System.Drawing.Size(33, 13);
-            this.labelSortOrder.TabIndex = 27;
+            this.labelSortOrder.TabIndex = 8;
             this.labelSortOrder.Text = "Order";
             // 
             // filterSortOrder
@@ -159,7 +160,7 @@
             this.filterSortOrder.Location = new System.Drawing.Point(285, 46);
             this.filterSortOrder.Name = "filterSortOrder";
             this.filterSortOrder.Size = new System.Drawing.Size(142, 21);
-            this.filterSortOrder.TabIndex = 26;
+            this.filterSortOrder.TabIndex = 9;
             // 
             // labelSortBy
             // 
@@ -167,7 +168,7 @@
             this.labelSortBy.Location = new System.Drawing.Point(235, 23);
             this.labelSortBy.Name = "labelSortBy";
             this.labelSortBy.Size = new System.Drawing.Size(40, 13);
-            this.labelSortBy.TabIndex = 25;
+            this.labelSortBy.TabIndex = 6;
             this.labelSortBy.Text = "Sort by";
             // 
             // filterSortBy
@@ -176,25 +177,27 @@
             this.filterSortBy.Location = new System.Drawing.Point(285, 20);
             this.filterSortBy.Name = "filterSortBy";
             this.filterSortBy.Size = new System.Drawing.Size(142, 21);
-            this.filterSortBy.TabIndex = 24;
+            this.filterSortBy.TabIndex = 7;
             // 
             // buttonFilterReset
             // 
             this.buttonFilterReset.Location = new System.Drawing.Point(352, 73);
             this.buttonFilterReset.Name = "buttonFilterReset";
             this.buttonFilterReset.Size = new System.Drawing.Size(75, 23);
-            this.buttonFilterReset.TabIndex = 21;
+            this.buttonFilterReset.TabIndex = 11;
             this.buttonFilterReset.Text = "Reset Filter";
             this.buttonFilterReset.UseVisualStyleBackColor = true;
+            this.buttonFilterReset.Click += new System.EventHandler(this.buttonFilterReset_Click);
             // 
             // buttonFilter
             // 
             this.buttonFilter.Location = new System.Drawing.Point(238, 73);
             this.buttonFilter.Name = "buttonFilter";
             this.buttonFilter.Size = new System.Drawing.Size(108, 23);
-            this.buttonFilter.TabIndex = 20;
+            this.buttonFilter.TabIndex = 10;
             this.buttonFilter.Text = "Apply Filter";
             this.buttonFilter.UseVisualStyleBackColor = true;
+            this.buttonFilter.Click += new System.EventHandler(this.buttonFilter_Click);
             // 
             // labelFilterRating
             // 
@@ -202,7 +205,7 @@
             this.labelFilterRating.Location = new System.Drawing.Point(7, 75);
             this.labelFilterRating.Name = "labelFilterRating";
             this.labelFilterRating.Size = new System.Drawing.Size(38, 13);
-            this.labelFilterRating.TabIndex = 17;
+            this.labelFilterRating.TabIndex = 4;
             this.labelFilterRating.Text = "Rating";
             // 
             // filterRating
@@ -211,23 +214,23 @@
             this.filterRating.Location = new System.Drawing.Point(57, 72);
             this.filterRating.Name = "filterRating";
             this.filterRating.Size = new System.Drawing.Size(142, 21);
-            this.filterRating.TabIndex = 16;
+            this.filterRating.TabIndex = 5;
             // 
             // labelFilterUser
             // 
             this.labelFilterUser.AutoSize = true;
             this.labelFilterUser.Location = new System.Drawing.Point(7, 49);
             this.labelFilterUser.Name = "labelFilterUser";
-            this.labelFilterUser.Size = new System.Drawing.Size(29, 13);
-            this.labelFilterUser.TabIndex = 4;
-            this.labelFilterUser.Text = "User";
+            this.labelFilterUser.Size = new System.Drawing.Size(38, 13);
+            this.labelFilterUser.TabIndex = 2;
+            this.labelFilterUser.Text = "Author";
             // 
             // filterUser
             // 
             this.filterUser.Location = new System.Drawing.Point(57, 46);
             this.filterUser.Name = "filterUser";
             this.filterUser.Size = new System.Drawing.Size(142, 20);
-            this.filterUser.TabIndex = 2;
+            this.filterUser.TabIndex = 3;
             // 
             // filterTitle
             // 
@@ -253,65 +256,68 @@
             this.panelReviews.Location = new System.Drawing.Point(0, 125);
             this.panelReviews.Name = "panelReviews";
             this.panelReviews.Size = new System.Drawing.Size(468, 607);
-            this.panelReviews.TabIndex = 29;
+            this.panelReviews.TabIndex = 1;
             // 
             // groupMovie
             // 
+            this.groupMovie.AutoSize = true;
             this.groupMovie.Controls.Add(this.buttonDeleteReview);
-            this.groupMovie.Controls.Add(this.labelMovieRating);
+            this.groupMovie.Controls.Add(this.labelReviewRating);
             this.groupMovie.Controls.Add(this.buttonMovieInfo);
-            this.groupMovie.Controls.Add(this.textMovieDescription);
-            this.groupMovie.Controls.Add(this.labelMovieInfo);
+            this.groupMovie.Controls.Add(this.textReview);
+            this.groupMovie.Controls.Add(this.labelMovieTitle);
             this.groupMovie.Location = new System.Drawing.Point(12, 3);
             this.groupMovie.Name = "groupMovie";
-            this.groupMovie.Size = new System.Drawing.Size(427, 163);
+            this.groupMovie.Size = new System.Drawing.Size(427, 85);
             this.groupMovie.TabIndex = 0;
             this.groupMovie.TabStop = false;
             this.groupMovie.Text = "User\'s Review";
             // 
             // buttonDeleteReview
             // 
-            this.buttonDeleteReview.Location = new System.Drawing.Point(240, 134);
+            this.buttonDeleteReview.Location = new System.Drawing.Point(239, 23);
             this.buttonDeleteReview.Name = "buttonDeleteReview";
             this.buttonDeleteReview.Size = new System.Drawing.Size(78, 23);
             this.buttonDeleteReview.TabIndex = 11;
             this.buttonDeleteReview.Text = "Delete";
             this.buttonDeleteReview.UseVisualStyleBackColor = true;
             // 
-            // labelMovieRating
+            // labelReviewRating
             // 
-            this.labelMovieRating.Location = new System.Drawing.Point(6, 33);
-            this.labelMovieRating.Name = "labelMovieRating";
-            this.labelMovieRating.Size = new System.Drawing.Size(413, 13);
-            this.labelMovieRating.TabIndex = 10;
-            this.labelMovieRating.Text = "5/10 stars";
+            this.labelReviewRating.Location = new System.Drawing.Point(6, 33);
+            this.labelReviewRating.Name = "labelReviewRating";
+            this.labelReviewRating.Size = new System.Drawing.Size(227, 13);
+            this.labelReviewRating.TabIndex = 10;
+            this.labelReviewRating.Text = "5/10 stars";
             // 
             // buttonMovieInfo
             // 
-            this.buttonMovieInfo.Location = new System.Drawing.Point(324, 134);
+            this.buttonMovieInfo.Location = new System.Drawing.Point(324, 23);
             this.buttonMovieInfo.Name = "buttonMovieInfo";
             this.buttonMovieInfo.Size = new System.Drawing.Size(97, 23);
             this.buttonMovieInfo.TabIndex = 5;
             this.buttonMovieInfo.Text = "Movie Info";
             this.buttonMovieInfo.UseVisualStyleBackColor = true;
             // 
-            // textMovieDescription
+            // textReview
             // 
-            this.textMovieDescription.Location = new System.Drawing.Point(6, 56);
-            this.textMovieDescription.Name = "textMovieDescription";
-            this.textMovieDescription.Size = new System.Drawing.Size(413, 74);
-            this.textMovieDescription.TabIndex = 3;
-            this.textMovieDescription.Text = resources.GetString("textMovieDescription.Text");
+            this.textReview.AutoSize = true;
+            this.textReview.Location = new System.Drawing.Point(6, 56);
+            this.textReview.MaximumSize = new System.Drawing.Size(413, 0);
+            this.textReview.Name = "textReview";
+            this.textReview.Size = new System.Drawing.Size(10, 13);
+            this.textReview.TabIndex = 3;
+            this.textReview.Text = "t";
             // 
-            // labelMovieInfo
+            // labelMovieTitle
             // 
-            this.labelMovieInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelMovieInfo.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.labelMovieInfo.Location = new System.Drawing.Point(6, 20);
-            this.labelMovieInfo.Name = "labelMovieInfo";
-            this.labelMovieInfo.Size = new System.Drawing.Size(413, 13);
-            this.labelMovieInfo.TabIndex = 0;
-            this.labelMovieInfo.Text = "Movie Title";
+            this.labelMovieTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelMovieTitle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.labelMovieTitle.Location = new System.Drawing.Point(6, 20);
+            this.labelMovieTitle.Name = "labelMovieTitle";
+            this.labelMovieTitle.Size = new System.Drawing.Size(227, 13);
+            this.labelMovieTitle.TabIndex = 0;
+            this.labelMovieTitle.Text = "Movie Title";
             // 
             // FormReviews
             // 
@@ -335,7 +341,9 @@
             this.groupFilter.ResumeLayout(false);
             this.groupFilter.PerformLayout();
             this.panelReviews.ResumeLayout(false);
+            this.panelReviews.PerformLayout();
             this.groupMovie.ResumeLayout(false);
+            this.groupMovie.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -361,10 +369,10 @@
         private System.Windows.Forms.Panel panelReviews;
         private System.Windows.Forms.GroupBox groupMovie;
         private System.Windows.Forms.Button buttonDeleteReview;
-        private System.Windows.Forms.Label labelMovieRating;
+        private System.Windows.Forms.Label labelReviewRating;
         private System.Windows.Forms.Button buttonMovieInfo;
-        private System.Windows.Forms.Label textMovieDescription;
-        private System.Windows.Forms.Label labelMovieInfo;
+        private System.Windows.Forms.Label textReview;
+        private System.Windows.Forms.Label labelMovieTitle;
         private System.Windows.Forms.Label labelSortBy;
         private System.Windows.Forms.ComboBox filterSortBy;
         private System.Windows.Forms.Label labelSortOrder;

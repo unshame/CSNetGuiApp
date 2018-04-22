@@ -144,7 +144,6 @@ namespace Videoteka {
             var results = new List<MovieData>();
             if (OpenConnection()) {
                 try {
-                    cmd.ExecuteNonQuery();
                     var reader = cmd.ExecuteReader();
                     while (reader.Read()) {
                         results.Add(new MovieData {
@@ -172,7 +171,97 @@ namespace Videoteka {
         }
 
         static public int GetMoviesCount(string where = "") {
-            var query = "select count(*) from movies" +
+            return GetCount("movies", where);
+        }
+
+        static public int DeleteMovie(int id) {
+            var query = "delete from movies where id=" + id + ";";
+
+            var result = 0;
+            if (OpenConnection()) {
+                result = new MySqlCommand(query, connection).ExecuteNonQuery();
+            }
+            CloseConnection();
+            return result;
+
+        }
+
+        static public int AddReview(int movieId, int rating, string review) {
+            var query = "INSERT INTO reviews " +
+                "(movie_id, user_id, rating, review) " +
+                "values (@movie_id, @user_id, @rating, @review);";
+            Debug.WriteLine(query);
+
+            var cmd = new MySqlCommand(query, connection);
+
+            cmd.Parameters.AddWithValue("@movie_id", movieId);
+            cmd.Parameters.AddWithValue("@user_id", Profile.UID);
+            cmd.Parameters.AddWithValue("@rating", rating);
+            cmd.Parameters.AddWithValue("@review", MySqlHelper.EscapeString(review));
+
+            var result = -1;
+
+            if (OpenConnection()) {
+                try {
+                    cmd.ExecuteNonQuery();
+                    result = (int)cmd.LastInsertedId;
+                }
+                catch (MySqlException e) {
+                    Program.ShowErrorBox(e.Message, "Failed to add review");
+                }
+            }
+            CloseConnection();
+
+            return result;
+        }
+
+        public static List<ReviewData> GetReviews(int amount, int offset, string where = "", string sortBy = "", string order = "ASC") {
+            var query = "select reviews.id, user_id, movie_id, username, title, rating, review from reviews" +
+                " inner join movies on reviews.movie_id = movies.id" +
+                " inner join users on reviews.user_id = users.id" +
+                (where == "" ? "" : " where " + where) +
+                (sortBy == "" ? "" : " order by " + sortBy + " " + order) +
+                " limit " + amount + " offset " + offset + ";";
+            Debug.WriteLine(query);
+            var cmd = new MySqlCommand(query, connection);
+            var results = new List<ReviewData>();
+            if (OpenConnection()) {
+                try {
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read()) {
+                        results.Add(new ReviewData {
+                            id = reader.GetInt32("id"),
+                            userId = reader.GetInt32("user_id"),
+                            movieId = reader.GetInt32("movie_id"),
+                            title = reader.GetString("title"),
+                            username = reader.GetString("username"),
+                            rating = reader.GetInt32("rating"),
+                            text = reader.GetString("review")
+                        });
+                    }
+                    reader.Close();
+                }
+                catch (MySqlException e) {
+                    Program.ShowErrorBox(e.Message, "Failed to get review");
+                }
+            }
+            CloseConnection();
+            return results;
+
+        }
+
+        static public int GetReviewsCount(string where = "") {
+            return GetCount(
+                "reviews",
+                where,
+                "inner join movies on reviews.movie_id = movies.id" +
+                " inner join users on reviews.user_id = users.id"
+           );
+        }
+
+        static private int GetCount(string table, string where, string modifier = "") {
+            var query = "select count(*) from " + table +
+                (modifier == "" ? "" : " " + modifier) +
                 (where == "" ? "" : " where " + where);
 
             Debug.WriteLine(query);
@@ -180,7 +269,6 @@ namespace Videoteka {
             var result = 0;
             if (OpenConnection()) {
                 try {
-                    cmd.ExecuteNonQuery();
                     var reader = cmd.ExecuteReader();
                     if (reader.Read()) {
                         result = (int)(long)reader[0];
@@ -188,33 +276,68 @@ namespace Videoteka {
                     reader.Close();
                 }
                 catch (MySqlException e) {
-                    Program.ShowErrorBox(e.Message, "Failed to get movies");
+                    Program.ShowErrorBox(e.Message, "Failed to get " + table + " count");
                 }
             }
             CloseConnection();
             return result;
         }
 
-        static public int DeleteMovie(int id) {
-            var query = "delete from movies where id=" + id + ";";
+        static public int DeleteReview(int id) {
+            var query = "delete from reviews where id=" + id + ";";
+
+            var result = 0;
             if (OpenConnection()) {
-                var results = new MySqlCommand(query, connection).ExecuteNonQuery();
-                CloseConnection();
-                return results;
+                result = new MySqlCommand(query, connection).ExecuteNonQuery();
             }
             CloseConnection();
-            return 0;
-
+            return result;
         }
 
-        static string AddAnd(string query) {
+        static public int DeleteReviewsOfMovie(int movieId) {
+            var query = "delete from reviews where movie_id=" + movieId + ";";
+
+            var result = 0;
+            if (OpenConnection()) {
+                result = new MySqlCommand(query, connection).ExecuteNonQuery();
+            }
+            CloseConnection();
+            return result;
+        }
+
+        public static bool UpdateMovieRating(int movieId, int rating, int increment = 1) {
+            var query = "update movies set rating_amount = rating_amount + " + increment + ", rating_sum = rating_sum + @rating where id = @movie_id";
+
+            var cmd = new MySqlCommand(query, connection);
+            Debug.WriteLine(cmd.CommandText);
+
+            cmd.Parameters.AddWithValue("@movie_id", movieId);
+            cmd.Parameters.AddWithValue("@rating", rating);
+
+            var result = false;
+
+            if (OpenConnection()) {
+                try {
+                    cmd.ExecuteNonQuery();
+                    result = true;
+                }
+                catch (MySqlException e) {
+                    Program.ShowErrorBox(e.Message, "Failed to update movie rating");
+                }
+            }
+
+            CloseConnection();
+            return result;
+        }
+
+        public static string AddAnd(string query) {
             if(query != "") {
                 return query + " AND ";
             }
             return query;
         }
 
-        public static string FormatFilter(string title, string director, string star, int duration, int genre, int year, int rating) {
+        public static string FormatFilterMovies(string title, string director, string star, int duration, int genre, int year, int rating) {
             var filterStr = "";
             if (title != "") {
                 filterStr += "INSTR(title, '" + MySqlHelper.EscapeString(title) + "') > 0";
@@ -242,6 +365,23 @@ namespace Videoteka {
             if (rating > 1) {
                 filterStr = AddAnd(filterStr);
                 filterStr += "if(rating_amount = 0, 1, rating_sum / rating_amount) >= " + rating;
+            }
+            Debug.WriteLine(filterStr);
+            return filterStr;
+        }
+
+        public static string FormatFilterReviews(string title, string username, int rating) {
+            var filterStr = "";
+            if (title != "") {
+                filterStr += "INSTR(title, '" + MySqlHelper.EscapeString(title) + "') > 0";
+            }
+            if (username != "") {
+                filterStr = AddAnd(filterStr);
+                filterStr += "INSTR(username, '" + MySqlHelper.EscapeString(username) + "') > 0";
+            }
+            if (rating > 1) {
+                filterStr = AddAnd(filterStr);
+                filterStr += "reviews.rating >= " + rating;
             }
             Debug.WriteLine(filterStr);
             return filterStr;

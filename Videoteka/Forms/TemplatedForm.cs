@@ -11,6 +11,8 @@ using System.Windows.Forms;
 namespace Videoteka {
     public class TemplatedForm : Form {
 
+        public int currentPage = 0;
+
         protected void DrawDividers(Control panel, Graphics g) {
             Pen pen = new Pen(Color.Gray, 1);
 
@@ -32,7 +34,10 @@ namespace Videoteka {
                     Height = template.Height,
                     Location = new Point(template.Location.X, offset * i + template.Location.Y),
                     Name = name + i,
-                    Text = name + " " + i
+                    Text = name + " " + i,
+                    MaximumSize = template.MaximumSize,
+                    MinimumSize = template.MinimumSize,
+                    AutoSize = template.AutoSize
                 };
                 foreach (Control control in template.Controls) {
                     Control newControl = null;
@@ -43,7 +48,10 @@ namespace Videoteka {
                             Height = control.Height,
                             Location = control.Location,
                             Font = control.Font,
-                            Name = control.Name
+                            Name = control.Name,
+                            MaximumSize = control.MaximumSize,
+                            MinimumSize = control.MinimumSize,
+                            AutoSize = control.AutoSize
                         };
                         controlGroup.Controls.Add(newControl);
                     }
@@ -53,7 +61,10 @@ namespace Videoteka {
                             Width = control.Width,
                             Height = control.Height,
                             Location = control.Location,
-                            Name = control.Name
+                            Name = control.Name,
+                            MaximumSize = control.MaximumSize,
+                            MinimumSize = control.MinimumSize,
+                            AutoSize = control.AutoSize
                         };
                     }
                     else if (control is PictureBox) {
@@ -62,7 +73,10 @@ namespace Videoteka {
                             Width = control.Width,
                             Height = control.Height,
                             Location = control.Location,
-                            Name = control.Name
+                            Name = control.Name,
+                            MaximumSize = control.MaximumSize,
+                            MinimumSize = control.MinimumSize,
+                            AutoSize = control.AutoSize
                         };
                     }
                     if (newControl != null) {
@@ -75,6 +89,24 @@ namespace Videoteka {
             }
             panel.Controls.Remove(template);
             template.Dispose();
+        }
+
+        public void UpdatePagination(int total, int perPage, Control prev, Control next, Control label) {
+            var pageCount = total / perPage + (total % perPage > 0 ? 1 : 0);
+            if (currentPage >= pageCount || currentPage < 0) {
+                currentPage = 0;
+            }
+            var offset = currentPage * perPage;
+            if (total > 0) {
+                var rangeStart = offset + 1;
+                var rangeEnd = Math.Min(offset + perPage, total);
+                label.Text = rangeStart + " - " + rangeEnd + " / " + total;
+            }
+            else {
+                label.Text = "";
+            }
+            prev.Enabled = currentPage > 0;
+            next.Enabled = currentPage < (pageCount - 1);
         }
     }
 }
