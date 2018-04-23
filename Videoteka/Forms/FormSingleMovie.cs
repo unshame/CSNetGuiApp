@@ -25,11 +25,11 @@ namespace Videoteka {
         public FormSingleMovie(int id) {
             this.id = id;
             InitializeComponent();
+            InitializeTemplatedForm();
         }
 
         // Events
-        protected override void OnLoad(object sender, EventArgs e) {
-            base.OnLoad(sender, e);
+        void OnLoad(object sender, EventArgs e) {
             Paint += OnPaint;
             FormClosing += OnClosing;
             CreateControlsFromTemplate(template, panelReviews, "review", reviews, itemsPerPage);

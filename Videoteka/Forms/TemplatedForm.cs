@@ -14,7 +14,7 @@ namespace Videoteka {
         public int currentPage = 0;
         public string defaultText = "";
 
-        protected virtual void OnLoad(object sender, EventArgs e) {
+        protected virtual void InitializeTemplatedForm() {
             defaultText = Text;
         }
 

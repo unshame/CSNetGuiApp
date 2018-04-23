@@ -42,8 +42,6 @@ namespace Videoteka {
                 formWatchlist = null;
                 formAddMovie = null;
 
-                formReviews.Show();
-                formReviews.Hide();
                 formMovies.Show();
                 formMovies.LoadMovies();
                 //formLogin.ShowDialog();

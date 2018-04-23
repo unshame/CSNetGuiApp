@@ -12,11 +12,11 @@ namespace Videoteka {
         public FormWatchlist() {
             FormClosing += OnClosing;
             InitializeComponent();
+            InitializeTemplatedForm();
         }
 
         // Events
-        protected override void OnLoad(object sender, EventArgs e) {
-            base.OnLoad(sender, e);
+         void OnLoad(object sender, EventArgs e) {
             Paint += OnPaint;
 
             CreateControlsFromTemplate(template, panelMovies, "movie", movies, itemsPerPage);

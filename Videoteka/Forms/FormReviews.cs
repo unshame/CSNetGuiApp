@@ -20,11 +20,11 @@ namespace Videoteka {
             StartPosition = FormStartPosition.Manual;
             FormClosed += OnClosed;
             InitializeComponent();
+            InitializeTemplatedForm();
         }
 
         // Events
-        protected override void OnLoad(object sender, EventArgs e) {
-            base.OnLoad(sender, e);
+        void OnLoad(object sender, EventArgs e) {
             Paint += OnPaint;
             CreateControlsFromTemplate(template, panelReviews, "review", reviews, itemsPerPage);
 
