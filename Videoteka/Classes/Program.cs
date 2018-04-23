@@ -42,9 +42,11 @@ namespace Videoteka {
                 formWatchlist = null;
                 formAddMovie = null;
 
+                formReviews.Show();
+                formReviews.Hide();
                 formMovies.Show();
                 formMovies.LoadMovies();
-                formLogin.ShowDialog();
+                //formLogin.ShowDialog();
 
                 Application.Run();
             }
@@ -81,7 +83,7 @@ namespace Videoteka {
             }
         }
 
-        static public void RemoveFormFromOpened(FormSingleMovie form) {
+        static public void RemoveMovieFormFromOpened(FormSingleMovie form) {
             if (openedMovieForms.ContainsKey(form.id)) {
                 openedMovieForms.Remove(form.id);
             }
@@ -94,6 +96,7 @@ namespace Videoteka {
                 formWatchlist.Show();
             }
             formWatchlist.Focus();
+            formWatchlist.Text += Profile.FormTextUsername();
         }
 
         static public void CloseWatchListForm() {
@@ -122,6 +125,9 @@ namespace Videoteka {
             }
             if (formReviews.Visible) {
                 formReviews.LoadReviews();
+            }
+            if(formWatchlist != null) {
+                formWatchlist.LoadWatchlist();
             }
             ReloadAllMovieForms();
         }

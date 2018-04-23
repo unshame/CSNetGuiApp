@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormReviews));
             this.labelPagination = new System.Windows.Forms.Label();
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonPrev = new System.Windows.Forms.Button();
@@ -140,10 +141,10 @@
             this.groupFilter.Controls.Add(this.labelFilterTitle);
             this.groupFilter.Location = new System.Drawing.Point(13, 12);
             this.groupFilter.Name = "groupFilter";
-            this.groupFilter.Size = new System.Drawing.Size(443, 107);
+            this.groupFilter.Size = new System.Drawing.Size(443, 104);
             this.groupFilter.TabIndex = 0;
             this.groupFilter.TabStop = false;
-            this.groupFilter.Text = "Filter Movies";
+            this.groupFilter.Text = "Filter Reviews";
             // 
             // labelSortOrder
             // 
@@ -181,7 +182,7 @@
             // 
             // buttonFilterReset
             // 
-            this.buttonFilterReset.Location = new System.Drawing.Point(352, 73);
+            this.buttonFilterReset.Location = new System.Drawing.Point(352, 70);
             this.buttonFilterReset.Name = "buttonFilterReset";
             this.buttonFilterReset.Size = new System.Drawing.Size(75, 23);
             this.buttonFilterReset.TabIndex = 11;
@@ -191,7 +192,7 @@
             // 
             // buttonFilter
             // 
-            this.buttonFilter.Location = new System.Drawing.Point(238, 73);
+            this.buttonFilter.Location = new System.Drawing.Point(238, 70);
             this.buttonFilter.Name = "buttonFilter";
             this.buttonFilter.Size = new System.Drawing.Size(108, 23);
             this.buttonFilter.TabIndex = 10;
@@ -253,9 +254,9 @@
             // 
             this.panelReviews.AutoScroll = true;
             this.panelReviews.Controls.Add(this.groupMovie);
-            this.panelReviews.Location = new System.Drawing.Point(0, 125);
+            this.panelReviews.Location = new System.Drawing.Point(0, 122);
             this.panelReviews.Name = "panelReviews";
-            this.panelReviews.Size = new System.Drawing.Size(468, 607);
+            this.panelReviews.Size = new System.Drawing.Size(468, 610);
             this.panelReviews.TabIndex = 1;
             // 
             // groupMovie
@@ -334,6 +335,7 @@
             this.Controls.Add(this.groupFilter);
             this.Controls.Add(this.panelReviews);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormReviews";
             this.Text = "Reviews";

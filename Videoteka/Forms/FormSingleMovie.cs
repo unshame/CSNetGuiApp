@@ -20,6 +20,7 @@ namespace Videoteka {
         public ReviewData reviewData;
         private Point reviewsLocation;
         private int reviewsHeight;
+        public bool isEditing = false;
 
         public FormSingleMovie(int id) {
             this.id = id;
@@ -27,12 +28,12 @@ namespace Videoteka {
         }
 
         // Events
-        private void OnLoad(object sender, EventArgs e) {
+        protected override void OnLoad(object sender, EventArgs e) {
+            base.OnLoad(sender, e);
             Paint += OnPaint;
             FormClosing += OnClosing;
             CreateControlsFromTemplate(panelReviews.Controls[0], panelReviews, "review", reviews, itemsPerPage);
             labelRatingValue.DataBindings.Add("Text", reviewRating, "Value");
-            buttonAddToWatchlist.DataBindings.Add("Enabled", Profile.IsLoggedIn, "Checked");
             buttonDeleteMovie.DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
             buttonDeleteMovie.DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
             reviewsLocation = panelReviews.Location;
@@ -41,18 +42,17 @@ namespace Videoteka {
         }
 
         private void OnPaint(object sender, PaintEventArgs e) {
-            Debug.WriteLine(panelReviews.Location.Y);
             DrawDividers(panelReviews, e.Graphics);
         }
 
         private void OnClosing(object sender, EventArgs e) {
-            Program.RemoveFormFromOpened(this);
+            Program.RemoveMovieFormFromOpened(this);
         }
 
         // Methods
         public void LoadData() {
             try {
-                movieData = DB.GetMovies(1, 0, "id = " + id)[0];
+                movieData = DB.GetMovies(1, 0, "movies.id = " + id)[0];
             }
             catch {
                 Program.ShowErrorBox("Movie doesn't exist in the database", "Failed to open movie");
@@ -80,14 +80,25 @@ namespace Videoteka {
 
                 panelReviews.Location = reviewsLocation;
                 panelReviews.Height = reviewsHeight;
+
+                buttonAddToWatchlist.Enabled = movieData.watchlistId == 0;
+                buttonAddToWatchlist.Text = buttonAddToWatchlist.Enabled ? MovieManager.NotInWatchlistText : (movieData.isWatched ? MovieManager.WatchedText : MovieManager.InWatchlistText);
             }
             else {
+                isEditing = false;
+                reviewText.ResetText();
+                reviewRating.Value = 5;
+
                 groupMyReview.Hide();
+
                 reviewRating.Enabled = false;
                 reviewText.Enabled = false;
 
                 panelReviews.Location = new Point(reviewsLocation.X, groupMyReview.Location.Y);
                 panelReviews.Height = reviewsHeight + groupMyReview.Height;
+
+                buttonAddToWatchlist.Enabled = false;
+                buttonAddToWatchlist.Text = MovieManager.NotInWatchlistText;
             }
             LoadReviews();
             ResizeReviews();
@@ -101,17 +112,21 @@ namespace Videoteka {
 
             if (reviewsData.Count > 0) {
                 reviewData = reviewsData[0];
-                groupMyReviewPublished.Show();
+                if (!isEditing) {
+                    groupMyReviewPublished.Show();
+                }
+
+                buttonDeleteReview.Enabled = !isEditing;
+                reviewRating.Enabled = isEditing;
+                reviewText.Enabled = isEditing;
+                reviewPublish.Enabled = isEditing;
+
                 groupMyReviewPublished.Text = reviewData.FormatUsername();
                 publishedReviewText.Text = reviewData.text == "" ? "No review provided." : reviewData.text;
                 publishedReviewRating.Text = reviewData.FormatRating();
-
-                buttonDeleteReview.Enabled = true;
-                reviewRating.Enabled = false;
-                reviewText.Enabled = false;
-                reviewPublish.Enabled = false;
             }
             else {
+                isEditing = false;
                 groupMyReviewPublished.Hide();
                 buttonDeleteReview.Enabled = false;
                 reviewRating.Enabled = true;
@@ -158,16 +173,25 @@ namespace Videoteka {
         }
 
         private void reviewPublish_Click(object sender, EventArgs e) {
-            if (ReviewManager.AddReview(id, reviewRating.Value, reviewText.Text) != -1) {
+            var success = false;
+            if (isEditing) {
+                success = ReviewManager.UpdateReview(reviewData.id, id, reviewRating.Value, reviewText.Text);
+            }
+            else { 
+                success = ReviewManager.AddReview(id, reviewRating.Value, reviewText.Text) != -1;
+            }
+            if (success) {
+                if (isEditing) {
+                    isEditing = false;
+                    Program.ReloadForms();
+                }
                 reviewText.ResetText();
                 reviewRating.Value = 5;
             }
-            LoadData();
         }
 
         private void buttonPublishRevview_Click(object sender, EventArgs e) {
             ReviewManager.DeleteReview(reviewData.id);
-            LoadData();
         }
 
         private void buttonNext_Click(object sender, EventArgs e) {
@@ -178,6 +202,32 @@ namespace Videoteka {
         private void buttonPrev_Click(object sender, EventArgs e) {
             currentPage--;
             LoadData();
+        }
+
+        private void buttonAddToWatchlist_Click(object sender, EventArgs e) {
+            MovieManager.AddToWatchList(id);
+        }
+
+        private void buttonEditReview_Click(object sender, EventArgs e) {
+            isEditing = true;
+            groupMyReviewPublished.Hide();
+            reviewText.Text = reviewData.text;
+            reviewRating.Value = reviewData.rating;
+            buttonDeleteReview.Enabled = false;
+            reviewRating.Enabled = true;
+            reviewText.Enabled = true;
+            reviewPublish.Enabled = true;
+        }
+
+        private void buttonCancelReview_Click(object sender, EventArgs e) {
+            if (isEditing) {
+                isEditing = false;
+                LoadData();
+            }
+            else {
+                reviewText.ResetText();
+                reviewRating.Value = 5;
+            }
         }
     }
 }

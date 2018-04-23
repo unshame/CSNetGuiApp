@@ -17,7 +17,7 @@ namespace Videoteka {
         public MovieData[] moviesData = new MovieData[itemsPerPage];
         public bool canDelete = false;
 
-        public FormMovies() {
+        public FormMovies()  {
             StartPosition = FormStartPosition.Manual;
             FormClosed += OnClosed;
             InitializeComponent();
@@ -25,7 +25,8 @@ namespace Videoteka {
 
 
         // Events
-        private void OnLoad(object sender, EventArgs e) {
+        protected override void OnLoad(object sender, EventArgs e) {
+            base.OnLoad(sender, e);
             Paint += OnPaint;
             CreateControlsFromTemplate(panelMovies.Controls[0], panelMovies, "movie", movies, itemsPerPage);
 
@@ -42,10 +43,11 @@ namespace Videoteka {
                 };
                 movie.Controls["buttonDeleteMovie"].DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
                 movie.Controls["buttonDeleteMovie"].DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
-                movie.Controls["buttonAddToWatchlist"].DataBindings.Add("Enabled", Profile.IsLoggedIn, "Checked");
+                movie.Controls["buttonAddToWatchlist"].Click += (object s, EventArgs ee) => {
+                    MovieManager.AddToWatchList(moviesData[curi].id);
+                };
                 movie.Controls["buttonDeleteMovie"].Click += (object s, EventArgs ee) => {
                     MovieManager.DeleteMovie(moviesData[curi].id);
-                    LoadMovies();
                 };
             }
 
@@ -87,16 +89,21 @@ namespace Videoteka {
                 moviesData[i] = newMoviesData[i];
                 var movieData = moviesData[i];
                 movie.Text = movieData.title;
-                movie.Text = movieData.title;
                 movie.Controls["textMovieInfo"].Text = movieData.FormatInfo();
                 movie.Controls["textMovieRating"].Text = movieData.FormatRating();
                 movie.Controls["textMovieDescription"].Text = movieData.description;
                 movie.Controls["textMovieDirector"].Text = movieData.director;
                 movie.Controls["textMovieStars"].Text = movieData.stars;
+                var watchlistButton = movie.Controls["buttonAddToWatchlist"];
+                watchlistButton.Enabled = Profile.IsLoggedIn.Checked && movieData.watchlistId == 0;
+                watchlistButton.Text = watchlistButton.Enabled || !Profile.IsLoggedIn.Checked ? MovieManager.NotInWatchlistText : (movieData.isWatched ? MovieManager.WatchedText : MovieManager.InWatchlistText);
+
                 PictureBox poster = (PictureBox)movie.Controls["poster"];
                 poster.Image = ImageManager.FormatPoster(movieData.poster, poster.Width, poster.Height);
                 movie.Show();
             }
+            PerformLayout();
+            Refresh();
         }
 
         public void ValidateFilter() {
@@ -133,7 +140,9 @@ namespace Videoteka {
             if (Profile.IsLoggedIn.Checked) {
                 Profile.Logout();
             }
-            Program.formLogin.ShowDialog();
+            else {
+                Program.formLogin.ShowDialog();
+            }
         }
 
         private void buttonWatchlist_Click(object sender, EventArgs e) {
@@ -148,6 +157,7 @@ namespace Videoteka {
             Hide();
             Program.formReviews.Location = Location;
             Program.formReviews.Show();
+            Program.formReviews.LoadReviews();
         }
 
         private void buttonFilter_Click(object sender, EventArgs e) {

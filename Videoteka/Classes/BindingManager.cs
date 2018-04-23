@@ -57,6 +57,14 @@ namespace Videoteka {
             new DropdownItemString("duration", "Duration")
         };
 
+        static ArrayList SortByWatchlistBinding = new ArrayList() {
+            new DropdownItemString("watchlist_id", "Added Date"),
+            new DropdownItemString("title", "Title"),
+            new DropdownItemString("rating", "Rating"),
+            new DropdownItemString("year", "Year"),
+            new DropdownItemString("duration", "Duration")
+        };
+
         static ArrayList SortByReviewsBinding = new ArrayList() {
             new DropdownItemString("title", "Movie"),
             new DropdownItemString("username", "Author"),
@@ -95,6 +103,10 @@ namespace Videoteka {
 
         static public void AddSortByMoviesBinding(ComboBox dropdown) {
             AddBindingToDropdown(dropdown, SortByMoviesBinding);
+        }
+
+        static public void AddSortByWatchlistBinding(ComboBox dropdown) {
+            AddBindingToDropdown(dropdown, SortByWatchlistBinding);
         }
 
         static public void AddSortByReviewsBinding(ComboBox dropdown) {

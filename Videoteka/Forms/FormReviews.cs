@@ -16,14 +16,15 @@ namespace Videoteka {
         public Control[] reviews = new Control[itemsPerPage];
         public ReviewData[] reviewsData = new ReviewData[itemsPerPage];
 
-        public FormReviews() {
+        public FormReviews() : base() {
             StartPosition = FormStartPosition.Manual;
             FormClosed += OnClosed;
             InitializeComponent();
         }
 
         // Events
-        private void OnLoad(object sender, EventArgs e) {
+        protected override void OnLoad(object sender, EventArgs e) {
+            base.OnLoad(sender, e);
             Paint += OnPaint;
             CreateControlsFromTemplate(panelReviews.Controls[0], panelReviews, "review", reviews, itemsPerPage);
 
@@ -42,7 +43,6 @@ namespace Videoteka {
                 review.Controls["buttonDeleteReview"].DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
                 review.Controls["buttonDeleteReview"].Click += (object s, EventArgs ee) => {
                     ReviewManager.DeleteReview(reviewsData[curi].id);
-                    LoadReviews();
                 };
                 review.Controls["buttonMovieInfo"].Click += (object s, EventArgs ee) => {
                     Program.OpenMovieForm(reviewsData[curi].movieId);
@@ -123,6 +123,7 @@ namespace Videoteka {
             Hide();
             Program.formMovies.Location = Location;
             Program.formMovies.Show();
+            Program.formMovies.LoadMovies();
         }
 
         private void buttonWatchlist_Click(object sender, EventArgs e) {
@@ -133,7 +134,9 @@ namespace Videoteka {
             if (Profile.IsLoggedIn.Checked) {
                 Profile.Logout();
             }
-            Program.formLogin.ShowDialog();
+            else {
+                Program.formLogin.ShowDialog();
+            }
         }
 
         private void buttonAddMovie_Click(object sender, EventArgs e) {

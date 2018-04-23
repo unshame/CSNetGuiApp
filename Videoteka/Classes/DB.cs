@@ -19,6 +19,9 @@ namespace Videoteka {
             connection = new MySqlConnection(connectionString);
         }
 
+
+        // Connection
+
         static private bool OpenConnection() {
             try {
                 connection.Open();
@@ -50,6 +53,8 @@ namespace Videoteka {
             return false;
         }
 
+
+        // Users
 
         static public Tuple<int, string, bool> Login(string username, string password) {
             var query = "select id, username, password, is_admin from users where username = '" +
@@ -95,6 +100,36 @@ namespace Videoteka {
             return result;
         }
 
+
+        // Both
+
+        static private int GetCount(string table, string where, string modifier = "") {
+            var query = "select count(*) from " + table +
+                (modifier == "" ? "" : " " + modifier) +
+                (where == "" ? "" : " where " + where);
+
+            Debug.WriteLine(query);
+            var cmd = new MySqlCommand(query, connection);
+            var result = 0;
+            if (OpenConnection()) {
+                try {
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read()) {
+                        result = (int)(long)reader[0];
+                    }
+                    reader.Close();
+                }
+                catch (MySqlException e) {
+                    Program.ShowErrorBox(e.Message, "Failed to get " + table + " count");
+                }
+            }
+            CloseConnection();
+            return result;
+        }
+
+
+        // Movies
+
         static public int AddMovie(string title, int year, int genre, int duration, string director, string stars, string description, byte[] poster) {
             var query = "INSERT INTO movies " + 
                 "(title, year, genre, duration, director, stars, description, poster) " +
@@ -112,9 +147,9 @@ namespace Videoteka {
             cmd.Parameters.AddWithValue("@year", year);
             cmd.Parameters.AddWithValue("@genre", genre);
             cmd.Parameters.AddWithValue("@duration", duration);
-            cmd.Parameters.AddWithValue("@director", MySqlHelper.EscapeString(director));
-            cmd.Parameters.AddWithValue("@stars", MySqlHelper.EscapeString(stars));
-            cmd.Parameters.AddWithValue("@description", MySqlHelper.EscapeString(description));
+            cmd.Parameters.AddWithValue("@director", director);
+            cmd.Parameters.AddWithValue("@stars", stars);
+            cmd.Parameters.AddWithValue("@description", description);
 
             var result = -1;
 
@@ -131,11 +166,24 @@ namespace Videoteka {
             return result;
         }
 
+        static public int DeleteMovie(int id) {
+            var query = "delete from movies where id=" + id + ";";
+
+            var result = 0;
+            if (OpenConnection()) {
+                result = new MySqlCommand(query, connection).ExecuteNonQuery();
+            }
+            CloseConnection();
+            return result;
+        }
+
         static public List<MovieData> GetMovies(int amount, int offset, string where = "", string sortBy = "", string order = "ASC") {
             if(sortBy == "rating") {
                 sortBy = "if(rating_amount = 0, 1, rating_sum / rating_amount)";
             }
-            var query = "select * from movies" + 
+            var query = "select movies.id, title, year, genre, duration, director, stars, description, poster, rating_amount, rating_sum, rating, watchlist_id, is_watched from movies" +
+                " left outer join reviews on reviews.movie_id = movies.id and reviews.user_id = " + Profile.UID +
+                " left outer join watchlist on watchlist.movie_id = movies.id and watchlist.user_id = " + Profile.UID +
                 (where == "" ? "" : " where " + where) + 
                 (sortBy == "" ? "" : " order by " + sortBy + " " + order) + 
                 " limit " + amount + " offset " + offset +  ";";
@@ -146,6 +194,9 @@ namespace Videoteka {
                 try {
                     var reader = cmd.ExecuteReader();
                     while (reader.Read()) {
+                        var rating = Profile.IsLoggedIn.Checked && !(reader["rating"] is DBNull) ? reader.GetInt32("rating") : 0;
+                        var watchlistId = Profile.IsLoggedIn.Checked && !(reader["watchlist_id"] is DBNull) ? reader.GetInt32("watchlist_id") : 0;
+                        var isWatched = Profile.IsLoggedIn.Checked && !(reader["is_watched"] is DBNull) ? reader.GetBoolean("is_watched") : false;
                         results.Add(new MovieData {
                             id = reader.GetInt32("id"),
                             title = reader.GetString("title"),
@@ -157,7 +208,10 @@ namespace Videoteka {
                             description = reader.GetString("description"),
                             poster = reader["poster"] is DBNull ? null : (byte[])reader["poster"],
                             ratingAmount = reader.GetInt32("rating_amount"),
-                            ratingSum = reader.GetInt32("rating_sum")
+                            ratingSum = reader.GetInt32("rating_sum"),
+                            ratingOwn = rating,
+                            watchlistId = watchlistId,
+                            isWatched = isWatched
                         });
                     }
                     reader.Close();
@@ -171,20 +225,39 @@ namespace Videoteka {
         }
 
         static public int GetMoviesCount(string where = "") {
-            return GetCount("movies", where);
+            return GetCount("movies", where,
+                "left outer join reviews on reviews.movie_id = movies.id and reviews.user_id = " + Profile.UID +
+                " left outer join watchlist on watchlist.movie_id = movies.id and watchlist.user_id = " + Profile.UID
+            );
         }
 
-        static public int DeleteMovie(int id) {
-            var query = "delete from movies where id=" + id + ";";
+        public static bool UpdateMovieRating(int movieId, int rating, int increment = 1) {
+            var query = "update movies set rating_amount = rating_amount + " + increment + ", rating_sum = rating_sum + @rating where id = @movie_id";
 
-            var result = 0;
+            var cmd = new MySqlCommand(query, connection);
+            Debug.WriteLine(cmd.CommandText);
+
+            cmd.Parameters.AddWithValue("@movie_id", movieId);
+            cmd.Parameters.AddWithValue("@rating", rating);
+
+            var result = false;
+
             if (OpenConnection()) {
-                result = new MySqlCommand(query, connection).ExecuteNonQuery();
+                try {
+                    cmd.ExecuteNonQuery();
+                    result = true;
+                }
+                catch (MySqlException e) {
+                    Program.ShowErrorBox(e.Message, "Failed to update movie rating");
+                }
             }
+
             CloseConnection();
             return result;
-
         }
+
+
+        // Reviews
 
         static public int AddReview(int movieId, int rating, string review) {
             var query = "INSERT INTO reviews " +
@@ -197,7 +270,7 @@ namespace Videoteka {
             cmd.Parameters.AddWithValue("@movie_id", movieId);
             cmd.Parameters.AddWithValue("@user_id", Profile.UID);
             cmd.Parameters.AddWithValue("@rating", rating);
-            cmd.Parameters.AddWithValue("@review", MySqlHelper.EscapeString(review));
+            cmd.Parameters.AddWithValue("@review", review);
 
             var result = -1;
 
@@ -212,6 +285,56 @@ namespace Videoteka {
             }
             CloseConnection();
 
+            return result;
+        }
+
+        static public int UpdateReview(int movieId, int rating, string review) {
+            var query = "update reviews set " +
+                "rating = @rating, review = @review " +
+                "where movie_id = @movie_id and user_id = @user_id;";
+            Debug.WriteLine(query);
+
+            var cmd = new MySqlCommand(query, connection);
+
+            cmd.Parameters.AddWithValue("@movie_id", movieId);
+            cmd.Parameters.AddWithValue("@user_id", Profile.UID);
+            cmd.Parameters.AddWithValue("@rating", rating);
+            cmd.Parameters.AddWithValue("@review", review);
+
+            var result = 0;
+
+            if (OpenConnection()) {
+                try {
+                    result = cmd.ExecuteNonQuery();
+                }
+                catch (MySqlException e) {
+                    Program.ShowErrorBox(e.Message, "Failed to update review");
+                }
+            }
+            CloseConnection();
+
+            return result;
+        }
+
+        static public int DeleteReview(int id) {
+            var query = "delete from reviews where id=" + id + ";";
+
+            var result = 0;
+            if (OpenConnection()) {
+                result = new MySqlCommand(query, connection).ExecuteNonQuery();
+            }
+            CloseConnection();
+            return result;
+        }
+
+        static public int DeleteReviewsOfMovie(int movieId) {
+            var query = "delete from reviews where movie_id=" + movieId + ";";
+
+            var result = 0;
+            if (OpenConnection()) {
+                result = new MySqlCommand(query, connection).ExecuteNonQuery();
+            }
+            CloseConnection();
             return result;
         }
 
@@ -247,7 +370,6 @@ namespace Videoteka {
             }
             CloseConnection();
             return results;
-
         }
 
         static public int GetReviewsCount(string where = "") {
@@ -259,32 +381,38 @@ namespace Videoteka {
            );
         }
 
-        static private int GetCount(string table, string where, string modifier = "") {
-            var query = "select count(*) from " + table +
-                (modifier == "" ? "" : " " + modifier) +
-                (where == "" ? "" : " where " + where);
 
+        // Watchlist
+
+        static public int AddToWatchlist(int movieId) {
+            var query = "INSERT INTO watchlist " +
+                "(movie_id, user_id, is_watched) " +
+                "values (@movie_id, @user_id, false);";
             Debug.WriteLine(query);
+
             var cmd = new MySqlCommand(query, connection);
-            var result = 0;
+
+            cmd.Parameters.AddWithValue("@movie_id", movieId);
+            cmd.Parameters.AddWithValue("@user_id", Profile.UID);
+
+            var result = -1;
+
             if (OpenConnection()) {
                 try {
-                    var reader = cmd.ExecuteReader();
-                    if (reader.Read()) {
-                        result = (int)(long)reader[0];
-                    }
-                    reader.Close();
+                    cmd.ExecuteNonQuery();
+                    result = (int)cmd.LastInsertedId;
                 }
                 catch (MySqlException e) {
-                    Program.ShowErrorBox(e.Message, "Failed to get " + table + " count");
+                    Program.ShowErrorBox(e.Message, "Failed to add movie to watchlist");
                 }
             }
             CloseConnection();
+
             return result;
         }
 
-        static public int DeleteReview(int id) {
-            var query = "delete from reviews where id=" + id + ";";
+        static public int RemoveFromWatchlist(int id) {
+            var query = "delete from watchlist where watchlist_id=" + id + ";";
 
             var result = 0;
             if (OpenConnection()) {
@@ -294,25 +422,13 @@ namespace Videoteka {
             return result;
         }
 
-        static public int DeleteReviewsOfMovie(int movieId) {
-            var query = "delete from reviews where movie_id=" + movieId + ";";
-
-            var result = 0;
-            if (OpenConnection()) {
-                result = new MySqlCommand(query, connection).ExecuteNonQuery();
-            }
-            CloseConnection();
-            return result;
-        }
-
-        public static bool UpdateMovieRating(int movieId, int rating, int increment = 1) {
-            var query = "update movies set rating_amount = rating_amount + " + increment + ", rating_sum = rating_sum + @rating where id = @movie_id";
+        static public bool ChangeWatchedStatus(int id, bool status) {
+            var query = "update watchlist set is_watched = " + (status ? "true" : "false") + " where watchlist_id = @id";
 
             var cmd = new MySqlCommand(query, connection);
             Debug.WriteLine(cmd.CommandText);
 
-            cmd.Parameters.AddWithValue("@movie_id", movieId);
-            cmd.Parameters.AddWithValue("@rating", rating);
+            cmd.Parameters.AddWithValue("@id", id);
 
             var result = false;
 
@@ -322,13 +438,16 @@ namespace Videoteka {
                     result = true;
                 }
                 catch (MySqlException e) {
-                    Program.ShowErrorBox(e.Message, "Failed to update movie rating");
+                    Program.ShowErrorBox(e.Message, "Failed to update watched status");
                 }
             }
 
             CloseConnection();
             return result;
         }
+
+
+        // Filter
 
         public static string AddAnd(string query) {
             if(query != "") {

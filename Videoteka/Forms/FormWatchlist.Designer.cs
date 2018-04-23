@@ -27,33 +27,35 @@ namespace Videoteka {
             this.panelMovies = new System.Windows.Forms.Panel();
             this.groupMovie = new System.Windows.Forms.GroupBox();
             this.buttonRemove = new System.Windows.Forms.Button();
-            this.labelMovieRating = new System.Windows.Forms.Label();
-            this.textStars = new System.Windows.Forms.Label();
-            this.textDirector = new System.Windows.Forms.Label();
+            this.textMovieRating = new System.Windows.Forms.Label();
+            this.textMovieStars = new System.Windows.Forms.Label();
+            this.textMovieDirector = new System.Windows.Forms.Label();
             this.labelStars = new System.Windows.Forms.Label();
             this.labelDirector = new System.Windows.Forms.Label();
             this.buttonReviews = new System.Windows.Forms.Button();
             this.buttonAddToWatched = new System.Windows.Forms.Button();
             this.textMovieDescription = new System.Windows.Forms.Label();
-            this.templatePoster = new System.Windows.Forms.PictureBox();
-            this.labelMovieInfo = new System.Windows.Forms.Label();
+            this.poster = new System.Windows.Forms.PictureBox();
+            this.textMovieInfo = new System.Windows.Forms.Label();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.labelSortOrder = new System.Windows.Forms.Label();
             this.filterSortOrder = new System.Windows.Forms.ComboBox();
-            this.radioReviewed = new System.Windows.Forms.RadioButton();
-            this.radioWatched = new System.Windows.Forms.RadioButton();
-            this.radioUnwatched = new System.Windows.Forms.RadioButton();
             this.labelSortBy = new System.Windows.Forms.Label();
             this.filterSortBy = new System.Windows.Forms.ComboBox();
             this.buttonFilterReset = new System.Windows.Forms.Button();
             this.buttonFilter = new System.Windows.Forms.Button();
+            this.radioReviewed = new System.Windows.Forms.RadioButton();
+            this.radioWatched = new System.Windows.Forms.RadioButton();
+            this.radioUnwatched = new System.Windows.Forms.RadioButton();
             this.labelPagination = new System.Windows.Forms.Label();
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonPrev = new System.Windows.Forms.Button();
+            this.groupRadio = new System.Windows.Forms.GroupBox();
             this.panelMovies.SuspendLayout();
             this.groupMovie.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.templatePoster)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
             this.groupFilter.SuspendLayout();
+            this.groupRadio.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMovies
@@ -68,16 +70,16 @@ namespace Videoteka {
             // groupMovie
             // 
             this.groupMovie.Controls.Add(this.buttonRemove);
-            this.groupMovie.Controls.Add(this.labelMovieRating);
-            this.groupMovie.Controls.Add(this.textStars);
-            this.groupMovie.Controls.Add(this.textDirector);
+            this.groupMovie.Controls.Add(this.textMovieRating);
+            this.groupMovie.Controls.Add(this.textMovieStars);
+            this.groupMovie.Controls.Add(this.textMovieDirector);
             this.groupMovie.Controls.Add(this.labelStars);
             this.groupMovie.Controls.Add(this.labelDirector);
             this.groupMovie.Controls.Add(this.buttonReviews);
             this.groupMovie.Controls.Add(this.buttonAddToWatched);
             this.groupMovie.Controls.Add(this.textMovieDescription);
-            this.groupMovie.Controls.Add(this.templatePoster);
-            this.groupMovie.Controls.Add(this.labelMovieInfo);
+            this.groupMovie.Controls.Add(this.poster);
+            this.groupMovie.Controls.Add(this.textMovieInfo);
             this.groupMovie.Location = new System.Drawing.Point(12, 3);
             this.groupMovie.Name = "groupMovie";
             this.groupMovie.Size = new System.Drawing.Size(427, 196);
@@ -91,32 +93,32 @@ namespace Videoteka {
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(78, 23);
             this.buttonRemove.TabIndex = 11;
-            this.buttonRemove.Text = "Remove";
+            this.buttonRemove.Text = "Won\'t Watch";
             this.buttonRemove.UseVisualStyleBackColor = true;
             // 
-            // labelMovieRating
+            // textMovieRating
             // 
-            this.labelMovieRating.Location = new System.Drawing.Point(135, 33);
-            this.labelMovieRating.Name = "labelMovieRating";
-            this.labelMovieRating.Size = new System.Drawing.Size(286, 13);
-            this.labelMovieRating.TabIndex = 10;
-            this.labelMovieRating.Text = "5/10 stars - 15 reviews";
+            this.textMovieRating.Location = new System.Drawing.Point(135, 33);
+            this.textMovieRating.Name = "textMovieRating";
+            this.textMovieRating.Size = new System.Drawing.Size(286, 13);
+            this.textMovieRating.TabIndex = 10;
+            this.textMovieRating.Text = "5/10 stars - 15 reviews";
             // 
-            // textStars
+            // textMovieStars
             // 
-            this.textStars.Location = new System.Drawing.Point(197, 146);
-            this.textStars.Name = "textStars";
-            this.textStars.Size = new System.Drawing.Size(224, 13);
-            this.textStars.TabIndex = 9;
-            this.textStars.Text = "label2";
+            this.textMovieStars.Location = new System.Drawing.Point(197, 146);
+            this.textMovieStars.Name = "textMovieStars";
+            this.textMovieStars.Size = new System.Drawing.Size(224, 13);
+            this.textMovieStars.TabIndex = 9;
+            this.textMovieStars.Text = "label2";
             // 
-            // textDirector
+            // textMovieDirector
             // 
-            this.textDirector.Location = new System.Drawing.Point(197, 129);
-            this.textDirector.Name = "textDirector";
-            this.textDirector.Size = new System.Drawing.Size(224, 13);
-            this.textDirector.TabIndex = 8;
-            this.textDirector.Text = "label1";
+            this.textMovieDirector.Location = new System.Drawing.Point(197, 129);
+            this.textMovieDirector.Name = "textMovieDirector";
+            this.textMovieDirector.Size = new System.Drawing.Size(224, 13);
+            this.textMovieDirector.TabIndex = 8;
+            this.textMovieDirector.Text = "label1";
             // 
             // labelStars
             // 
@@ -164,44 +166,41 @@ namespace Videoteka {
             this.textMovieDescription.TabIndex = 3;
             this.textMovieDescription.Text = resources.GetString("textMovieDescription.Text");
             // 
-            // templatePoster
+            // poster
             // 
-            this.templatePoster.Location = new System.Drawing.Point(7, 20);
-            this.templatePoster.Name = "templatePoster";
-            this.templatePoster.Size = new System.Drawing.Size(122, 170);
-            this.templatePoster.TabIndex = 1;
-            this.templatePoster.TabStop = false;
+            this.poster.Location = new System.Drawing.Point(7, 20);
+            this.poster.Name = "poster";
+            this.poster.Size = new System.Drawing.Size(122, 170);
+            this.poster.TabIndex = 1;
+            this.poster.TabStop = false;
             // 
-            // labelMovieInfo
+            // textMovieInfo
             // 
-            this.labelMovieInfo.Location = new System.Drawing.Point(135, 20);
-            this.labelMovieInfo.Name = "labelMovieInfo";
-            this.labelMovieInfo.Size = new System.Drawing.Size(286, 13);
-            this.labelMovieInfo.TabIndex = 0;
-            this.labelMovieInfo.Text = "90 min - Horror";
+            this.textMovieInfo.Location = new System.Drawing.Point(135, 20);
+            this.textMovieInfo.Name = "textMovieInfo";
+            this.textMovieInfo.Size = new System.Drawing.Size(286, 13);
+            this.textMovieInfo.TabIndex = 0;
+            this.textMovieInfo.Text = "90 min - Horror";
             // 
             // groupFilter
             // 
             this.groupFilter.Controls.Add(this.labelSortOrder);
             this.groupFilter.Controls.Add(this.filterSortOrder);
-            this.groupFilter.Controls.Add(this.radioReviewed);
-            this.groupFilter.Controls.Add(this.radioWatched);
-            this.groupFilter.Controls.Add(this.radioUnwatched);
             this.groupFilter.Controls.Add(this.labelSortBy);
             this.groupFilter.Controls.Add(this.filterSortBy);
             this.groupFilter.Controls.Add(this.buttonFilterReset);
             this.groupFilter.Controls.Add(this.buttonFilter);
-            this.groupFilter.Location = new System.Drawing.Point(12, 12);
+            this.groupFilter.Location = new System.Drawing.Point(247, 12);
             this.groupFilter.Name = "groupFilter";
-            this.groupFilter.Size = new System.Drawing.Size(443, 105);
+            this.groupFilter.Size = new System.Drawing.Size(209, 105);
             this.groupFilter.TabIndex = 31;
             this.groupFilter.TabStop = false;
-            this.groupFilter.Text = "Filter Movies";
+            this.groupFilter.Text = "Sort Watchlist";
             // 
             // labelSortOrder
             // 
             this.labelSortOrder.AutoSize = true;
-            this.labelSortOrder.Location = new System.Drawing.Point(235, 48);
+            this.labelSortOrder.Location = new System.Drawing.Point(9, 47);
             this.labelSortOrder.Name = "labelSortOrder";
             this.labelSortOrder.Size = new System.Drawing.Size(33, 13);
             this.labelSortOrder.TabIndex = 30;
@@ -210,47 +209,15 @@ namespace Videoteka {
             // filterSortOrder
             // 
             this.filterSortOrder.FormattingEnabled = true;
-            this.filterSortOrder.Location = new System.Drawing.Point(285, 45);
+            this.filterSortOrder.Location = new System.Drawing.Point(59, 44);
             this.filterSortOrder.Name = "filterSortOrder";
             this.filterSortOrder.Size = new System.Drawing.Size(142, 21);
             this.filterSortOrder.TabIndex = 29;
             // 
-            // radioReviewed
-            // 
-            this.radioReviewed.AutoSize = true;
-            this.radioReviewed.Location = new System.Drawing.Point(6, 67);
-            this.radioReviewed.Name = "radioReviewed";
-            this.radioReviewed.Size = new System.Drawing.Size(103, 17);
-            this.radioReviewed.TabIndex = 28;
-            this.radioReviewed.Text = "Show Reviewed";
-            this.radioReviewed.UseVisualStyleBackColor = true;
-            // 
-            // radioWatched
-            // 
-            this.radioWatched.AutoSize = true;
-            this.radioWatched.Location = new System.Drawing.Point(6, 44);
-            this.radioWatched.Name = "radioWatched";
-            this.radioWatched.Size = new System.Drawing.Size(99, 17);
-            this.radioWatched.TabIndex = 27;
-            this.radioWatched.Text = "Show Watched";
-            this.radioWatched.UseVisualStyleBackColor = true;
-            // 
-            // radioUnwatched
-            // 
-            this.radioUnwatched.AutoSize = true;
-            this.radioUnwatched.Checked = true;
-            this.radioUnwatched.Location = new System.Drawing.Point(6, 21);
-            this.radioUnwatched.Name = "radioUnwatched";
-            this.radioUnwatched.Size = new System.Drawing.Size(110, 17);
-            this.radioUnwatched.TabIndex = 26;
-            this.radioUnwatched.TabStop = true;
-            this.radioUnwatched.Text = "Show Unwatched";
-            this.radioUnwatched.UseVisualStyleBackColor = true;
-            // 
             // labelSortBy
             // 
             this.labelSortBy.AutoSize = true;
-            this.labelSortBy.Location = new System.Drawing.Point(235, 23);
+            this.labelSortBy.Location = new System.Drawing.Point(9, 22);
             this.labelSortBy.Name = "labelSortBy";
             this.labelSortBy.Size = new System.Drawing.Size(40, 13);
             this.labelSortBy.TabIndex = 25;
@@ -259,28 +226,65 @@ namespace Videoteka {
             // filterSortBy
             // 
             this.filterSortBy.FormattingEnabled = true;
-            this.filterSortBy.Location = new System.Drawing.Point(285, 19);
+            this.filterSortBy.Location = new System.Drawing.Point(59, 18);
             this.filterSortBy.Name = "filterSortBy";
             this.filterSortBy.Size = new System.Drawing.Size(142, 21);
             this.filterSortBy.TabIndex = 24;
             // 
             // buttonFilterReset
             // 
-            this.buttonFilterReset.Location = new System.Drawing.Point(352, 72);
+            this.buttonFilterReset.Location = new System.Drawing.Point(126, 71);
             this.buttonFilterReset.Name = "buttonFilterReset";
             this.buttonFilterReset.Size = new System.Drawing.Size(75, 23);
             this.buttonFilterReset.TabIndex = 21;
             this.buttonFilterReset.Text = "Reset Filter";
             this.buttonFilterReset.UseVisualStyleBackColor = true;
+            this.buttonFilterReset.Click += new System.EventHandler(this.buttonFilterReset_Click);
             // 
             // buttonFilter
             // 
-            this.buttonFilter.Location = new System.Drawing.Point(238, 72);
+            this.buttonFilter.Location = new System.Drawing.Point(12, 71);
             this.buttonFilter.Name = "buttonFilter";
             this.buttonFilter.Size = new System.Drawing.Size(108, 23);
             this.buttonFilter.TabIndex = 20;
             this.buttonFilter.Text = "Apply Filter";
             this.buttonFilter.UseVisualStyleBackColor = true;
+            this.buttonFilter.Click += new System.EventHandler(this.buttonFilter_Click);
+            // 
+            // radioReviewed
+            // 
+            this.radioReviewed.AutoSize = true;
+            this.radioReviewed.Location = new System.Drawing.Point(13, 66);
+            this.radioReviewed.Name = "radioReviewed";
+            this.radioReviewed.Size = new System.Drawing.Size(73, 17);
+            this.radioReviewed.TabIndex = 28;
+            this.radioReviewed.Text = "Reviewed";
+            this.radioReviewed.UseVisualStyleBackColor = true;
+            this.radioReviewed.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
+            // 
+            // radioWatched
+            // 
+            this.radioWatched.AutoSize = true;
+            this.radioWatched.Location = new System.Drawing.Point(13, 43);
+            this.radioWatched.Name = "radioWatched";
+            this.radioWatched.Size = new System.Drawing.Size(69, 17);
+            this.radioWatched.TabIndex = 27;
+            this.radioWatched.Text = "Watched";
+            this.radioWatched.UseVisualStyleBackColor = true;
+            this.radioWatched.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
+            // 
+            // radioUnwatched
+            // 
+            this.radioUnwatched.AutoSize = true;
+            this.radioUnwatched.Checked = true;
+            this.radioUnwatched.Location = new System.Drawing.Point(13, 20);
+            this.radioUnwatched.Name = "radioUnwatched";
+            this.radioUnwatched.Size = new System.Drawing.Size(80, 17);
+            this.radioUnwatched.TabIndex = 26;
+            this.radioUnwatched.TabStop = true;
+            this.radioUnwatched.Text = "Unwatched";
+            this.radioUnwatched.UseVisualStyleBackColor = true;
+            this.radioUnwatched.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
             // 
             // labelPagination
             // 
@@ -299,6 +303,7 @@ namespace Videoteka {
             this.buttonNext.TabIndex = 39;
             this.buttonNext.Text = "Next Page";
             this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // buttonPrev
             // 
@@ -308,28 +313,45 @@ namespace Videoteka {
             this.buttonPrev.TabIndex = 38;
             this.buttonPrev.Text = "Previous Page";
             this.buttonPrev.UseVisualStyleBackColor = true;
+            this.buttonPrev.Click += new System.EventHandler(this.buttonPrev_Click);
+            // 
+            // groupRadio
+            // 
+            this.groupRadio.Controls.Add(this.radioUnwatched);
+            this.groupRadio.Controls.Add(this.radioWatched);
+            this.groupRadio.Controls.Add(this.radioReviewed);
+            this.groupRadio.Location = new System.Drawing.Point(12, 12);
+            this.groupRadio.Name = "groupRadio";
+            this.groupRadio.Size = new System.Drawing.Size(229, 100);
+            this.groupRadio.TabIndex = 31;
+            this.groupRadio.TabStop = false;
+            this.groupRadio.Text = "Filter Watchlist";
             // 
             // FormWatchlist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(468, 720);
+            this.Controls.Add(this.groupRadio);
             this.Controls.Add(this.labelPagination);
             this.Controls.Add(this.groupFilter);
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.panelMovies);
             this.Controls.Add(this.buttonPrev);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormWatchlist";
-            this.Text = "FormWatchlist";
+            this.Text = "Watchlist";
             this.Load += new System.EventHandler(this.OnLoad);
             this.panelMovies.ResumeLayout(false);
             this.groupMovie.ResumeLayout(false);
             this.groupMovie.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.templatePoster)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();
             this.groupFilter.ResumeLayout(false);
             this.groupFilter.PerformLayout();
+            this.groupRadio.ResumeLayout(false);
+            this.groupRadio.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -339,16 +361,16 @@ namespace Videoteka {
         private System.Windows.Forms.Panel panelMovies;
         private System.Windows.Forms.GroupBox groupMovie;
         private System.Windows.Forms.Button buttonRemove;
-        private System.Windows.Forms.Label labelMovieRating;
-        private System.Windows.Forms.Label textStars;
-        private System.Windows.Forms.Label textDirector;
+        private System.Windows.Forms.Label textMovieRating;
+        private System.Windows.Forms.Label textMovieStars;
+        private System.Windows.Forms.Label textMovieDirector;
         private System.Windows.Forms.Label labelStars;
         private System.Windows.Forms.Label labelDirector;
         private System.Windows.Forms.Button buttonReviews;
         private System.Windows.Forms.Button buttonAddToWatched;
         private System.Windows.Forms.Label textMovieDescription;
-        private System.Windows.Forms.PictureBox templatePoster;
-        private System.Windows.Forms.Label labelMovieInfo;
+        private System.Windows.Forms.PictureBox poster;
+        private System.Windows.Forms.Label textMovieInfo;
         private System.Windows.Forms.GroupBox groupFilter;
         private System.Windows.Forms.RadioButton radioReviewed;
         private System.Windows.Forms.RadioButton radioWatched;
@@ -362,5 +384,6 @@ namespace Videoteka {
         private System.Windows.Forms.Button buttonPrev;
         private System.Windows.Forms.Label labelSortOrder;
         private System.Windows.Forms.ComboBox filterSortOrder;
+        private System.Windows.Forms.GroupBox groupRadio;
     }
 }

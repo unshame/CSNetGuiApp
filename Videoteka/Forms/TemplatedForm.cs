@@ -12,6 +12,11 @@ namespace Videoteka {
     public class TemplatedForm : Form {
 
         public int currentPage = 0;
+        public string defaultText = "";
+
+        protected virtual void OnLoad(object sender, EventArgs e) {
+            defaultText = Text;
+        }
 
         protected void DrawDividers(Control panel, Graphics g) {
             Pen pen = new Pen(Color.Gray, 1);

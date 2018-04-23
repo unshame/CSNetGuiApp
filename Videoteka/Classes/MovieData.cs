@@ -17,6 +17,9 @@ namespace Videoteka {
         public byte[] poster;
         public int ratingSum;
         public int ratingAmount;
+        public int ratingOwn;
+        public int watchlistId;
+        public bool isWatched;
 
         public string FormatInfo() {
             return year + " - " + duration + " min - " + (genre <= BindingManager.Genres.Length ? BindingManager.Genres[genre - 1] : "Unknown");
@@ -24,7 +27,7 @@ namespace Videoteka {
 
         public string FormatRating() {
             var ratingAverage = ratingAmount > 0 ? ratingSum / ratingAmount : 0;
-            return ratingAverage + "/10 stars - " + ratingAmount + " reviews";
+            return ratingAverage + "/10 stars - " + ratingAmount + " reviews" + (ratingOwn != 0 ? " - you rated " + ratingOwn : "");
         }
     }
 }

@@ -9,13 +9,19 @@ using System.Collections;
 
 namespace Videoteka {
 
-    public class MovieManager {       
+    public class MovieManager {
+
+        static public string InWatchlistText = "In Watchlist";
+        static public string NotInWatchlistText = "Add to Watchlist";
+
+        static public string WatchedText = "Watched";
+        static public string NotWatchedText = "Not Watched";
 
         static public bool DeleteMovie(int id) {
             if (!Profile.IsAdmin.Checked) return false;
 
             var confirmResult = MessageBox.Show(
-                "Are you sure to delete this movie from the database?",
+                "Are you sure you want to delete this movie from the database?",
                 "Confirm Deletion",
                 MessageBoxButtons.YesNo
             );
@@ -71,6 +77,39 @@ namespace Videoteka {
                 }
             }
             return -1;
+        }
+
+        public static int AddToWatchList(int movieId) {
+            if (!Profile.IsLoggedIn.Checked) return -1;
+
+            var id = DB.AddToWatchlist(movieId);
+            if (id != -1) {
+                Program.ReloadForms();
+            }
+
+            return id;
+        }
+
+        public static bool RemoveFromWatchlist(int id) {
+            if (!Profile.IsLoggedIn.Checked) return false;
+
+            if (DB.RemoveFromWatchlist(id) > 0) {
+                Program.ReloadForms();
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool SetWatchedStatus(int id, bool status) {
+            if (!Profile.IsLoggedIn.Checked) return false;
+
+            if (DB.ChangeWatchedStatus(id, status)) {
+                Program.ReloadForms();
+                return true;
+            }
+
+            return false;
         }
 
     }

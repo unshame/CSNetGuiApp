@@ -29,6 +29,10 @@ namespace Videoteka {
             ee.Value = (bool) ee.Value ? "Logout" : "Login";
         }
 
+        public static string FormTextUsername() {
+            return IsLoggedIn.Checked ? " (" + Username + ")" : "";
+        }
+
         public static bool Login(string username, string password) {
             var result = DB.Login(username, password);
             if (result != null) {
@@ -36,7 +40,10 @@ namespace Videoteka {
                 Username = result.Item2;
                 IsAdmin.Checked = result.Item3;
                 IsLoggedIn.Checked = true;
-                Program.ReloadAllMovieForms();
+                Program.ReloadForms();
+                var usernameStr = FormTextUsername();
+                Program.formMovies.Text += usernameStr;
+                Program.formReviews.Text += usernameStr;
                 return true;
             }
             return false;
@@ -56,7 +63,9 @@ namespace Videoteka {
             IsAdmin.Checked = false;
             Program.CloseAddMovieForm();
             Program.CloseWatchListForm();
-            Program.ReloadAllMovieForms();
+            Program.ReloadForms();
+            Program.formMovies.Text = Program.formMovies.defaultText;
+            Program.formReviews.Text = Program.formReviews.defaultText;
         }
     }
 
