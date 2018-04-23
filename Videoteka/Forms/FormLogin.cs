@@ -14,6 +14,7 @@ namespace Videoteka {
 
         public FormLogin() {
             InitializeComponent();
+            AcceptButton = buttonLogin;
         }
 
         // Click events

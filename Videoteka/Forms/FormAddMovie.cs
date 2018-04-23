@@ -19,6 +19,7 @@ namespace Videoteka {
         public FormAddMovie(int movieId = -1) {
             this.movieId = movieId;
             InitializeComponent();
+            AcceptButton = buttonAdd;
         }
 
         // Events

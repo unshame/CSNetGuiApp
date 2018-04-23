@@ -63,7 +63,7 @@ namespace Videoteka {
             this.addTitle.Location = new System.Drawing.Point(65, 12);
             this.addTitle.Name = "addTitle";
             this.addTitle.Size = new System.Drawing.Size(142, 20);
-            this.addTitle.TabIndex = 2;
+            this.addTitle.TabIndex = 1;
             // 
             // addDirector
             // 
@@ -78,7 +78,7 @@ namespace Videoteka {
             this.labelDIrector.Location = new System.Drawing.Point(12, 41);
             this.labelDIrector.Name = "labelDIrector";
             this.labelDIrector.Size = new System.Drawing.Size(44, 13);
-            this.labelDIrector.TabIndex = 4;
+            this.labelDIrector.TabIndex = 2;
             this.labelDIrector.Text = "Director";
             // 
             // addStars
@@ -94,7 +94,7 @@ namespace Videoteka {
             this.labelStars.Location = new System.Drawing.Point(12, 67);
             this.labelStars.Name = "labelStars";
             this.labelStars.Size = new System.Drawing.Size(31, 13);
-            this.labelStars.TabIndex = 6;
+            this.labelStars.TabIndex = 4;
             this.labelStars.Text = "Stars";
             // 
             // labelGenre
@@ -103,7 +103,7 @@ namespace Videoteka {
             this.labelGenre.Location = new System.Drawing.Point(12, 96);
             this.labelGenre.Name = "labelGenre";
             this.labelGenre.Size = new System.Drawing.Size(36, 13);
-            this.labelGenre.TabIndex = 8;
+            this.labelGenre.TabIndex = 6;
             this.labelGenre.Text = "Genre";
             // 
             // addGenre
@@ -112,7 +112,7 @@ namespace Videoteka {
             this.addGenre.Location = new System.Drawing.Point(65, 93);
             this.addGenre.Name = "addGenre";
             this.addGenre.Size = new System.Drawing.Size(142, 21);
-            this.addGenre.TabIndex = 13;
+            this.addGenre.TabIndex = 7;
             // 
             // labelDuration
             // 
@@ -120,7 +120,7 @@ namespace Videoteka {
             this.labelDuration.Location = new System.Drawing.Point(12, 148);
             this.labelDuration.Name = "labelDuration";
             this.labelDuration.Size = new System.Drawing.Size(47, 13);
-            this.labelDuration.TabIndex = 14;
+            this.labelDuration.TabIndex = 10;
             this.labelDuration.Text = "Duration";
             // 
             // addDuration
@@ -138,7 +138,7 @@ namespace Videoteka {
             0});
             this.addDuration.Name = "addDuration";
             this.addDuration.Size = new System.Drawing.Size(93, 20);
-            this.addDuration.TabIndex = 15;
+            this.addDuration.TabIndex = 11;
             this.addDuration.Value = new decimal(new int[] {
             1,
             0,
@@ -151,7 +151,7 @@ namespace Videoteka {
             this.labelDurationExt.Location = new System.Drawing.Point(164, 148);
             this.labelDurationExt.Name = "labelDurationExt";
             this.labelDurationExt.Size = new System.Drawing.Size(43, 13);
-            this.labelDurationExt.TabIndex = 16;
+            this.labelDurationExt.TabIndex = 12;
             this.labelDurationExt.Text = "minutes";
             // 
             // addDescription
@@ -168,7 +168,7 @@ namespace Videoteka {
             this.labelDescription.Location = new System.Drawing.Point(12, 195);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(60, 13);
-            this.labelDescription.TabIndex = 18;
+            this.labelDescription.TabIndex = 16;
             this.labelDescription.Text = "Description";
             // 
             // addPosterDialog
@@ -181,7 +181,7 @@ namespace Videoteka {
             this.labelPoster.Location = new System.Drawing.Point(12, 175);
             this.labelPoster.Name = "labelPoster";
             this.labelPoster.Size = new System.Drawing.Size(37, 13);
-            this.labelPoster.TabIndex = 20;
+            this.labelPoster.TabIndex = 13;
             this.labelPoster.Text = "Poster";
             // 
             // addPosterButton
@@ -189,7 +189,7 @@ namespace Videoteka {
             this.addPosterButton.Location = new System.Drawing.Point(147, 170);
             this.addPosterButton.Name = "addPosterButton";
             this.addPosterButton.Size = new System.Drawing.Size(60, 23);
-            this.addPosterButton.TabIndex = 21;
+            this.addPosterButton.TabIndex = 15;
             this.addPosterButton.Text = "Select...";
             this.addPosterButton.UseVisualStyleBackColor = true;
             this.addPosterButton.Click += new System.EventHandler(this.addPosterButton_Click);
@@ -199,14 +199,14 @@ namespace Videoteka {
             this.addPosterPath.Location = new System.Drawing.Point(65, 172);
             this.addPosterPath.Name = "addPosterPath";
             this.addPosterPath.Size = new System.Drawing.Size(76, 20);
-            this.addPosterPath.TabIndex = 22;
+            this.addPosterPath.TabIndex = 14;
             // 
             // buttonAdd
             // 
             this.buttonAdd.Location = new System.Drawing.Point(96, 317);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(111, 23);
-            this.buttonAdd.TabIndex = 23;
+            this.buttonAdd.TabIndex = 19;
             this.buttonAdd.Text = "Add Movie";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
@@ -217,7 +217,7 @@ namespace Videoteka {
             this.labelYear.Location = new System.Drawing.Point(12, 122);
             this.labelYear.Name = "labelYear";
             this.labelYear.Size = new System.Drawing.Size(29, 13);
-            this.labelYear.TabIndex = 24;
+            this.labelYear.TabIndex = 8;
             this.labelYear.Text = "Year";
             // 
             // addYear
@@ -235,7 +235,7 @@ namespace Videoteka {
             0});
             this.addYear.Name = "addYear";
             this.addYear.Size = new System.Drawing.Size(142, 20);
-            this.addYear.TabIndex = 25;
+            this.addYear.TabIndex = 9;
             this.addYear.Value = new decimal(new int[] {
             2018,
             0,
@@ -248,7 +248,7 @@ namespace Videoteka {
             this.buttonDelete.Location = new System.Drawing.Point(15, 317);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelete.TabIndex = 26;
+            this.buttonDelete.TabIndex = 18;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Visible = false;

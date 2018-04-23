@@ -130,6 +130,7 @@ namespace Videoteka {
                 reviewRating.Enabled = isEditing;
                 reviewText.Enabled = isEditing;
                 reviewPublish.Enabled = isEditing;
+                buttonCancelReview.Enabled = isEditing;
 
                 groupMyReviewPublished.Text = reviewData.FormatUsername();
                 publishedReviewText.Text = reviewData.text == "" ? "No review provided." : reviewData.text;
@@ -139,6 +140,7 @@ namespace Videoteka {
                 isEditing = false;
                 groupMyReviewPublished.Hide();
                 buttonDeleteReview.Enabled = false;
+                buttonCancelReview.Enabled = true;
                 reviewRating.Enabled = true;
                 reviewText.Enabled = true;
                 reviewPublish.Enabled = true;

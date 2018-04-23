@@ -46,25 +46,25 @@ namespace Videoteka {
             this.labelDirector = new System.Windows.Forms.Label();
             this.buttonAddToWatchlist = new System.Windows.Forms.Button();
             this.textMovieDescription = new System.Windows.Forms.Label();
+            this.poster = new System.Windows.Forms.PictureBox();
             this.textMovieInfo = new System.Windows.Forms.Label();
             this.labelPagination = new System.Windows.Forms.Label();
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonPrev = new System.Windows.Forms.Button();
             this.panelReviews = new System.Windows.Forms.Panel();
+            this.pictureEmpty = new System.Windows.Forms.PictureBox();
             this.template = new System.Windows.Forms.GroupBox();
             this.labelReviewMovieRating = new System.Windows.Forms.Label();
             this.textReview = new System.Windows.Forms.Label();
-            this.poster = new System.Windows.Forms.PictureBox();
-            this.pictureEmpty = new System.Windows.Forms.PictureBox();
             this.groupMyReview.SuspendLayout();
             this.groupMyReviewPublished.SuspendLayout();
             this.panelPublishedReviewText.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.reviewRating)).BeginInit();
             this.groupMovie.SuspendLayout();
-            this.panelReviews.SuspendLayout();
-            this.template.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
+            this.panelReviews.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).BeginInit();
+            this.template.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupMyReview
@@ -101,7 +101,7 @@ namespace Videoteka {
             this.buttonEditReview.Location = new System.Drawing.Point(279, 120);
             this.buttonEditReview.Name = "buttonEditReview";
             this.buttonEditReview.Size = new System.Drawing.Size(78, 23);
-            this.buttonEditReview.TabIndex = 14;
+            this.buttonEditReview.TabIndex = 0;
             this.buttonEditReview.Text = "Edit";
             this.buttonEditReview.UseVisualStyleBackColor = true;
             this.buttonEditReview.Click += new System.EventHandler(this.buttonEditReview_Click);
@@ -130,7 +130,7 @@ namespace Videoteka {
             this.buttonDeleteReview.Location = new System.Drawing.Point(363, 120);
             this.buttonDeleteReview.Name = "buttonDeleteReview";
             this.buttonDeleteReview.Size = new System.Drawing.Size(75, 23);
-            this.buttonDeleteReview.TabIndex = 0;
+            this.buttonDeleteReview.TabIndex = 3;
             this.buttonDeleteReview.Text = "Delete";
             this.buttonDeleteReview.UseVisualStyleBackColor = true;
             this.buttonDeleteReview.Click += new System.EventHandler(this.buttonPublishRevview_Click);
@@ -159,7 +159,7 @@ namespace Videoteka {
             this.reviewPublish.Location = new System.Drawing.Point(363, 120);
             this.reviewPublish.Name = "reviewPublish";
             this.reviewPublish.Size = new System.Drawing.Size(75, 23);
-            this.reviewPublish.TabIndex = 4;
+            this.reviewPublish.TabIndex = 3;
             this.reviewPublish.Text = "Publish";
             this.reviewPublish.UseVisualStyleBackColor = true;
             this.reviewPublish.Click += new System.EventHandler(this.reviewPublish_Click);
@@ -170,7 +170,7 @@ namespace Videoteka {
             this.reviewText.Multiline = true;
             this.reviewText.Name = "reviewText";
             this.reviewText.Size = new System.Drawing.Size(431, 94);
-            this.reviewText.TabIndex = 1;
+            this.reviewText.TabIndex = 0;
             // 
             // labelRating
             // 
@@ -178,7 +178,7 @@ namespace Videoteka {
             this.labelRating.Location = new System.Drawing.Point(7, 125);
             this.labelRating.Name = "labelRating";
             this.labelRating.Size = new System.Drawing.Size(38, 13);
-            this.labelRating.TabIndex = 1;
+            this.labelRating.TabIndex = 0;
             this.labelRating.Text = "Rating";
             // 
             // reviewRating
@@ -187,15 +187,15 @@ namespace Videoteka {
             this.reviewRating.Minimum = 1;
             this.reviewRating.Name = "reviewRating";
             this.reviewRating.Size = new System.Drawing.Size(202, 45);
-            this.reviewRating.TabIndex = 2;
-            this.reviewRating.Value = 5;
+            this.reviewRating.TabIndex = 0;
+            this.reviewRating.Value = 1;
             // 
             // buttonCancelReview
             // 
             this.buttonCancelReview.Location = new System.Drawing.Point(281, 120);
             this.buttonCancelReview.Name = "buttonCancelReview";
             this.buttonCancelReview.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancelReview.TabIndex = 5;
+            this.buttonCancelReview.TabIndex = 2;
             this.buttonCancelReview.Text = "Reset";
             this.buttonCancelReview.UseVisualStyleBackColor = true;
             this.buttonCancelReview.Click += new System.EventHandler(this.buttonCancelReview_Click);
@@ -292,6 +292,14 @@ namespace Videoteka {
             this.textMovieDescription.TabIndex = 2;
             this.textMovieDescription.Text = resources.GetString("textMovieDescription.Text");
             // 
+            // poster
+            // 
+            this.poster.Location = new System.Drawing.Point(7, 20);
+            this.poster.Name = "poster";
+            this.poster.Size = new System.Drawing.Size(122, 170);
+            this.poster.TabIndex = 1;
+            this.poster.TabStop = false;
+            // 
             // textMovieInfo
             // 
             this.textMovieInfo.Location = new System.Drawing.Point(135, 20);
@@ -339,6 +347,16 @@ namespace Videoteka {
             this.panelReviews.Size = new System.Drawing.Size(468, 404);
             this.panelReviews.TabIndex = 2;
             // 
+            // pictureEmpty
+            // 
+            this.pictureEmpty.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureEmpty.Image = global::Videoteka.Properties.Resources.reel12;
+            this.pictureEmpty.Location = new System.Drawing.Point(8, 117);
+            this.pictureEmpty.Name = "pictureEmpty";
+            this.pictureEmpty.Size = new System.Drawing.Size(453, 270);
+            this.pictureEmpty.TabIndex = 6;
+            this.pictureEmpty.TabStop = false;
+            // 
             // template
             // 
             this.template.AutoSize = true;
@@ -371,24 +389,6 @@ namespace Videoteka {
             this.textReview.Text = "texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext " +
     "texttexttexttexttexttexttexttexttexttexttexttexttexttexttext";
             // 
-            // poster
-            // 
-            this.poster.Location = new System.Drawing.Point(7, 20);
-            this.poster.Name = "poster";
-            this.poster.Size = new System.Drawing.Size(122, 170);
-            this.poster.TabIndex = 1;
-            this.poster.TabStop = false;
-            // 
-            // pictureEmpty
-            // 
-            this.pictureEmpty.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureEmpty.Image = global::Videoteka.Properties.Resources.reel12;
-            this.pictureEmpty.Location = new System.Drawing.Point(8, 117);
-            this.pictureEmpty.Name = "pictureEmpty";
-            this.pictureEmpty.Size = new System.Drawing.Size(453, 270);
-            this.pictureEmpty.TabIndex = 6;
-            this.pictureEmpty.TabStop = false;
-            // 
             // FormSingleMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -414,12 +414,12 @@ namespace Videoteka {
             ((System.ComponentModel.ISupportInitialize)(this.reviewRating)).EndInit();
             this.groupMovie.ResumeLayout(false);
             this.groupMovie.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();
             this.panelReviews.ResumeLayout(false);
             this.panelReviews.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).EndInit();
             this.template.ResumeLayout(false);
             this.template.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).EndInit();
             this.ResumeLayout(false);
 
         }

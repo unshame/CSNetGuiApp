@@ -42,6 +42,7 @@ namespace Videoteka {
                     Text = name + " " + i,
                     MaximumSize = template.MaximumSize,
                     MinimumSize = template.MinimumSize,
+                    TabIndex = template.TabIndex,
                     AutoSize = template.AutoSize
                 };
                 foreach (Control control in template.Controls) {
@@ -56,6 +57,7 @@ namespace Videoteka {
                             Name = control.Name,
                             MaximumSize = control.MaximumSize,
                             MinimumSize = control.MinimumSize,
+                            TabIndex = control.TabIndex,
                             AutoSize = control.AutoSize
                         };
                         controlGroup.Controls.Add(newControl);
@@ -69,6 +71,7 @@ namespace Videoteka {
                             Name = control.Name,
                             MaximumSize = control.MaximumSize,
                             MinimumSize = control.MinimumSize,
+                            TabIndex = control.TabIndex,
                             AutoSize = control.AutoSize
                         };
                     }
@@ -81,6 +84,7 @@ namespace Videoteka {
                             Name = control.Name,
                             MaximumSize = control.MaximumSize,
                             MinimumSize = control.MinimumSize,
+                            TabIndex = control.TabIndex,
                             AutoSize = control.AutoSize
                         };
                     }

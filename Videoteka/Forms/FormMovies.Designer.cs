@@ -102,7 +102,7 @@ namespace Videoteka {
             this.buttonEditMovie.Location = new System.Drawing.Point(343, 167);
             this.buttonEditMovie.Name = "buttonEditMovie";
             this.buttonEditMovie.Size = new System.Drawing.Size(78, 23);
-            this.buttonEditMovie.TabIndex = 11;
+            this.buttonEditMovie.TabIndex = 2;
             this.buttonEditMovie.Text = "Edit";
             this.buttonEditMovie.UseVisualStyleBackColor = true;
             // 
@@ -111,7 +111,7 @@ namespace Videoteka {
             this.textMovieRating.Location = new System.Drawing.Point(135, 33);
             this.textMovieRating.Name = "textMovieRating";
             this.textMovieRating.Size = new System.Drawing.Size(286, 13);
-            this.textMovieRating.TabIndex = 10;
+            this.textMovieRating.TabIndex = 1;
             this.textMovieRating.Text = "5/10 stars - 15 reviews";
             this.textMovieRating.UseMnemonic = false;
             // 
@@ -120,7 +120,7 @@ namespace Videoteka {
             this.textMovieStars.Location = new System.Drawing.Point(175, 146);
             this.textMovieStars.Name = "textMovieStars";
             this.textMovieStars.Size = new System.Drawing.Size(246, 13);
-            this.textMovieStars.TabIndex = 9;
+            this.textMovieStars.TabIndex = 6;
             this.textMovieStars.Text = "label2";
             // 
             // textMovieDirector
@@ -128,7 +128,7 @@ namespace Videoteka {
             this.textMovieDirector.Location = new System.Drawing.Point(191, 129);
             this.textMovieDirector.Name = "textMovieDirector";
             this.textMovieDirector.Size = new System.Drawing.Size(230, 13);
-            this.textMovieDirector.TabIndex = 8;
+            this.textMovieDirector.TabIndex = 4;
             this.textMovieDirector.Text = "label1";
             // 
             // labelStars
@@ -138,7 +138,7 @@ namespace Videoteka {
             this.labelStars.Location = new System.Drawing.Point(135, 146);
             this.labelStars.Name = "labelStars";
             this.labelStars.Size = new System.Drawing.Size(40, 13);
-            this.labelStars.TabIndex = 7;
+            this.labelStars.TabIndex = 5;
             this.labelStars.Text = "Stars:";
             // 
             // labelDirector
@@ -148,7 +148,7 @@ namespace Videoteka {
             this.labelDirector.Location = new System.Drawing.Point(135, 129);
             this.labelDirector.Name = "labelDirector";
             this.labelDirector.Size = new System.Drawing.Size(56, 13);
-            this.labelDirector.TabIndex = 6;
+            this.labelDirector.TabIndex = 3;
             this.labelDirector.Text = "Director:";
             // 
             // buttonReviews
@@ -156,7 +156,7 @@ namespace Videoteka {
             this.buttonReviews.Location = new System.Drawing.Point(135, 167);
             this.buttonReviews.Name = "buttonReviews";
             this.buttonReviews.Size = new System.Drawing.Size(97, 23);
-            this.buttonReviews.TabIndex = 5;
+            this.buttonReviews.TabIndex = 0;
             this.buttonReviews.Text = "Read Reviews";
             this.buttonReviews.UseVisualStyleBackColor = true;
             // 
@@ -165,7 +165,7 @@ namespace Videoteka {
             this.buttonAddToWatchlist.Location = new System.Drawing.Point(238, 167);
             this.buttonAddToWatchlist.Name = "buttonAddToWatchlist";
             this.buttonAddToWatchlist.Size = new System.Drawing.Size(99, 23);
-            this.buttonAddToWatchlist.TabIndex = 4;
+            this.buttonAddToWatchlist.TabIndex = 1;
             this.buttonAddToWatchlist.Text = "Add to Watchlist";
             this.buttonAddToWatchlist.UseVisualStyleBackColor = true;
             // 
@@ -174,7 +174,7 @@ namespace Videoteka {
             this.textMovieDescription.Location = new System.Drawing.Point(135, 55);
             this.textMovieDescription.Name = "textMovieDescription";
             this.textMovieDescription.Size = new System.Drawing.Size(286, 74);
-            this.textMovieDescription.TabIndex = 3;
+            this.textMovieDescription.TabIndex = 2;
             this.textMovieDescription.Text = resources.GetString("textMovieDescription.Text");
             // 
             // poster

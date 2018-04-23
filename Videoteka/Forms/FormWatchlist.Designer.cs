@@ -25,6 +25,7 @@ namespace Videoteka {
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormWatchlist));
             this.panelMovies = new System.Windows.Forms.Panel();
+            this.pictureEmpty = new System.Windows.Forms.PictureBox();
             this.template = new System.Windows.Forms.GroupBox();
             this.buttonRemove = new System.Windows.Forms.Button();
             this.textMovieRating = new System.Windows.Forms.Label();
@@ -35,6 +36,7 @@ namespace Videoteka {
             this.buttonReviews = new System.Windows.Forms.Button();
             this.buttonAddToWatched = new System.Windows.Forms.Button();
             this.textMovieDescription = new System.Windows.Forms.Label();
+            this.poster = new System.Windows.Forms.PictureBox();
             this.textMovieInfo = new System.Windows.Forms.Label();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.labelSortOrder = new System.Windows.Forms.Label();
@@ -50,14 +52,12 @@ namespace Videoteka {
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonPrev = new System.Windows.Forms.Button();
             this.groupRadio = new System.Windows.Forms.GroupBox();
-            this.pictureEmpty = new System.Windows.Forms.PictureBox();
-            this.poster = new System.Windows.Forms.PictureBox();
             this.panelMovies.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).BeginInit();
             this.template.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
             this.groupFilter.SuspendLayout();
             this.groupRadio.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
             this.SuspendLayout();
             // 
             // panelMovies
@@ -68,8 +68,18 @@ namespace Videoteka {
             this.panelMovies.Location = new System.Drawing.Point(0, 123);
             this.panelMovies.Name = "panelMovies";
             this.panelMovies.Size = new System.Drawing.Size(468, 561);
-            this.panelMovies.TabIndex = 11;
+            this.panelMovies.TabIndex = 2;
             this.panelMovies.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMovies_Paint);
+            // 
+            // pictureEmpty
+            // 
+            this.pictureEmpty.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureEmpty.Image = global::Videoteka.Properties.Resources.reel12;
+            this.pictureEmpty.Location = new System.Drawing.Point(8, 205);
+            this.pictureEmpty.Name = "pictureEmpty";
+            this.pictureEmpty.Size = new System.Drawing.Size(453, 270);
+            this.pictureEmpty.TabIndex = 1;
+            this.pictureEmpty.TabStop = false;
             // 
             // template
             // 
@@ -96,7 +106,7 @@ namespace Videoteka {
             this.buttonRemove.Location = new System.Drawing.Point(343, 167);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(78, 23);
-            this.buttonRemove.TabIndex = 11;
+            this.buttonRemove.TabIndex = 9;
             this.buttonRemove.Text = "Won\'t Watch";
             this.buttonRemove.UseVisualStyleBackColor = true;
             // 
@@ -105,7 +115,7 @@ namespace Videoteka {
             this.textMovieRating.Location = new System.Drawing.Point(135, 33);
             this.textMovieRating.Name = "textMovieRating";
             this.textMovieRating.Size = new System.Drawing.Size(286, 13);
-            this.textMovieRating.TabIndex = 10;
+            this.textMovieRating.TabIndex = 1;
             this.textMovieRating.Text = "5/10 stars - 15 reviews";
             // 
             // textMovieStars
@@ -113,7 +123,7 @@ namespace Videoteka {
             this.textMovieStars.Location = new System.Drawing.Point(174, 146);
             this.textMovieStars.Name = "textMovieStars";
             this.textMovieStars.Size = new System.Drawing.Size(247, 13);
-            this.textMovieStars.TabIndex = 9;
+            this.textMovieStars.TabIndex = 6;
             this.textMovieStars.Text = "label2";
             // 
             // textMovieDirector
@@ -121,7 +131,7 @@ namespace Videoteka {
             this.textMovieDirector.Location = new System.Drawing.Point(191, 129);
             this.textMovieDirector.Name = "textMovieDirector";
             this.textMovieDirector.Size = new System.Drawing.Size(230, 13);
-            this.textMovieDirector.TabIndex = 8;
+            this.textMovieDirector.TabIndex = 4;
             this.textMovieDirector.Text = "label1";
             // 
             // labelStars
@@ -131,7 +141,7 @@ namespace Videoteka {
             this.labelStars.Location = new System.Drawing.Point(135, 146);
             this.labelStars.Name = "labelStars";
             this.labelStars.Size = new System.Drawing.Size(40, 13);
-            this.labelStars.TabIndex = 7;
+            this.labelStars.TabIndex = 5;
             this.labelStars.Text = "Stars:";
             // 
             // labelDirector
@@ -141,7 +151,7 @@ namespace Videoteka {
             this.labelDirector.Location = new System.Drawing.Point(135, 129);
             this.labelDirector.Name = "labelDirector";
             this.labelDirector.Size = new System.Drawing.Size(56, 13);
-            this.labelDirector.TabIndex = 6;
+            this.labelDirector.TabIndex = 3;
             this.labelDirector.Text = "Director:";
             // 
             // buttonReviews
@@ -149,7 +159,7 @@ namespace Videoteka {
             this.buttonReviews.Location = new System.Drawing.Point(135, 167);
             this.buttonReviews.Name = "buttonReviews";
             this.buttonReviews.Size = new System.Drawing.Size(97, 23);
-            this.buttonReviews.TabIndex = 5;
+            this.buttonReviews.TabIndex = 7;
             this.buttonReviews.Text = "Read Reviews";
             this.buttonReviews.UseVisualStyleBackColor = true;
             // 
@@ -158,7 +168,7 @@ namespace Videoteka {
             this.buttonAddToWatched.Location = new System.Drawing.Point(238, 167);
             this.buttonAddToWatched.Name = "buttonAddToWatched";
             this.buttonAddToWatched.Size = new System.Drawing.Size(99, 23);
-            this.buttonAddToWatched.TabIndex = 4;
+            this.buttonAddToWatched.TabIndex = 8;
             this.buttonAddToWatched.Text = "Watched";
             this.buttonAddToWatched.UseVisualStyleBackColor = true;
             // 
@@ -167,8 +177,16 @@ namespace Videoteka {
             this.textMovieDescription.Location = new System.Drawing.Point(135, 55);
             this.textMovieDescription.Name = "textMovieDescription";
             this.textMovieDescription.Size = new System.Drawing.Size(286, 74);
-            this.textMovieDescription.TabIndex = 3;
+            this.textMovieDescription.TabIndex = 2;
             this.textMovieDescription.Text = resources.GetString("textMovieDescription.Text");
+            // 
+            // poster
+            // 
+            this.poster.Location = new System.Drawing.Point(7, 20);
+            this.poster.Name = "poster";
+            this.poster.Size = new System.Drawing.Size(122, 170);
+            this.poster.TabIndex = 1;
+            this.poster.TabStop = false;
             // 
             // textMovieInfo
             // 
@@ -189,7 +207,7 @@ namespace Videoteka {
             this.groupFilter.Location = new System.Drawing.Point(247, 12);
             this.groupFilter.Name = "groupFilter";
             this.groupFilter.Size = new System.Drawing.Size(209, 105);
-            this.groupFilter.TabIndex = 31;
+            this.groupFilter.TabIndex = 1;
             this.groupFilter.TabStop = false;
             this.groupFilter.Text = "Sort Watchlist";
             // 
@@ -199,7 +217,7 @@ namespace Videoteka {
             this.labelSortOrder.Location = new System.Drawing.Point(9, 47);
             this.labelSortOrder.Name = "labelSortOrder";
             this.labelSortOrder.Size = new System.Drawing.Size(33, 13);
-            this.labelSortOrder.TabIndex = 30;
+            this.labelSortOrder.TabIndex = 2;
             this.labelSortOrder.Text = "Order";
             // 
             // filterSortOrder
@@ -208,7 +226,7 @@ namespace Videoteka {
             this.filterSortOrder.Location = new System.Drawing.Point(59, 44);
             this.filterSortOrder.Name = "filterSortOrder";
             this.filterSortOrder.Size = new System.Drawing.Size(142, 21);
-            this.filterSortOrder.TabIndex = 29;
+            this.filterSortOrder.TabIndex = 3;
             // 
             // labelSortBy
             // 
@@ -216,7 +234,7 @@ namespace Videoteka {
             this.labelSortBy.Location = new System.Drawing.Point(9, 22);
             this.labelSortBy.Name = "labelSortBy";
             this.labelSortBy.Size = new System.Drawing.Size(40, 13);
-            this.labelSortBy.TabIndex = 25;
+            this.labelSortBy.TabIndex = 0;
             this.labelSortBy.Text = "Sort by";
             // 
             // filterSortBy
@@ -225,14 +243,14 @@ namespace Videoteka {
             this.filterSortBy.Location = new System.Drawing.Point(59, 18);
             this.filterSortBy.Name = "filterSortBy";
             this.filterSortBy.Size = new System.Drawing.Size(142, 21);
-            this.filterSortBy.TabIndex = 24;
+            this.filterSortBy.TabIndex = 1;
             // 
             // buttonFilterReset
             // 
             this.buttonFilterReset.Location = new System.Drawing.Point(126, 71);
             this.buttonFilterReset.Name = "buttonFilterReset";
             this.buttonFilterReset.Size = new System.Drawing.Size(75, 23);
-            this.buttonFilterReset.TabIndex = 21;
+            this.buttonFilterReset.TabIndex = 5;
             this.buttonFilterReset.Text = "Reset Sorting";
             this.buttonFilterReset.UseVisualStyleBackColor = true;
             this.buttonFilterReset.Click += new System.EventHandler(this.buttonFilterReset_Click);
@@ -242,7 +260,7 @@ namespace Videoteka {
             this.buttonFilter.Location = new System.Drawing.Point(12, 71);
             this.buttonFilter.Name = "buttonFilter";
             this.buttonFilter.Size = new System.Drawing.Size(108, 23);
-            this.buttonFilter.TabIndex = 20;
+            this.buttonFilter.TabIndex = 4;
             this.buttonFilter.Text = "Apply Sorting";
             this.buttonFilter.UseVisualStyleBackColor = true;
             this.buttonFilter.Click += new System.EventHandler(this.buttonFilter_Click);
@@ -253,7 +271,7 @@ namespace Videoteka {
             this.radioReviewed.Location = new System.Drawing.Point(13, 66);
             this.radioReviewed.Name = "radioReviewed";
             this.radioReviewed.Size = new System.Drawing.Size(73, 17);
-            this.radioReviewed.TabIndex = 28;
+            this.radioReviewed.TabIndex = 2;
             this.radioReviewed.Text = "Reviewed";
             this.radioReviewed.UseVisualStyleBackColor = true;
             this.radioReviewed.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
@@ -264,7 +282,7 @@ namespace Videoteka {
             this.radioWatched.Location = new System.Drawing.Point(13, 43);
             this.radioWatched.Name = "radioWatched";
             this.radioWatched.Size = new System.Drawing.Size(69, 17);
-            this.radioWatched.TabIndex = 27;
+            this.radioWatched.TabIndex = 1;
             this.radioWatched.Text = "Watched";
             this.radioWatched.UseVisualStyleBackColor = true;
             this.radioWatched.CheckedChanged += new System.EventHandler(this.radio_CheckedChanged);
@@ -276,7 +294,7 @@ namespace Videoteka {
             this.radioUnwatched.Location = new System.Drawing.Point(13, 20);
             this.radioUnwatched.Name = "radioUnwatched";
             this.radioUnwatched.Size = new System.Drawing.Size(80, 17);
-            this.radioUnwatched.TabIndex = 26;
+            this.radioUnwatched.TabIndex = 0;
             this.radioUnwatched.TabStop = true;
             this.radioUnwatched.Text = "Unwatched";
             this.radioUnwatched.UseVisualStyleBackColor = true;
@@ -287,7 +305,7 @@ namespace Videoteka {
             this.labelPagination.Location = new System.Drawing.Point(177, 690);
             this.labelPagination.Name = "labelPagination";
             this.labelPagination.Size = new System.Drawing.Size(100, 23);
-            this.labelPagination.TabIndex = 40;
+            this.labelPagination.TabIndex = 4;
             this.labelPagination.Text = "1 / 10";
             this.labelPagination.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -296,7 +314,7 @@ namespace Videoteka {
             this.buttonNext.Location = new System.Drawing.Point(353, 691);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(108, 23);
-            this.buttonNext.TabIndex = 39;
+            this.buttonNext.TabIndex = 5;
             this.buttonNext.Text = "Next Page";
             this.buttonNext.UseVisualStyleBackColor = true;
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
@@ -306,7 +324,7 @@ namespace Videoteka {
             this.buttonPrev.Location = new System.Drawing.Point(9, 690);
             this.buttonPrev.Name = "buttonPrev";
             this.buttonPrev.Size = new System.Drawing.Size(108, 23);
-            this.buttonPrev.TabIndex = 38;
+            this.buttonPrev.TabIndex = 3;
             this.buttonPrev.Text = "Previous Page";
             this.buttonPrev.UseVisualStyleBackColor = true;
             this.buttonPrev.Click += new System.EventHandler(this.buttonPrev_Click);
@@ -319,27 +337,9 @@ namespace Videoteka {
             this.groupRadio.Location = new System.Drawing.Point(12, 12);
             this.groupRadio.Name = "groupRadio";
             this.groupRadio.Size = new System.Drawing.Size(229, 100);
-            this.groupRadio.TabIndex = 31;
+            this.groupRadio.TabIndex = 0;
             this.groupRadio.TabStop = false;
-            this.groupRadio.Text = "Filter Watchlist";
-            // 
-            // pictureEmpty
-            // 
-            this.pictureEmpty.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureEmpty.Image = global::Videoteka.Properties.Resources.reel12;
-            this.pictureEmpty.Location = new System.Drawing.Point(8, 205);
-            this.pictureEmpty.Name = "pictureEmpty";
-            this.pictureEmpty.Size = new System.Drawing.Size(453, 270);
-            this.pictureEmpty.TabIndex = 1;
-            this.pictureEmpty.TabStop = false;
-            // 
-            // poster
-            // 
-            this.poster.Location = new System.Drawing.Point(7, 20);
-            this.poster.Name = "poster";
-            this.poster.Size = new System.Drawing.Size(122, 170);
-            this.poster.TabIndex = 1;
-            this.poster.TabStop = false;
+            this.groupRadio.Text = "Show Watchlist";
             // 
             // FormWatchlist
             // 
@@ -359,14 +359,14 @@ namespace Videoteka {
             this.Text = "Watchlist";
             this.Load += new System.EventHandler(this.OnLoad);
             this.panelMovies.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).EndInit();
             this.template.ResumeLayout(false);
             this.template.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();
             this.groupFilter.ResumeLayout(false);
             this.groupFilter.PerformLayout();
             this.groupRadio.ResumeLayout(false);
             this.groupRadio.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();
             this.ResumeLayout(false);
 
         }
