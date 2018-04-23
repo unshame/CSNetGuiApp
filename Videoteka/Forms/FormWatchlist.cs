@@ -19,7 +19,7 @@ namespace Videoteka {
             base.OnLoad(sender, e);
             Paint += OnPaint;
 
-            CreateControlsFromTemplate(panelMovies.Controls[0], panelMovies, "movie", movies, itemsPerPage);
+            CreateControlsFromTemplate(template, panelMovies, "movie", movies, itemsPerPage);
             BindingManager.AddOrderingBinding(filterSortOrder);
             BindingManager.AddSortByWatchlistBinding(filterSortBy);
 
@@ -41,6 +41,7 @@ namespace Videoteka {
                     }
                 };
             }
+            ResizeEmptyImage(pictureEmpty, panelMovies);
 
             LoadWatchlist();
         }
@@ -92,6 +93,7 @@ namespace Videoteka {
                 poster.Image = ImageManager.FormatPoster(movieData.poster, poster.Width, poster.Height);
                 movie.Show();
             }
+            pictureEmpty.Visible = newMoviesData.Count == 0;
             panelMovies.PerformLayout();
             Refresh();
         }
@@ -146,6 +148,10 @@ namespace Videoteka {
             if (sender is RadioButton radio && radio.Checked) {
                 LoadWatchlist();
             }
+        }
+
+        private void panelMovies_Paint(object sender, PaintEventArgs e) {
+
         }
     }
 }

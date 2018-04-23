@@ -45,15 +45,17 @@
             this.filterTitle = new System.Windows.Forms.TextBox();
             this.labelFilterTitle = new System.Windows.Forms.Label();
             this.panelReviews = new System.Windows.Forms.Panel();
-            this.groupMovie = new System.Windows.Forms.GroupBox();
+            this.template = new System.Windows.Forms.GroupBox();
             this.buttonDeleteReview = new System.Windows.Forms.Button();
             this.labelReviewRating = new System.Windows.Forms.Label();
             this.buttonMovieInfo = new System.Windows.Forms.Button();
             this.textReview = new System.Windows.Forms.Label();
             this.labelMovieTitle = new System.Windows.Forms.Label();
+            this.pictureEmpty = new System.Windows.Forms.PictureBox();
             this.groupFilter.SuspendLayout();
             this.panelReviews.SuspendLayout();
-            this.groupMovie.SuspendLayout();
+            this.template.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).BeginInit();
             this.SuspendLayout();
             // 
             // labelPagination
@@ -253,26 +255,27 @@
             // panelReviews
             // 
             this.panelReviews.AutoScroll = true;
-            this.panelReviews.Controls.Add(this.groupMovie);
+            this.panelReviews.Controls.Add(this.pictureEmpty);
+            this.panelReviews.Controls.Add(this.template);
             this.panelReviews.Location = new System.Drawing.Point(0, 122);
             this.panelReviews.Name = "panelReviews";
             this.panelReviews.Size = new System.Drawing.Size(468, 610);
             this.panelReviews.TabIndex = 1;
             // 
-            // groupMovie
+            // template
             // 
-            this.groupMovie.AutoSize = true;
-            this.groupMovie.Controls.Add(this.buttonDeleteReview);
-            this.groupMovie.Controls.Add(this.labelReviewRating);
-            this.groupMovie.Controls.Add(this.buttonMovieInfo);
-            this.groupMovie.Controls.Add(this.textReview);
-            this.groupMovie.Controls.Add(this.labelMovieTitle);
-            this.groupMovie.Location = new System.Drawing.Point(12, 3);
-            this.groupMovie.Name = "groupMovie";
-            this.groupMovie.Size = new System.Drawing.Size(427, 85);
-            this.groupMovie.TabIndex = 0;
-            this.groupMovie.TabStop = false;
-            this.groupMovie.Text = "User\'s Review";
+            this.template.AutoSize = true;
+            this.template.Controls.Add(this.buttonDeleteReview);
+            this.template.Controls.Add(this.labelReviewRating);
+            this.template.Controls.Add(this.buttonMovieInfo);
+            this.template.Controls.Add(this.textReview);
+            this.template.Controls.Add(this.labelMovieTitle);
+            this.template.Location = new System.Drawing.Point(12, 3);
+            this.template.Name = "template";
+            this.template.Size = new System.Drawing.Size(427, 85);
+            this.template.TabIndex = 0;
+            this.template.TabStop = false;
+            this.template.Text = "User\'s Review";
             // 
             // buttonDeleteReview
             // 
@@ -320,6 +323,16 @@
             this.labelMovieTitle.TabIndex = 0;
             this.labelMovieTitle.Text = "Movie Title";
             // 
+            // pictureEmpty
+            // 
+            this.pictureEmpty.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureEmpty.Image = global::Videoteka.Properties.Resources.reel12;
+            this.pictureEmpty.Location = new System.Drawing.Point(8, 249);
+            this.pictureEmpty.Name = "pictureEmpty";
+            this.pictureEmpty.Size = new System.Drawing.Size(453, 270);
+            this.pictureEmpty.TabIndex = 9;
+            this.pictureEmpty.TabStop = false;
+            // 
             // FormReviews
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -344,8 +357,9 @@
             this.groupFilter.PerformLayout();
             this.panelReviews.ResumeLayout(false);
             this.panelReviews.PerformLayout();
-            this.groupMovie.ResumeLayout(false);
-            this.groupMovie.PerformLayout();
+            this.template.ResumeLayout(false);
+            this.template.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -369,7 +383,7 @@
         private System.Windows.Forms.TextBox filterTitle;
         private System.Windows.Forms.Label labelFilterTitle;
         private System.Windows.Forms.Panel panelReviews;
-        private System.Windows.Forms.GroupBox groupMovie;
+        private System.Windows.Forms.GroupBox template;
         private System.Windows.Forms.Button buttonDeleteReview;
         private System.Windows.Forms.Label labelReviewRating;
         private System.Windows.Forms.Button buttonMovieInfo;
@@ -379,5 +393,6 @@
         private System.Windows.Forms.ComboBox filterSortBy;
         private System.Windows.Forms.Label labelSortOrder;
         private System.Windows.Forms.ComboBox filterSortOrder;
+        private System.Windows.Forms.PictureBox pictureEmpty;
     }
 }

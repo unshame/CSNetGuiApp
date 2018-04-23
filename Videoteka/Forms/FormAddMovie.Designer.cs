@@ -44,6 +44,7 @@ namespace Videoteka {
             this.buttonAdd = new System.Windows.Forms.Button();
             this.labelYear = new System.Windows.Forms.Label();
             this.addYear = new System.Windows.Forms.NumericUpDown();
+            this.buttonDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.addDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.addYear)).BeginInit();
             this.SuspendLayout();
@@ -202,9 +203,9 @@ namespace Videoteka {
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(132, 317);
+            this.buttonAdd.Location = new System.Drawing.Point(96, 317);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.Size = new System.Drawing.Size(111, 23);
             this.buttonAdd.TabIndex = 23;
             this.buttonAdd.Text = "Add Movie";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -241,11 +242,24 @@ namespace Videoteka {
             0,
             0});
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Enabled = false;
+            this.buttonDelete.Location = new System.Drawing.Point(15, 317);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 26;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Visible = false;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // FormAddMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(223, 344);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.addYear);
             this.Controls.Add(this.labelYear);
             this.Controls.Add(this.buttonAdd);
@@ -300,5 +314,6 @@ namespace Videoteka {
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Label labelYear;
         private System.Windows.Forms.NumericUpDown addYear;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

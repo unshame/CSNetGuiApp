@@ -43,40 +43,71 @@ namespace Videoteka {
         public static int AddMovie(string title, decimal year, object genre, decimal duration, string director, string stars, string description, string posterPath) {
             if (!Profile.IsAdmin.Checked) return -1;
 
+
+            if (!VerifyAddParams(title, genre)) return -1;
+
             byte[] poster = null;
-            var errorTitle = "Failed to add movie";
             if (posterPath != "") {
-                try {
-                    poster = File.ReadAllBytes(posterPath);
-                }
-                catch {
-                    Program.ShowErrorBox("Failed to open poster image", errorTitle);
-                    return -1;
-                }
+                poster = ImageManager.OpenImage(posterPath);
+                if (poster == null) return -1;
             }
+            var id = DB.AddMovie(
+                title,
+                (int)year,
+                (int)genre,
+                (int)duration,
+                director,
+                stars,
+                description,
+                poster
+            );
+            if (id != -1) {
+                Program.ReloadForms();
+            }
+            return id;
+        }
+
+        public static bool UpdateMovie(int id, string title, decimal year, object genre, decimal duration, string director, string stars, string description, byte[] poster, string posterPath) {
+            if (!Profile.IsAdmin.Checked) return false;
+
+            if (!VerifyAddParams(title, genre)) return false;
+
+            if(posterPath == "") {
+                poster = null;
+            }
+            else if (posterPath != null) {
+                poster = ImageManager.OpenImage(posterPath);
+                if (poster == null) return false;
+            }
+
+            var success = DB.UpdateMovie(
+                id,
+                title,
+                (int)year,
+                (int)genre,
+                (int)duration,
+                director,
+                stars,
+                description,
+                poster
+            ) > 0;
+            if (success) {
+                Program.ReloadForms();
+            }
+            return success;
+        }
+
+        private static bool VerifyAddParams(string title, object genre) {
+            var errorTitle = "Failed to add movie";
             if (title == "") {
                 Program.ShowErrorBox("Please enter title", errorTitle);
+                return false;
             }
-            else if (genre == null) {
+            if (genre == null) {
                 Program.ShowErrorBox("Please select genre", errorTitle);
+                return false;
             }
-            else {
-                var id = DB.AddMovie(
-                    title,
-                    (int)year,
-                    (int)genre,
-                    (int)duration,
-                    director,
-                    stars,
-                    description,
-                    poster
-                );
-                if (id != -1) {
-                    Program.ReloadForms();
-                    return id;
-                }
-            }
-            return -1;
+            return true;
         }
 
         public static int AddToWatchList(int movieId) {

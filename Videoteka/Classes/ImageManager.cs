@@ -68,5 +68,16 @@ namespace Videoteka {
 
             return destImage;
         }
+
+        public static byte[] OpenImage(string imagePath) {
+            byte[] image = null;
+            try {
+                image = File.ReadAllBytes(imagePath);
+            }
+            catch {
+                Program.ShowErrorBox("Failed to open poster image");
+            }
+            return image;
+        }
     }
 }

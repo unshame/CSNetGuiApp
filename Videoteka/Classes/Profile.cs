@@ -17,17 +17,10 @@ namespace Videoteka {
         public static void Init() {
             IsLoggedIn = new CheckBox();
             IsAdmin = new CheckBox();
+            IsLoggedIn.Enabled = false;
+            IsAdmin.Enabled = false;
         }
 
-        public static Binding GetFormattedBindingLoggedIn(string prop) {
-            var binding = new Binding(prop, IsLoggedIn, "Checked", true);
-            binding.Format += FormatLogInStatus;
-            return binding;
-        }
-
-        private static void FormatLogInStatus(object s, ConvertEventArgs ee) {
-            ee.Value = (bool) ee.Value ? "Logout" : "Login";
-        }
 
         public static string FormTextUsername() {
             return IsLoggedIn.Checked ? " (" + Username + ")" : "";

@@ -28,7 +28,7 @@ namespace Videoteka {
         protected override void OnLoad(object sender, EventArgs e) {
             base.OnLoad(sender, e);
             Paint += OnPaint;
-            CreateControlsFromTemplate(panelMovies.Controls[0], panelMovies, "movie", movies, itemsPerPage);
+            CreateControlsFromTemplate(template, panelMovies, "movie", movies, itemsPerPage);
 
             BindingManager.AddGenresToDropdown(filterGenre, true);
             BindingManager.AddOrderingBinding(filterSortOrder);
@@ -41,20 +41,21 @@ namespace Videoteka {
                 movie.Controls["buttonReviews"].Click += (object s, EventArgs ee) => {
                     Program.OpenMovieForm(moviesData[curi].id);
                 };
-                movie.Controls["buttonDeleteMovie"].DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
-                movie.Controls["buttonDeleteMovie"].DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
                 movie.Controls["buttonAddToWatchlist"].Click += (object s, EventArgs ee) => {
                     MovieManager.AddToWatchList(moviesData[curi].id);
                 };
-                movie.Controls["buttonDeleteMovie"].Click += (object s, EventArgs ee) => {
-                    MovieManager.DeleteMovie(moviesData[curi].id);
+                movie.Controls["buttonEditMovie"].DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
+                movie.Controls["buttonEditMovie"].DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
+                movie.Controls["buttonEditMovie"].Click += (object s, EventArgs ee) => {
+                    new FormAddMovie(moviesData[curi].id).ShowDialog();
                 };
             }
 
             buttonWatchlist.DataBindings.Add("Enabled", Profile.IsLoggedIn, "Checked");
             buttonAddMovie.DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
-            buttonLogin.DataBindings.Add(Profile.GetFormattedBindingLoggedIn("Text"));
+            buttonLogin.DataBindings.Add(BindingManager.GetFormattedBindingLoggedIn("Text"));
 
+            ResizeEmptyImage(pictureEmpty, panelMovies);
         }
 
         private void OnClosed(Object sender, FormClosedEventArgs e) {
@@ -102,6 +103,7 @@ namespace Videoteka {
                 poster.Image = ImageManager.FormatPoster(movieData.poster, poster.Width, poster.Height);
                 movie.Show();
             }
+            pictureEmpty.Visible = newMoviesData.Count == 0;
             PerformLayout();
             Refresh();
         }
@@ -132,7 +134,6 @@ namespace Videoteka {
             filterSortBy.SelectedIndex = 0;
             filterSortOrder.SelectedIndex = 0;
         }
-
 
 
         // Click events

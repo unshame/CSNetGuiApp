@@ -32,10 +32,10 @@ namespace Videoteka {
             base.OnLoad(sender, e);
             Paint += OnPaint;
             FormClosing += OnClosing;
-            CreateControlsFromTemplate(panelReviews.Controls[0], panelReviews, "review", reviews, itemsPerPage);
+            CreateControlsFromTemplate(template, panelReviews, "review", reviews, itemsPerPage);
             labelRatingValue.DataBindings.Add("Text", reviewRating, "Value");
-            buttonDeleteMovie.DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
-            buttonDeleteMovie.DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
+            buttonEditMovie.DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
+            buttonEditMovie.DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
             reviewsLocation = panelReviews.Location;
             reviewsHeight = panelReviews.Height;
             LoadData();
@@ -51,26 +51,11 @@ namespace Videoteka {
 
         // Methods
         public void LoadData() {
-            try {
-                movieData = DB.GetMovies(1, 0, "movies.id = " + id)[0];
-            }
-            catch {
-                Program.ShowErrorBox("Movie doesn't exist in the database", "Failed to open movie");
-                Close();
-                return;
-            }
+
+            if (!LoadMovie()) return;
 
             var savedScrollValue = panelReviews.VerticalScroll.Value;
             panelReviews.VerticalScroll.Value = 0;
-
-            poster.Image = ImageManager.FormatPoster(movieData.poster, poster.Width, poster.Height);
-            Text = movieData.title;
-            groupMovie.Text = movieData.title;
-            textMovieInfo.Text = movieData.FormatInfo();
-            textMovieRating.Text = movieData.FormatRating();
-            textMovieDescription.Text = movieData.description;
-            textMovieDirector.Text = movieData.director;
-            textMovieStars.Text = movieData.stars;
 
             if (Profile.IsLoggedIn.Checked) {
 
@@ -100,11 +85,36 @@ namespace Videoteka {
                 buttonAddToWatchlist.Enabled = false;
                 buttonAddToWatchlist.Text = MovieManager.NotInWatchlistText;
             }
+
             LoadReviews();
             ResizeReviews();
+
             panelReviews.VerticalScroll.Value = savedScrollValue;
+
             PerformLayout();
             Refresh();
+        }
+
+        public bool LoadMovie() {
+            try {
+                movieData = DB.GetMovies(1, 0, "movies.id = " + id)[0];
+            }
+            catch {
+                Program.ShowErrorBox("Movie doesn't exist in the database", "Failed to open movie");
+                Close();
+                return false;
+            }
+
+            poster.Image = ImageManager.FormatPoster(movieData.poster, poster.Width, poster.Height);
+            Text = movieData.title;
+            groupMovie.Text = movieData.title;
+            textMovieInfo.Text = movieData.FormatInfo();
+            textMovieRating.Text = movieData.FormatRating();
+            textMovieDescription.Text = movieData.description;
+            textMovieDirector.Text = movieData.director;
+            textMovieStars.Text = movieData.stars;
+
+            return true;
         }
 
         public void LoadOwnReview() {
@@ -164,12 +174,21 @@ namespace Videoteka {
                 review.Location = new Point(review.Location.X, offset);
                 offset += baseOffset + review.Height;
             }
+            if(offset < panelReviews.Height * 0.75) {
+                pictureEmpty.Location = new Point(0, offset - baseOffset);
+                pictureEmpty.Width = panelReviews.Width;
+                pictureEmpty.Height = panelReviews.Height - (offset - baseOffset);
+                pictureEmpty.Visible = true;
+            }
+            else {
+                pictureEmpty.Visible = false;
+            }
         }
 
 
         // Click events
         private void buttonDeleteMovie_Click(object sender, EventArgs e) {
-            MovieManager.DeleteMovie(id);
+            new FormAddMovie(id).ShowDialog();
         }
 
         private void reviewPublish_Click(object sender, EventArgs e) {

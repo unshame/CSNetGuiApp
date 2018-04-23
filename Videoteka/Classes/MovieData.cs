@@ -21,8 +21,14 @@ namespace Videoteka {
         public int watchlistId;
         public bool isWatched;
 
+        public string FormatDuration(int duration) {
+            var hours = duration / 60;
+            var minutes = duration % 60;
+            return (hours > 0 ? hours + "h " : "") + (minutes > 0 ? minutes + "min" : "");
+        }
+
         public string FormatInfo() {
-            return year + " - " + duration + " min - " + (genre <= BindingManager.Genres.Count ? BindingManager.Genres[genre - 1].Value : "Unknown");
+            return year + " - " + (BindingManager.Genres.ContainsKey(genre) ? BindingManager.Genres[genre].Value : "Unknown Genre") + " - " + FormatDuration(duration);
         }
 
         public string FormatRating() {

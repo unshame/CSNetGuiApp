@@ -47,7 +47,7 @@ namespace Videoteka {
 
             try {
                 var oldRating = DB.GetReviews(1, 0, "reviews.id = " + reviewId)[0].rating;
-                if (DB.UpdateReview(movieId, rating, review) > 0) {
+                if (DB.UpdateReview(reviewId, rating, review) > 0) {
                     DB.UpdateMovieRating(movieId, rating - oldRating, 0);
                     return true;
                 }

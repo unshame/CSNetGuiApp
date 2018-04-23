@@ -54,16 +54,17 @@ namespace Videoteka {
         }
 
 
-        static public List<DropdownItemInt> GetGenres() {
+        static public Dictionary<int, DropdownItem<int>> GetGenres() {
             var query = "select * from genres";
             var cmd = new MySqlCommand(query, connection);
-            var results = new List<DropdownItemInt>();
+            var results = new Dictionary<int, DropdownItem<int>>();
             if (OpenConnection()) {
                 try {
                     var reader = cmd.ExecuteReader();
                     while (reader.Read()) {
-                        results.Add(new DropdownItemInt(
-                            reader.GetInt32("genre_id"),
+                        var id = reader.GetInt32("genre_id");
+                        results.Add(id, new DropdownItem<int>(
+                            id,
                             reader.GetString("genre_name")
                         ));
                     }
@@ -190,6 +191,44 @@ namespace Videoteka {
             return result;
         }
 
+        static public int UpdateMovie(int id, string title, int year, int genre, int duration, string director, string stars, string description, byte[] poster) {
+            var query = "update movies set " +
+                "title = @title, year = @year, genre = @genre, duration = @duration, director = @director, stars = @stars, description = @description, poster = @poster " +
+                "where id = @id;";
+            Debug.WriteLine(query);
+
+            var cmd = new MySqlCommand(query, connection);
+            var paramPoster = new MySqlParameter("@poster", MySqlDbType.Blob);
+            if (poster != null) {
+                paramPoster.Size = poster.Length;
+                paramPoster.Value = poster;
+            }
+
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.Add(paramPoster);
+            cmd.Parameters.AddWithValue("@title", title);
+            cmd.Parameters.AddWithValue("@year", year);
+            cmd.Parameters.AddWithValue("@genre", genre);
+            cmd.Parameters.AddWithValue("@duration", duration);
+            cmd.Parameters.AddWithValue("@director", director);
+            cmd.Parameters.AddWithValue("@stars", stars);
+            cmd.Parameters.AddWithValue("@description", description);
+
+            var result = 0;
+
+            if (OpenConnection()) {
+                try {
+                    result = cmd.ExecuteNonQuery();
+                }
+                catch (MySqlException e) {
+                    Program.ShowErrorBox(e.Message, "Failed to update movie");
+                }
+            }
+            CloseConnection();
+
+            return result;
+        }
+
         static public int DeleteMovie(int id) {
             var query = "delete from movies where id=" + id + ";";
 
@@ -312,16 +351,15 @@ namespace Videoteka {
             return result;
         }
 
-        static public int UpdateReview(int movieId, int rating, string review) {
+        static public int UpdateReview(int id, int rating, string review) {
             var query = "update reviews set " +
                 "rating = @rating, review = @review " +
-                "where movie_id = @movie_id and user_id = @user_id;";
+                "where id = @id;";
             Debug.WriteLine(query);
 
             var cmd = new MySqlCommand(query, connection);
 
-            cmd.Parameters.AddWithValue("@movie_id", movieId);
-            cmd.Parameters.AddWithValue("@user_id", Profile.UID);
+            cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@rating", rating);
             cmd.Parameters.AddWithValue("@review", review);
 

@@ -113,5 +113,11 @@ namespace Videoteka {
             prev.Enabled = currentPage > 0;
             next.Enabled = currentPage < (pageCount - 1);
         }
+
+        public void ResizeEmptyImage(PictureBox image, Control panel) {
+            image.Location = new Point(0, 0);
+            image.Width = panel.Width;
+            image.Height = panel.Height;
+        }
     }
 }

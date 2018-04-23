@@ -8,19 +8,10 @@ using System.Collections;
 
 namespace Videoteka {
 
-    public class DropdownItemInt {
-        public int Id { get; set; }
+    public class DropdownItem<T> {
+        public T Id { get; set; }
         public string Value { get; set; }
-        public DropdownItemInt(int id, string value) {
-            Id = id;
-            Value = value;
-        }
-    }
-
-    public class DropdownItemString {
-        public string Id { get; set; }
-        public string Value { get; set; }
-        public DropdownItemString(string id, string value) {
+        public DropdownItem(T id, string value) {
             Id = id;
             Value = value;
         }
@@ -28,49 +19,58 @@ namespace Videoteka {
 
     public static class BindingManager {
 
-        public static List<DropdownItemInt> Genres;
+        public static Dictionary<int, DropdownItem<int>> Genres;
 
         static ArrayList GenresBinding = new ArrayList();
         static ArrayList GenresBindingWithEmpty = new ArrayList();
 
         static ArrayList OrderingBinding = new ArrayList() {
-            new DropdownItemString("ASC", "Accending"),
-            new DropdownItemString("DESC", "Descending")
+            new DropdownItem<string>("ASC", "Accending"),
+            new DropdownItem<string>("DESC", "Descending")
         };
 
         static ArrayList SortByMoviesBinding = new ArrayList() {
-            new DropdownItemString("title", "Title"),
-            new DropdownItemString("rating", "Rating"),
-            new DropdownItemString("year", "Year"),
-            new DropdownItemString("duration", "Duration")
+            new DropdownItem<string>("title", "Title"),
+            new DropdownItem<string>("rating", "Rating"),
+            new DropdownItem<string>("year", "Year"),
+            new DropdownItem<string>("duration", "Duration")
         };
 
         static ArrayList SortByWatchlistBinding = new ArrayList() {
-            new DropdownItemString("watchlist_id", "Added Date"),
-            new DropdownItemString("title", "Title"),
-            new DropdownItemString("rating", "Rating"),
-            new DropdownItemString("year", "Year"),
-            new DropdownItemString("duration", "Duration")
+            new DropdownItem<string>("watchlist_id", "Added Date"),
+            new DropdownItem<string>("title", "Title"),
+            new DropdownItem<string>("rating", "Rating"),
+            new DropdownItem<string>("year", "Year"),
+            new DropdownItem<string>("duration", "Duration")
         };
 
         static ArrayList SortByReviewsBinding = new ArrayList() {
-            new DropdownItemString("title", "Movie"),
-            new DropdownItemString("username", "Author"),
-            new DropdownItemString("rating", "Rating")
+            new DropdownItem<string>("title", "Movie"),
+            new DropdownItem<string>("username", "Author"),
+            new DropdownItem<string>("rating", "Rating")
         };
 
         static ArrayList RatingBinding = new ArrayList();
 
         public static void Init() {
             Genres = DB.GetGenres();
-            GenresBindingWithEmpty.Add(new DropdownItemInt(0, "Any"));
-            for (int i = 0; i < Genres.Count; i++) {
-                GenresBinding.Add(new DropdownItemInt(Genres[i].Id, Genres[i].Value));
-                GenresBindingWithEmpty.Add(new DropdownItemInt(Genres[i].Id, Genres[i].Value));
+            GenresBindingWithEmpty.Add(new DropdownItem<int>(0, "Any"));
+            foreach(var genre in Genres) { 
+                GenresBinding.Add(genre.Value);
+                GenresBindingWithEmpty.Add(genre.Value);
             }
             for (int i = 1; i <= 10; i++) {
-                RatingBinding.Add(new DropdownItemInt(i, i + (i == 10 ? "" : "+")));
+                RatingBinding.Add(new DropdownItem<int>(i, i + (i == 10 ? "" : "+")));
             }
+        }
+
+
+        public static Binding GetFormattedBindingLoggedIn(string prop) {
+            var binding = new Binding(prop, Profile.IsLoggedIn, "Checked", true);
+            binding.Format += (object s, ConvertEventArgs ee) => {
+                ee.Value = (bool)ee.Value ? "Logout" : "Login";
+            };
+            return binding;
         }
 
         static void AddBindingToDropdown(ComboBox dropdown, ArrayList bindData) {

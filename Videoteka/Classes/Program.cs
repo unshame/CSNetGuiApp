@@ -55,16 +55,19 @@ namespace Videoteka {
             }
         }
 
-        static public void OpenMovieForm(int id) {
+        static public FormSingleMovie OpenMovieForm(int id) {
+            FormSingleMovie movieForm;
             if (openedMovieForms.ContainsKey(id)) {
-                openedMovieForms[id].LoadData();
-                openedMovieForms[id].Focus();
+                movieForm = openedMovieForms[id];
+                movieForm.LoadData();
+                movieForm.Focus();
             }
             else { 
-                var movieForm = new FormSingleMovie(id);
+                movieForm = new FormSingleMovie(id);
                 openedMovieForms.Add(id, movieForm);
                 movieForm.Show();
             }
+            return movieForm;
         }
 
         static public void CloseMovieForm(int id) {
@@ -132,7 +135,7 @@ namespace Videoteka {
             ReloadAllMovieForms();
         }
 
-        static public void ShowErrorBox(string text, string title) {
+        static public void ShowErrorBox(string text, string title = "Error") {
             MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 

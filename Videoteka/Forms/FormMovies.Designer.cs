@@ -24,8 +24,8 @@ namespace Videoteka {
         /// </summary>
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMovies));
-            this.groupMovie = new System.Windows.Forms.GroupBox();
-            this.buttonDeleteMovie = new System.Windows.Forms.Button();
+            this.template = new System.Windows.Forms.GroupBox();
+            this.buttonEditMovie = new System.Windows.Forms.Button();
             this.textMovieRating = new System.Windows.Forms.Label();
             this.textMovieStars = new System.Windows.Forms.Label();
             this.textMovieDirector = new System.Windows.Forms.Label();
@@ -37,6 +37,7 @@ namespace Videoteka {
             this.poster = new System.Windows.Forms.PictureBox();
             this.textMovieInfo = new System.Windows.Forms.Label();
             this.panelMovies = new System.Windows.Forms.Panel();
+            this.pictureEmpty = new System.Windows.Forms.PictureBox();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.labelYearPlus = new System.Windows.Forms.Label();
             this.filterYear = new System.Windows.Forms.NumericUpDown();
@@ -67,42 +68,43 @@ namespace Videoteka {
             this.buttonPrev = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
             this.labelPagination = new System.Windows.Forms.Label();
-            this.groupMovie.SuspendLayout();
+            this.template.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
             this.panelMovies.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).BeginInit();
             this.groupFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.filterYear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.filterDuration)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupMovie
+            // template
             // 
-            this.groupMovie.Controls.Add(this.buttonDeleteMovie);
-            this.groupMovie.Controls.Add(this.textMovieRating);
-            this.groupMovie.Controls.Add(this.textMovieStars);
-            this.groupMovie.Controls.Add(this.textMovieDirector);
-            this.groupMovie.Controls.Add(this.labelStars);
-            this.groupMovie.Controls.Add(this.labelDirector);
-            this.groupMovie.Controls.Add(this.buttonReviews);
-            this.groupMovie.Controls.Add(this.buttonAddToWatchlist);
-            this.groupMovie.Controls.Add(this.textMovieDescription);
-            this.groupMovie.Controls.Add(this.poster);
-            this.groupMovie.Controls.Add(this.textMovieInfo);
-            this.groupMovie.Location = new System.Drawing.Point(12, 3);
-            this.groupMovie.Name = "groupMovie";
-            this.groupMovie.Size = new System.Drawing.Size(427, 196);
-            this.groupMovie.TabIndex = 0;
-            this.groupMovie.TabStop = false;
-            this.groupMovie.Text = "Movie Title";
+            this.template.Controls.Add(this.buttonEditMovie);
+            this.template.Controls.Add(this.textMovieRating);
+            this.template.Controls.Add(this.textMovieStars);
+            this.template.Controls.Add(this.textMovieDirector);
+            this.template.Controls.Add(this.labelStars);
+            this.template.Controls.Add(this.labelDirector);
+            this.template.Controls.Add(this.buttonReviews);
+            this.template.Controls.Add(this.buttonAddToWatchlist);
+            this.template.Controls.Add(this.textMovieDescription);
+            this.template.Controls.Add(this.poster);
+            this.template.Controls.Add(this.textMovieInfo);
+            this.template.Location = new System.Drawing.Point(12, 3);
+            this.template.Name = "template";
+            this.template.Size = new System.Drawing.Size(427, 196);
+            this.template.TabIndex = 0;
+            this.template.TabStop = false;
+            this.template.Text = "Movie Title";
             // 
-            // buttonDeleteMovie
+            // buttonEditMovie
             // 
-            this.buttonDeleteMovie.Location = new System.Drawing.Point(343, 167);
-            this.buttonDeleteMovie.Name = "buttonDeleteMovie";
-            this.buttonDeleteMovie.Size = new System.Drawing.Size(78, 23);
-            this.buttonDeleteMovie.TabIndex = 11;
-            this.buttonDeleteMovie.Text = "Delete";
-            this.buttonDeleteMovie.UseVisualStyleBackColor = true;
+            this.buttonEditMovie.Location = new System.Drawing.Point(343, 167);
+            this.buttonEditMovie.Name = "buttonEditMovie";
+            this.buttonEditMovie.Size = new System.Drawing.Size(78, 23);
+            this.buttonEditMovie.TabIndex = 11;
+            this.buttonEditMovie.Text = "Edit";
+            this.buttonEditMovie.UseVisualStyleBackColor = true;
             // 
             // textMovieRating
             // 
@@ -194,11 +196,22 @@ namespace Videoteka {
             // panelMovies
             // 
             this.panelMovies.AutoScroll = true;
-            this.panelMovies.Controls.Add(this.groupMovie);
+            this.panelMovies.Controls.Add(this.pictureEmpty);
+            this.panelMovies.Controls.Add(this.template);
             this.panelMovies.Location = new System.Drawing.Point(0, 174);
             this.panelMovies.Name = "panelMovies";
             this.panelMovies.Size = new System.Drawing.Size(468, 559);
             this.panelMovies.TabIndex = 1;
+            // 
+            // pictureEmpty
+            // 
+            this.pictureEmpty.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureEmpty.Image = global::Videoteka.Properties.Resources.reel12;
+            this.pictureEmpty.Location = new System.Drawing.Point(8, 247);
+            this.pictureEmpty.Name = "pictureEmpty";
+            this.pictureEmpty.Size = new System.Drawing.Size(453, 270);
+            this.pictureEmpty.TabIndex = 2;
+            this.pictureEmpty.TabStop = false;
             // 
             // groupFilter
             // 
@@ -543,10 +556,11 @@ namespace Videoteka {
             this.RightToLeftLayout = true;
             this.Text = "Movies";
             this.Load += new System.EventHandler(this.OnLoad);
-            this.groupMovie.ResumeLayout(false);
-            this.groupMovie.PerformLayout();
+            this.template.ResumeLayout(false);
+            this.template.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();
             this.panelMovies.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).EndInit();
             this.groupFilter.ResumeLayout(false);
             this.groupFilter.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.filterYear)).EndInit();
@@ -557,7 +571,7 @@ namespace Videoteka {
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupMovie;
+        private System.Windows.Forms.GroupBox template;
         private System.Windows.Forms.Button buttonReviews;
         private System.Windows.Forms.Button buttonAddToWatchlist;
         private System.Windows.Forms.Label textMovieDescription;
@@ -584,7 +598,7 @@ namespace Videoteka {
         private System.Windows.Forms.TextBox filterDirector;
         private System.Windows.Forms.TextBox filterTitle;
         private System.Windows.Forms.Label labelFilterTitle;
-        private System.Windows.Forms.Button buttonDeleteMovie;
+        private System.Windows.Forms.Button buttonEditMovie;
         private System.Windows.Forms.Button buttonAllReviews;
         private System.Windows.Forms.Button buttonWatchlist;
         private System.Windows.Forms.Button buttonLogin;
@@ -600,6 +614,7 @@ namespace Videoteka {
         private System.Windows.Forms.NumericUpDown filterDuration;
         private System.Windows.Forms.NumericUpDown filterYear;
         private System.Windows.Forms.Label labelYearPlus;
+        private System.Windows.Forms.PictureBox pictureEmpty;
     }
 }
 
