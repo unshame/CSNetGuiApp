@@ -50,7 +50,6 @@ namespace Videoteka {
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(187, 20);
             this.textBoxUsername.TabIndex = 1;
-            this.textBoxUsername.Text = "Admin";
             // 
             // labelPassword
             // 
@@ -67,7 +66,7 @@ namespace Videoteka {
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(187, 20);
             this.textBoxPassword.TabIndex = 3;
-            this.textBoxPassword.Text = "1234";
+            this.textBoxPassword.UseSystemPasswordChar = true;
             // 
             // groupLogin
             // 
