@@ -54,6 +54,30 @@ namespace Videoteka {
         }
 
 
+        static public List<DropdownItemInt> GetGenres() {
+            var query = "select * from genres";
+            var cmd = new MySqlCommand(query, connection);
+            var results = new List<DropdownItemInt>();
+            if (OpenConnection()) {
+                try {
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read()) {
+                        results.Add(new DropdownItemInt(
+                            reader.GetInt32("genre_id"),
+                            reader.GetString("genre_name")
+                        ));
+                    }
+                    reader.Close();
+                }
+                catch (MySqlException e) {
+                    Program.ShowErrorBox(e.Message, "Failed to get genres");
+                }
+            }
+            CloseConnection();
+            return results;
+        }
+
+
         // Users
 
         static public Tuple<int, string, bool> Login(string username, string password) {

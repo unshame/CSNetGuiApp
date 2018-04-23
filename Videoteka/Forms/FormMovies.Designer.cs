@@ -115,17 +115,17 @@ namespace Videoteka {
             // 
             // textMovieStars
             // 
-            this.textMovieStars.Location = new System.Drawing.Point(197, 146);
+            this.textMovieStars.Location = new System.Drawing.Point(175, 146);
             this.textMovieStars.Name = "textMovieStars";
-            this.textMovieStars.Size = new System.Drawing.Size(224, 13);
+            this.textMovieStars.Size = new System.Drawing.Size(246, 13);
             this.textMovieStars.TabIndex = 9;
             this.textMovieStars.Text = "label2";
             // 
             // textMovieDirector
             // 
-            this.textMovieDirector.Location = new System.Drawing.Point(197, 129);
+            this.textMovieDirector.Location = new System.Drawing.Point(191, 129);
             this.textMovieDirector.Name = "textMovieDirector";
-            this.textMovieDirector.Size = new System.Drawing.Size(224, 13);
+            this.textMovieDirector.Size = new System.Drawing.Size(230, 13);
             this.textMovieDirector.TabIndex = 8;
             this.textMovieDirector.Text = "label1";
             // 

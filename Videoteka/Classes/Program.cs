@@ -24,9 +24,6 @@ namespace Videoteka {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Profile.Init();
-            BindingManager.Init();
-
             var host = args.Length > 0 ? args[0] : "localhost";
             var database = args.Length > 1 ? args[1] : "videoteka";
             var username = args.Length > 2 ? args[2] : "root";
@@ -34,6 +31,9 @@ namespace Videoteka {
 
             DB.Init(host, database, username, password);
             if (DB.ConnectionIsWorking()) {
+
+                Profile.Init();
+                BindingManager.Init();
 
                 formLogin = new FormLogin();
                 formMovies = new FormMovies();

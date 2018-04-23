@@ -7,40 +7,28 @@ using System.Windows.Forms;
 using System.Collections;
 
 namespace Videoteka {
+
+    public class DropdownItemInt {
+        public int Id { get; set; }
+        public string Value { get; set; }
+        public DropdownItemInt(int id, string value) {
+            Id = id;
+            Value = value;
+        }
+    }
+
+    public class DropdownItemString {
+        public string Id { get; set; }
+        public string Value { get; set; }
+        public DropdownItemString(string id, string value) {
+            Id = id;
+            Value = value;
+        }
+    }
+
     public static class BindingManager {
-        class DropdownItemInt {
-            public int Id { get; set; }
-            public string Value { get; set; }
-            public DropdownItemInt(int id, string value) {
-                Id = id;
-                Value = value;
-            }
-        }
 
-        class DropdownItemString {
-            public string Id { get; set; }
-            public string Value { get; set; }
-            public DropdownItemString(string id, string value) {
-                Id = id;
-                Value = value;
-            }
-        }
-
-        public static string[] Genres = new string[] {
-            "Comedy",
-            "Sci-fi",
-            "Horror",
-            "Romance",
-            "Action",
-            "Thriller",
-            "Drama",
-            "Mystery",
-            "Crime",
-            "Adventure",
-            "Fantasy",
-            "Comedy-romance",
-            "Action-comedy"
-        };
+        public static List<DropdownItemInt> Genres;
 
         static ArrayList GenresBinding = new ArrayList();
         static ArrayList GenresBindingWithEmpty = new ArrayList();
@@ -74,10 +62,11 @@ namespace Videoteka {
         static ArrayList RatingBinding = new ArrayList();
 
         public static void Init() {
+            Genres = DB.GetGenres();
             GenresBindingWithEmpty.Add(new DropdownItemInt(0, "Any"));
-            for (int i = 0; i < Genres.Length; i++) {
-                GenresBinding.Add(new DropdownItemInt(i + 1, Genres[i]));
-                GenresBindingWithEmpty.Add(new DropdownItemInt(i + 1, Genres[i]));
+            for (int i = 0; i < Genres.Count; i++) {
+                GenresBinding.Add(new DropdownItemInt(Genres[i].Id, Genres[i].Value));
+                GenresBindingWithEmpty.Add(new DropdownItemInt(Genres[i].Id, Genres[i].Value));
             }
             for (int i = 1; i <= 10; i++) {
                 RatingBinding.Add(new DropdownItemInt(i, i + (i == 10 ? "" : "+")));

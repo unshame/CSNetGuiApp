@@ -106,17 +106,17 @@ namespace Videoteka {
             // 
             // textMovieStars
             // 
-            this.textMovieStars.Location = new System.Drawing.Point(197, 146);
+            this.textMovieStars.Location = new System.Drawing.Point(174, 146);
             this.textMovieStars.Name = "textMovieStars";
-            this.textMovieStars.Size = new System.Drawing.Size(224, 13);
+            this.textMovieStars.Size = new System.Drawing.Size(247, 13);
             this.textMovieStars.TabIndex = 9;
             this.textMovieStars.Text = "label2";
             // 
             // textMovieDirector
             // 
-            this.textMovieDirector.Location = new System.Drawing.Point(197, 129);
+            this.textMovieDirector.Location = new System.Drawing.Point(191, 129);
             this.textMovieDirector.Name = "textMovieDirector";
-            this.textMovieDirector.Size = new System.Drawing.Size(224, 13);
+            this.textMovieDirector.Size = new System.Drawing.Size(230, 13);
             this.textMovieDirector.TabIndex = 8;
             this.textMovieDirector.Text = "label1";
             // 
@@ -237,7 +237,7 @@ namespace Videoteka {
             this.buttonFilterReset.Name = "buttonFilterReset";
             this.buttonFilterReset.Size = new System.Drawing.Size(75, 23);
             this.buttonFilterReset.TabIndex = 21;
-            this.buttonFilterReset.Text = "Reset Filter";
+            this.buttonFilterReset.Text = "Reset Sorting";
             this.buttonFilterReset.UseVisualStyleBackColor = true;
             this.buttonFilterReset.Click += new System.EventHandler(this.buttonFilterReset_Click);
             // 
@@ -247,7 +247,7 @@ namespace Videoteka {
             this.buttonFilter.Name = "buttonFilter";
             this.buttonFilter.Size = new System.Drawing.Size(108, 23);
             this.buttonFilter.TabIndex = 20;
-            this.buttonFilter.Text = "Apply Filter";
+            this.buttonFilter.Text = "Apply Sorting";
             this.buttonFilter.UseVisualStyleBackColor = true;
             this.buttonFilter.Click += new System.EventHandler(this.buttonFilter_Click);
             // 

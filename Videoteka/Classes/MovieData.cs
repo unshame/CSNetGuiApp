@@ -22,7 +22,7 @@ namespace Videoteka {
         public bool isWatched;
 
         public string FormatInfo() {
-            return year + " - " + duration + " min - " + (genre <= BindingManager.Genres.Length ? BindingManager.Genres[genre - 1] : "Unknown");
+            return year + " - " + duration + " min - " + (genre <= BindingManager.Genres.Count ? BindingManager.Genres[genre - 1].Value : "Unknown");
         }
 
         public string FormatRating() {
