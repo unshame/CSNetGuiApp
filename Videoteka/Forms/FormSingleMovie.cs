@@ -26,27 +26,30 @@ namespace Videoteka {
             this.id = id;
             InitializeComponent();
             InitializeTemplatedForm();
+            FormClosing += OnClosing;
+            Paint += OnResize;
         }
 
         // Events
         void OnLoad(object sender, EventArgs e) {
-            Paint += OnPaint;
-            FormClosing += OnClosing;
             CreateControlsFromTemplate(template, panelReviews, "review", reviews, itemsPerPage);
             labelRatingValue.DataBindings.Add("Text", reviewRating, "Value");
             buttonEditMovie.DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
             buttonEditMovie.DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
+            Height = Program.formHeight;
             reviewsLocation = panelReviews.Location;
             reviewsHeight = panelReviews.Height;
             LoadData();
         }
 
-        private void OnPaint(object sender, PaintEventArgs e) {
-            DrawDividers(panelReviews, e.Graphics);
-        }
-
         private void OnClosing(object sender, EventArgs e) {
             Program.RemoveMovieFormFromOpened(this);
+        }
+
+        private void OnResize(object sender, EventArgs e) {
+            if (Profile.IsLoggedIn.Checked) {
+                reviewsHeight = panelReviews.Height;
+            }
         }
 
         // Methods
@@ -175,15 +178,6 @@ namespace Videoteka {
                 }
                 review.Location = new Point(review.Location.X, offset);
                 offset += baseOffset + review.Height;
-            }
-            if(offset < panelReviews.Height * 0.75) {
-                pictureEmpty.Location = new Point(0, offset - baseOffset);
-                pictureEmpty.Width = panelReviews.Width;
-                pictureEmpty.Height = panelReviews.Height - (offset - baseOffset);
-                pictureEmpty.Visible = true;
-            }
-            else {
-                pictureEmpty.Visible = false;
             }
         }
 

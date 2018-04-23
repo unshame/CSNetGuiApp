@@ -19,13 +19,13 @@ namespace Videoteka {
         public FormReviews() : base() {
             StartPosition = FormStartPosition.Manual;
             FormClosed += OnClosed;
+            Resize += OnResize;
             InitializeComponent();
             InitializeTemplatedForm();
         }
 
         // Events
         void OnLoad(object sender, EventArgs e) {
-            Paint += OnPaint;
             CreateControlsFromTemplate(template, panelReviews, "review", reviews, itemsPerPage);
 
             BindingManager.AddOrderingBinding(filterSortOrder);
@@ -48,7 +48,6 @@ namespace Videoteka {
                     Program.OpenMovieForm(reviewsData[curi].movieId);
                 };
             }
-            ResizeEmptyImage(pictureEmpty, panelReviews);
             LoadReviews();
         }
 
@@ -56,8 +55,8 @@ namespace Videoteka {
             Application.Exit();
         }
 
-        private void OnPaint(object sender, PaintEventArgs e) {
-            DrawDividers(panelReviews, e.Graphics);
+        void OnResize(object sender, EventArgs e) {
+            Program.formHeight = Size.Height;
         }
 
         public void LoadReviews() {
@@ -93,22 +92,12 @@ namespace Videoteka {
                 review.Show();
             }
 
-            if (offset < panelReviews.Height * 0.75) {
-                pictureEmpty.Location = new Point(0, offset - baseOffset);
-                pictureEmpty.Width = panelReviews.Width;
-                pictureEmpty.Height = panelReviews.Height - (offset - baseOffset);
-                pictureEmpty.Visible = true;
-            }
-            else {
-                pictureEmpty.Visible = false;
-            }
-
             panelReviews.VerticalScroll.Value = savedScrollValue;
             panelReviews.PerformLayout();
             Refresh();
         }
 
-        public void ValidateFilter() {
+        void ValidateFilter() {
             if (filterRating.SelectedItem == null) {
                 filterRating.SelectedIndex = 0;
             }
@@ -120,7 +109,7 @@ namespace Videoteka {
             }
         }
 
-        public void ResetFilter() {
+        void ResetFilter() {
             filterTitle.ResetText();
             filterUser.ResetText();
             filterRating.SelectedIndex = 0;
@@ -133,6 +122,7 @@ namespace Videoteka {
         private void buttonAllMovies_click(object sender, EventArgs e) {
             Hide();
             Program.formMovies.Location = Location;
+            Program.formMovies.Height = Program.formHeight;
             Program.formMovies.Show();
             Program.formMovies.LoadMovies();
         }

@@ -19,6 +19,8 @@ namespace Videoteka {
 
         public static Dictionary<int, FormSingleMovie> openedMovieForms = new Dictionary<int, FormSingleMovie>();
 
+        public static int formHeight = 0;
+
         [STAThread]
         static void Main(string[] args) {
             Application.EnableVisualStyles();

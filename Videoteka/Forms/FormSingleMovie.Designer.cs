@@ -46,25 +46,23 @@ namespace Videoteka {
             this.labelDirector = new System.Windows.Forms.Label();
             this.buttonAddToWatchlist = new System.Windows.Forms.Button();
             this.textMovieDescription = new System.Windows.Forms.Label();
-            this.poster = new System.Windows.Forms.PictureBox();
             this.textMovieInfo = new System.Windows.Forms.Label();
             this.labelPagination = new System.Windows.Forms.Label();
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonPrev = new System.Windows.Forms.Button();
             this.panelReviews = new System.Windows.Forms.Panel();
-            this.pictureEmpty = new System.Windows.Forms.PictureBox();
             this.template = new System.Windows.Forms.GroupBox();
             this.labelReviewMovieRating = new System.Windows.Forms.Label();
             this.textReview = new System.Windows.Forms.Label();
+            this.poster = new System.Windows.Forms.PictureBox();
             this.groupMyReview.SuspendLayout();
             this.groupMyReviewPublished.SuspendLayout();
             this.panelPublishedReviewText.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.reviewRating)).BeginInit();
             this.groupMovie.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
             this.panelReviews.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).BeginInit();
             this.template.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
             this.SuspendLayout();
             // 
             // groupMyReview
@@ -292,14 +290,6 @@ namespace Videoteka {
             this.textMovieDescription.TabIndex = 2;
             this.textMovieDescription.Text = resources.GetString("textMovieDescription.Text");
             // 
-            // poster
-            // 
-            this.poster.Location = new System.Drawing.Point(7, 20);
-            this.poster.Name = "poster";
-            this.poster.Size = new System.Drawing.Size(122, 170);
-            this.poster.TabIndex = 1;
-            this.poster.TabStop = false;
-            // 
             // textMovieInfo
             // 
             this.textMovieInfo.Location = new System.Drawing.Point(135, 20);
@@ -310,6 +300,7 @@ namespace Videoteka {
             // 
             // labelPagination
             // 
+            this.labelPagination.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPagination.Location = new System.Drawing.Point(177, 780);
             this.labelPagination.Name = "labelPagination";
             this.labelPagination.Size = new System.Drawing.Size(100, 23);
@@ -319,6 +310,7 @@ namespace Videoteka {
             // 
             // buttonNext
             // 
+            this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNext.Location = new System.Drawing.Point(353, 781);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(108, 23);
@@ -329,6 +321,7 @@ namespace Videoteka {
             // 
             // buttonPrev
             // 
+            this.buttonPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonPrev.Location = new System.Drawing.Point(9, 780);
             this.buttonPrev.Name = "buttonPrev";
             this.buttonPrev.Size = new System.Drawing.Size(108, 23);
@@ -340,29 +333,20 @@ namespace Videoteka {
             // panelReviews
             // 
             this.panelReviews.AutoScroll = true;
-            this.panelReviews.Controls.Add(this.pictureEmpty);
+            this.panelReviews.BackgroundImage = global::Videoteka.Properties.Resources.reel12;
+            this.panelReviews.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panelReviews.Controls.Add(this.template);
             this.panelReviews.Location = new System.Drawing.Point(0, 371);
             this.panelReviews.Name = "panelReviews";
             this.panelReviews.Size = new System.Drawing.Size(468, 404);
             this.panelReviews.TabIndex = 2;
             // 
-            // pictureEmpty
-            // 
-            this.pictureEmpty.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureEmpty.Image = global::Videoteka.Properties.Resources.reel12;
-            this.pictureEmpty.Location = new System.Drawing.Point(8, 117);
-            this.pictureEmpty.Name = "pictureEmpty";
-            this.pictureEmpty.Size = new System.Drawing.Size(453, 270);
-            this.pictureEmpty.TabIndex = 6;
-            this.pictureEmpty.TabStop = false;
-            // 
             // template
             // 
             this.template.AutoSize = true;
             this.template.Controls.Add(this.labelReviewMovieRating);
             this.template.Controls.Add(this.textReview);
-            this.template.Location = new System.Drawing.Point(12, 3);
+            this.template.Location = new System.Drawing.Point(12, 0);
             this.template.Name = "template";
             this.template.Size = new System.Drawing.Size(427, 81);
             this.template.TabIndex = 0;
@@ -389,6 +373,14 @@ namespace Videoteka {
             this.textReview.Text = "texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext " +
     "texttexttexttexttexttexttexttexttexttexttexttexttexttexttext";
             // 
+            // poster
+            // 
+            this.poster.Location = new System.Drawing.Point(7, 20);
+            this.poster.Name = "poster";
+            this.poster.Size = new System.Drawing.Size(122, 170);
+            this.poster.TabIndex = 1;
+            this.poster.TabStop = false;
+            // 
             // FormSingleMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -400,7 +392,6 @@ namespace Videoteka {
             this.Controls.Add(this.buttonPrev);
             this.Controls.Add(this.panelReviews);
             this.Controls.Add(this.groupMyReview);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormSingleMovie";
@@ -414,12 +405,11 @@ namespace Videoteka {
             ((System.ComponentModel.ISupportInitialize)(this.reviewRating)).EndInit();
             this.groupMovie.ResumeLayout(false);
             this.groupMovie.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();
             this.panelReviews.ResumeLayout(false);
             this.panelReviews.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).EndInit();
             this.template.ResumeLayout(false);
             this.template.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -457,6 +447,5 @@ namespace Videoteka {
         private System.Windows.Forms.Panel panelPublishedReviewText;
         private System.Windows.Forms.Button buttonEditReview;
         private System.Windows.Forms.Button buttonCancelReview;
-        private System.Windows.Forms.PictureBox pictureEmpty;
     }
 }

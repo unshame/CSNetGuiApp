@@ -13,18 +13,38 @@ namespace Videoteka {
 
         public int currentPage = 0;
         public string defaultText = "";
+        public Control mainPanel = null;
+        int width = 484;
+        int maxHeight = 1200;
+        int minHeight = 520;
 
+        // Initialization
         protected virtual void InitializeTemplatedForm() {
+            Paint += OnPaint;
+            Resize += OnResize;
             defaultText = Text;
         }
 
-        protected void DrawDividers(Control panel, Graphics g) {
+
+        // Events
+        private void OnPaint(object sender, PaintEventArgs e) {
+            DrawDividers(e.Graphics);
+        }
+
+        private void OnResize(object sender, EventArgs e) {
+            Refresh();
+        }
+
+
+        // Methods
+        protected void DrawDividers(Graphics g) {
+            if (mainPanel == null) return;
             Pen pen = new Pen(Color.Gray, 1);
 
-            var x1 = new Point(panel.Location.X, panel.Location.Y - 1);
-            var x2 = new Point(panel.Location.X + panel.Width, panel.Location.Y - 1);
-            var x3 = new Point(panel.Location.X, panel.Location.Y + panel.Height);
-            var x4 = new Point(panel.Location.X + panel.Width, panel.Location.Y + panel.Height);
+            var x1 = new Point(mainPanel.Location.X, mainPanel.Location.Y - 1);
+            var x2 = new Point(mainPanel.Location.X + mainPanel.Width, mainPanel.Location.Y - 1);
+            var x3 = new Point(mainPanel.Location.X, mainPanel.Location.Y + mainPanel.Height);
+            var x4 = new Point(mainPanel.Location.X + mainPanel.Width, mainPanel.Location.Y + mainPanel.Height);
             g.DrawLine(pen, x1, x2);
             g.DrawLine(pen, x3, x4);
 
@@ -98,6 +118,11 @@ namespace Videoteka {
             }
             panel.Controls.Remove(template);
             template.Dispose();
+            mainPanel = panel;
+            mainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+
+            MaximumSize = new Size(width, maxHeight);
+            MinimumSize = new Size(width, minHeight);
         }
 
         public void UpdatePagination(int total, int perPage, Control prev, Control next, Control label) {
@@ -116,12 +141,6 @@ namespace Videoteka {
             }
             prev.Enabled = currentPage > 0;
             next.Enabled = currentPage < (pageCount - 1);
-        }
-
-        public void ResizeEmptyImage(PictureBox image, Control panel) {
-            image.Location = new Point(0, 0);
-            image.Width = panel.Width;
-            image.Height = panel.Height;
         }
     }
 }

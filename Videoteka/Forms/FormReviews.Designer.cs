@@ -1,4 +1,4 @@
-﻿namespace Videoteka {
+namespace Videoteka {
     partial class FormReviews {
         /// <summary>
         /// Required designer variable.
@@ -51,15 +51,14 @@
             this.buttonMovieInfo = new System.Windows.Forms.Button();
             this.textReview = new System.Windows.Forms.Label();
             this.labelMovieTitle = new System.Windows.Forms.Label();
-            this.pictureEmpty = new System.Windows.Forms.PictureBox();
             this.groupFilter.SuspendLayout();
             this.panelReviews.SuspendLayout();
             this.template.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).BeginInit();
             this.SuspendLayout();
             // 
             // labelPagination
             // 
+            this.labelPagination.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPagination.Location = new System.Drawing.Point(177, 737);
             this.labelPagination.Name = "labelPagination";
             this.labelPagination.Size = new System.Drawing.Size(100, 23);
@@ -69,6 +68,7 @@
             // 
             // buttonNext
             // 
+            this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNext.Location = new System.Drawing.Point(353, 738);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(108, 23);
@@ -79,6 +79,7 @@
             // 
             // buttonPrev
             // 
+            this.buttonPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonPrev.Location = new System.Drawing.Point(9, 737);
             this.buttonPrev.Name = "buttonPrev";
             this.buttonPrev.Size = new System.Drawing.Size(108, 23);
@@ -89,6 +90,7 @@
             // 
             // buttonAddMovie
             // 
+            this.buttonAddMovie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAddMovie.Location = new System.Drawing.Point(353, 773);
             this.buttonAddMovie.Name = "buttonAddMovie";
             this.buttonAddMovie.Size = new System.Drawing.Size(108, 23);
@@ -99,6 +101,7 @@
             // 
             // buttonLogin
             // 
+            this.buttonLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLogin.Location = new System.Drawing.Point(9, 773);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(108, 23);
@@ -109,6 +112,7 @@
             // 
             // buttonWatchlist
             // 
+            this.buttonWatchlist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonWatchlist.Location = new System.Drawing.Point(239, 773);
             this.buttonWatchlist.Name = "buttonWatchlist";
             this.buttonWatchlist.Size = new System.Drawing.Size(108, 23);
@@ -119,6 +123,7 @@
             // 
             // buttonAllMovies
             // 
+            this.buttonAllMovies.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAllMovies.Location = new System.Drawing.Point(125, 773);
             this.buttonAllMovies.Name = "buttonAllMovies";
             this.buttonAllMovies.Size = new System.Drawing.Size(108, 23);
@@ -254,8 +259,10 @@
             // 
             // panelReviews
             // 
+            this.panelReviews.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.panelReviews.AutoScroll = true;
-            this.panelReviews.Controls.Add(this.pictureEmpty);
+            this.panelReviews.BackgroundImage = global::Videoteka.Properties.Resources.reel12;
+            this.panelReviews.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panelReviews.Controls.Add(this.template);
             this.panelReviews.Location = new System.Drawing.Point(0, 122);
             this.panelReviews.Name = "panelReviews";
@@ -270,7 +277,7 @@
             this.template.Controls.Add(this.buttonMovieInfo);
             this.template.Controls.Add(this.textReview);
             this.template.Controls.Add(this.labelMovieTitle);
-            this.template.Location = new System.Drawing.Point(12, 3);
+            this.template.Location = new System.Drawing.Point(12, 0);
             this.template.Name = "template";
             this.template.Size = new System.Drawing.Size(427, 85);
             this.template.TabIndex = 0;
@@ -323,16 +330,6 @@
             this.labelMovieTitle.TabIndex = 0;
             this.labelMovieTitle.Text = "Movie Title";
             // 
-            // pictureEmpty
-            // 
-            this.pictureEmpty.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureEmpty.Image = global::Videoteka.Properties.Resources.reel12;
-            this.pictureEmpty.Location = new System.Drawing.Point(8, 249);
-            this.pictureEmpty.Name = "pictureEmpty";
-            this.pictureEmpty.Size = new System.Drawing.Size(453, 270);
-            this.pictureEmpty.TabIndex = 9;
-            this.pictureEmpty.TabStop = false;
-            // 
             // FormReviews
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -347,9 +344,10 @@
             this.Controls.Add(this.buttonAllMovies);
             this.Controls.Add(this.groupFilter);
             this.Controls.Add(this.panelReviews);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(484, 900);
+            this.MinimumSize = new System.Drawing.Size(484, 511);
             this.Name = "FormReviews";
             this.Text = "Reviews";
             this.Load += new System.EventHandler(this.OnLoad);
@@ -359,7 +357,6 @@
             this.panelReviews.PerformLayout();
             this.template.ResumeLayout(false);
             this.template.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEmpty)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -393,6 +390,5 @@
         private System.Windows.Forms.ComboBox filterSortBy;
         private System.Windows.Forms.Label labelSortOrder;
         private System.Windows.Forms.ComboBox filterSortOrder;
-        private System.Windows.Forms.PictureBox pictureEmpty;
     }
 }

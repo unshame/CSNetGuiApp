@@ -17,11 +17,10 @@ namespace Videoteka {
 
         // Events
          void OnLoad(object sender, EventArgs e) {
-            Paint += OnPaint;
-
             CreateControlsFromTemplate(template, panelMovies, "movie", movies, itemsPerPage);
             BindingManager.AddOrderingBinding(filterSortOrder);
             BindingManager.AddSortByWatchlistBinding(filterSortBy);
+            Height = Program.formHeight;
 
             for (int i = 0; i < itemsPerPage; i++) {
                 var movie = movies[i];
@@ -41,7 +40,6 @@ namespace Videoteka {
                     }
                 };
             }
-            ResizeEmptyImage(pictureEmpty, panelMovies);
 
             LoadWatchlist();
         }
@@ -49,11 +47,6 @@ namespace Videoteka {
         private void OnClosing(Object sender, FormClosingEventArgs e) {
             Program.formWatchlist = null;
         }
-
-        private void OnPaint(object sender, PaintEventArgs e) {
-            DrawDividers(panelMovies, e.Graphics);
-        }
-
 
         // Methods
         public void LoadWatchlist() {
@@ -93,7 +86,6 @@ namespace Videoteka {
                 poster.Image = ImageManager.FormatPoster(movieData.poster, poster.Width, poster.Height);
                 movie.Show();
             }
-            pictureEmpty.Visible = newMoviesData.Count == 0;
             panelMovies.PerformLayout();
             Refresh();
         }

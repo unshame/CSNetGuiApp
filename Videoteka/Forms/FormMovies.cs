@@ -20,6 +20,7 @@ namespace Videoteka {
         public FormMovies()  {
             StartPosition = FormStartPosition.Manual;
             FormClosed += OnClosed;
+            Resize += OnResize;
             InitializeComponent();
             InitializeTemplatedForm();
         }
@@ -27,7 +28,6 @@ namespace Videoteka {
 
         // Events
         void OnLoad(object sender, EventArgs e) {
-            Paint += OnPaint;
             CreateControlsFromTemplate(template, panelMovies, "movie", movies, itemsPerPage);
 
             BindingManager.AddGenresToDropdown(filterGenre, true);
@@ -55,17 +55,15 @@ namespace Videoteka {
             buttonAddMovie.DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
             buttonLogin.DataBindings.Add(BindingManager.GetFormattedBindingLoggedIn("Text"));
 
-            ResizeEmptyImage(pictureEmpty, panelMovies);
         }
 
         private void OnClosed(Object sender, FormClosedEventArgs e) {
             Application.Exit();
         }
 
-        private void OnPaint(object sender, PaintEventArgs e) {
-            DrawDividers(panelMovies, e.Graphics);
+        void OnResize(object sender, EventArgs e) {
+            Program.formHeight = Height;
         }
-
 
         // Methods
         public void LoadMovies() {
@@ -102,8 +100,10 @@ namespace Videoteka {
                 PictureBox poster = (PictureBox)movie.Controls["poster"];
                 poster.Image = ImageManager.FormatPoster(movieData.poster, poster.Width, poster.Height);
                 movie.Show();
+
             }
-            pictureEmpty.Visible = newMoviesData.Count == 0;
+
+
             PerformLayout();
             Refresh();
         }
@@ -157,6 +157,7 @@ namespace Videoteka {
         private void buttonAllReviews_Click(object sender, EventArgs e) {
             Hide();
             Program.formReviews.Location = Location;
+            Program.formReviews.Height = Program.formHeight;
             Program.formReviews.Show();
             Program.formReviews.LoadReviews();
         }

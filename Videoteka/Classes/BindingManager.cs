@@ -37,7 +37,7 @@ namespace Videoteka {
         };
 
         static ArrayList SortByWatchlistBinding = new ArrayList() {
-            new DropdownItem<string>("watchlist_id", "Added Date"),
+            new DropdownItem<string>("watchlist_id", "Date Added"),
             new DropdownItem<string>("title", "Title"),
             new DropdownItem<string>("rating", "Rating"),
             new DropdownItem<string>("year", "Year"),
@@ -45,6 +45,7 @@ namespace Videoteka {
         };
 
         static ArrayList SortByReviewsBinding = new ArrayList() {
+            new DropdownItem<string>("id", "Date Added"),
             new DropdownItem<string>("title", "Movie"),
             new DropdownItem<string>("username", "Author"),
             new DropdownItem<string>("rating", "Rating")
