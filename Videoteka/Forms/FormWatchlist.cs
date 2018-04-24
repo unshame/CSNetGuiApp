@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace Videoteka {
     public partial class FormWatchlist : TemplatedForm {
 
-        public const int itemsPerPage = 10;
+        public const int itemsPerPage = 15;
         public Control[] movies = new Control[itemsPerPage];
         public MovieData[] moviesData = new MovieData[itemsPerPage];
 

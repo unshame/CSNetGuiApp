@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Diagnostics;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.IO;
+using System.Net;
 
 namespace Videoteka {
     static class DB {
@@ -574,7 +578,7 @@ namespace Videoteka {
                 filterStr += "genre = " + genre;
             }
 
-            if (year > 1950) {
+            if (year > 1900) {
                 filterStr = AddAnd(filterStr);
                 filterStr += "year >= " + year;
             }
@@ -607,6 +611,130 @@ namespace Videoteka {
 
             Debug.WriteLine(filterStr);
             return filterStr;
+        }
+
+        [DataContract]
+        class MovieDataJsonArray {
+            [DataMember]
+            public MovieDataJson[] data;
+        }
+
+        [DataContract]
+        class MovieDataJson {
+            [DataMember]
+            public string director;
+
+            [DataMember]
+            public string genre;
+
+            [DataMember]
+            public string plot;
+
+            [DataMember]
+            public string poster_url;
+
+            [DataMember]
+            public int runtime;
+
+            [DataMember]
+            public string stars;
+
+            [DataMember]
+            public string title;
+
+            [DataMember]
+            public int year;
+        }
+
+        public static void AddMoviesFromJson(string filename) {
+            byte[] bytes;
+            try {
+                bytes = File.ReadAllBytes(filename);
+            }
+            catch {
+                return;
+            }
+            if (MessageBox.Show(
+                "Found movies.json file. Add movies to database?",
+                "Adding movies from file",
+                MessageBoxButtons.YesNo
+            ) != DialogResult.Yes) return;
+
+            MovieDataJsonArray movies = new MovieDataJsonArray();
+            using (var sr = new MemoryStream(bytes)) {
+                var reader = new DataContractJsonSerializer(typeof(MovieDataJsonArray));
+                movies = reader.ReadObject(sr) as MovieDataJsonArray;
+            }
+
+            if (movies == null) {
+                Program.ShowErrorBox("Coudln't read movie data from file", "Failed to load json file");
+                return;
+            }
+
+            var numAdded = 0;
+            var webClient = new WebClient();
+            var addDupesSet = false;
+            var addDupes = false;
+            for (int i = 0; i < movies.data.Length; i++) {
+                var data = movies.data[i];
+
+                var existingMovie = GetMovies(1, 0, "title = '" + MySqlHelper.EscapeString(data.title) + "'");
+                if (existingMovie.Count > 0) {
+
+                    if (!addDupesSet) {
+                        addDupes = MessageBox.Show(
+                            "Movie with title " + data.title + " already exists in the database.\n Add this and any other movie with a duplicate title anyway?",
+                            "Adding movie",
+                            MessageBoxButtons.YesNo
+                        ) == DialogResult.Yes;
+                        addDupesSet = true;
+                    }
+
+                    if (!addDupes) {
+                        continue;
+                    }
+                }
+
+                byte[] poster = null;
+
+                try {
+                    poster = webClient.DownloadData(data.poster_url);
+                }
+                catch {
+                    if(MessageBox.Show(
+                        "Failed to download poster for " + data.title + " from url '" + data.poster_url + "'.\nContinue?",
+                        "Adding movie",
+                        MessageBoxButtons.YesNo
+                    ) != DialogResult.Yes) return;
+                }
+
+                var genre = 0;
+                var genreItem = BindingManager.Genres.Values.FirstOrDefault((DropdownItem<int> g) => {
+                    return g.Value == data.genre;
+                });
+                if(genreItem == null) {
+                    Program.ShowErrorBox("Unknown genre " + data.genre, "Failed to add movie");
+                    continue;
+                }
+                genre = genreItem.Id;
+
+                var id = AddMovie(
+                    data.title,
+                    data.year,
+                    genre,
+                    data.runtime,
+                    data.director,
+                    data.stars,
+                    data.plot,
+                    poster
+                );
+
+                if(id != -1) {
+                    numAdded++;
+                    Program.ReloadForms();
+                }        
+            }
+            MessageBox.Show("Added " + numAdded + " movies");            
         }
 
     }

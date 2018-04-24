@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace Videoteka {
     public partial class FormReviews : TemplatedForm {
 
-        public const int itemsPerPage = 5;
+        public const int itemsPerPage = 15;
         public Control[] reviews = new Control[itemsPerPage];
         public ReviewData[] reviewsData = new ReviewData[itemsPerPage];
 

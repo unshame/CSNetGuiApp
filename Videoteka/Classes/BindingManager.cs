@@ -33,7 +33,8 @@ namespace Videoteka {
             new DropdownItem<string>("title", "Title"),
             new DropdownItem<string>("rating", "Rating"),
             new DropdownItem<string>("year", "Year"),
-            new DropdownItem<string>("duration", "Duration")
+            new DropdownItem<string>("duration", "Duration"),
+            new DropdownItem<string>("id", "Date Added")
         };
 
         static ArrayList SortByWatchlistBinding = new ArrayList() {

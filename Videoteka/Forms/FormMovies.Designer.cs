@@ -255,7 +255,7 @@ namespace Videoteka {
             0,
             0});
             this.filterYear.Minimum = new decimal(new int[] {
-            1950,
+            1900,
             0,
             0,
             0});
@@ -263,7 +263,7 @@ namespace Videoteka {
             this.filterYear.Size = new System.Drawing.Size(141, 20);
             this.filterYear.TabIndex = 12;
             this.filterYear.Value = new decimal(new int[] {
-            1950,
+            1900,
             0,
             0,
             0});

@@ -25,6 +25,9 @@ namespace Videoteka {
         private void buttonLogin_Click(object sender, EventArgs e) {
             if (Profile.Login(textBoxUsername.Text, textBoxPassword.Text)) {
                 Close();
+                if (Profile.IsAdmin.Checked) {
+                    DB.AddMoviesFromJson("movies.json");
+                }
             }
             else {
                 Program.ShowErrorBox("Invalid username or password", "Failed to login");

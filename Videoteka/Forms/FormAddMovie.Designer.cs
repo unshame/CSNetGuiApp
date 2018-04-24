@@ -229,7 +229,7 @@ namespace Videoteka {
             0,
             0});
             this.addYear.Minimum = new decimal(new int[] {
-            1950,
+            1900,
             0,
             0,
             0});

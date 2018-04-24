@@ -34,7 +34,6 @@ namespace Videoteka {
             DB.Init(host, database, username, password);
 
             if (DB.ConnectionIsWorking()) {
-
                 Profile.Init();
                 BindingManager.Init();
 
