@@ -251,6 +251,7 @@ namespace Videoteka {
             reviewRating.Enabled = true;
             reviewText.Enabled = true;
             reviewPublish.Enabled = true;
+            buttonCancelReview.Enabled = true;
         }
 
         private void buttonCancelReview_Click(object sender, EventArgs e) {

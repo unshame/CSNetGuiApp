@@ -148,9 +148,5 @@ namespace Videoteka {
                 LoadWatchlist();
             }
         }
-
-        private void panelMovies_Paint(object sender, PaintEventArgs e) {
-
-        }
     }
 }

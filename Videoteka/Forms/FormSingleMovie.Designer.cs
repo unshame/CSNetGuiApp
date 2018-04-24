@@ -46,6 +46,7 @@ namespace Videoteka {
             this.labelDirector = new System.Windows.Forms.Label();
             this.buttonAddToWatchlist = new System.Windows.Forms.Button();
             this.textMovieDescription = new System.Windows.Forms.Label();
+            this.poster = new System.Windows.Forms.PictureBox();
             this.textMovieInfo = new System.Windows.Forms.Label();
             this.labelPagination = new System.Windows.Forms.Label();
             this.buttonNext = new System.Windows.Forms.Button();
@@ -54,15 +55,14 @@ namespace Videoteka {
             this.template = new System.Windows.Forms.GroupBox();
             this.labelReviewMovieRating = new System.Windows.Forms.Label();
             this.textReview = new System.Windows.Forms.Label();
-            this.poster = new System.Windows.Forms.PictureBox();
             this.groupMyReview.SuspendLayout();
             this.groupMyReviewPublished.SuspendLayout();
             this.panelPublishedReviewText.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.reviewRating)).BeginInit();
             this.groupMovie.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
             this.panelReviews.SuspendLayout();
             this.template.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
             this.SuspendLayout();
             // 
             // groupMyReview
@@ -149,7 +149,7 @@ namespace Videoteka {
             this.labelRatingValue.Name = "labelRatingValue";
             this.labelRatingValue.Size = new System.Drawing.Size(20, 13);
             this.labelRatingValue.TabIndex = 3;
-            this.labelRatingValue.Text = "19";
+            this.labelRatingValue.Text = "5";
             this.labelRatingValue.UseMnemonic = false;
             // 
             // reviewPublish
@@ -186,7 +186,7 @@ namespace Videoteka {
             this.reviewRating.Name = "reviewRating";
             this.reviewRating.Size = new System.Drawing.Size(202, 45);
             this.reviewRating.TabIndex = 0;
-            this.reviewRating.Value = 1;
+            this.reviewRating.Value = 5;
             // 
             // buttonCancelReview
             // 
@@ -290,6 +290,14 @@ namespace Videoteka {
             this.textMovieDescription.TabIndex = 2;
             this.textMovieDescription.Text = resources.GetString("textMovieDescription.Text");
             // 
+            // poster
+            // 
+            this.poster.Location = new System.Drawing.Point(7, 20);
+            this.poster.Name = "poster";
+            this.poster.Size = new System.Drawing.Size(122, 170);
+            this.poster.TabIndex = 1;
+            this.poster.TabStop = false;
+            // 
             // textMovieInfo
             // 
             this.textMovieInfo.Location = new System.Drawing.Point(135, 20);
@@ -373,14 +381,6 @@ namespace Videoteka {
             this.textReview.Text = "texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext " +
     "texttexttexttexttexttexttexttexttexttexttexttexttexttexttext";
             // 
-            // poster
-            // 
-            this.poster.Location = new System.Drawing.Point(7, 20);
-            this.poster.Name = "poster";
-            this.poster.Size = new System.Drawing.Size(122, 170);
-            this.poster.TabIndex = 1;
-            this.poster.TabStop = false;
-            // 
             // FormSingleMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -405,11 +405,11 @@ namespace Videoteka {
             ((System.ComponentModel.ISupportInitialize)(this.reviewRating)).EndInit();
             this.groupMovie.ResumeLayout(false);
             this.groupMovie.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();
             this.panelReviews.ResumeLayout(false);
             this.panelReviews.PerformLayout();
             this.template.ResumeLayout(false);
             this.template.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();
             this.ResumeLayout(false);
 
         }

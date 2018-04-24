@@ -216,7 +216,6 @@ namespace Videoteka {
             this.panelMovies.Name = "panelMovies";
             this.panelMovies.Size = new System.Drawing.Size(468, 561);
             this.panelMovies.TabIndex = 2;
-            this.panelMovies.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMovies_Paint);
             // 
             // template
             // 

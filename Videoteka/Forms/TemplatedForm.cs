@@ -68,7 +68,7 @@ namespace Videoteka {
                     }
                 }
 
-                controlGroup.Hide();
+                //controlGroup.Hide();
                 controls[i] = controlGroup;
                 panel.Controls.Add(controlGroup);
             }
