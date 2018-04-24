@@ -613,6 +613,7 @@ namespace Videoteka {
             return filterStr;
         }
 
+#pragma warning disable 0649
         [DataContract]
         class MovieDataJsonArray {
             [DataMember]
@@ -645,6 +646,7 @@ namespace Videoteka {
             [DataMember]
             public int year;
         }
+#pragma warning restore 0649
 
         public static void AddMoviesFromJson(string filename) {
             byte[] bytes;
