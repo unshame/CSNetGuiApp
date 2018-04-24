@@ -50,6 +50,7 @@ namespace Videoteka {
                 CloseConnection();
                 return true;
             }
+
             return false;
         }
 
@@ -58,9 +59,11 @@ namespace Videoteka {
             var query = "select * from genres";
             var cmd = new MySqlCommand(query, connection);
             var results = new Dictionary<int, DropdownItem<int>>();
+
             if (OpenConnection()) {
                 try {
                     var reader = cmd.ExecuteReader();
+
                     while (reader.Read()) {
                         var id = reader.GetInt32("genre_id");
                         results.Add(id, new DropdownItem<int>(
@@ -68,12 +71,14 @@ namespace Videoteka {
                             reader.GetString("genre_name")
                         ));
                     }
+
                     reader.Close();
                 }
                 catch (MySqlException e) {
                     Program.ShowErrorBox(e.Message, "Failed to get genres");
                 }
             }
+
             CloseConnection();
             return results;
         }
@@ -99,6 +104,7 @@ namespace Videoteka {
 
                 reader.Close();
             }
+
             CloseConnection();
             return result;
         }
@@ -121,6 +127,7 @@ namespace Videoteka {
                     result = false;
                 }
             }
+
             CloseConnection();
             return result;
         }
@@ -136,6 +143,7 @@ namespace Videoteka {
             Debug.WriteLine(query);
             var cmd = new MySqlCommand(query, connection);
             var result = 0;
+
             if (OpenConnection()) {
                 try {
                     var reader = cmd.ExecuteReader();
@@ -148,6 +156,7 @@ namespace Videoteka {
                     Program.ShowErrorBox(e.Message, "Failed to get " + table + " count");
                 }
             }
+
             CloseConnection();
             return result;
         }
@@ -162,6 +171,7 @@ namespace Videoteka {
 
             var cmd = new MySqlCommand(query, connection);
             var paramPoster = new MySqlParameter("@poster", MySqlDbType.Blob);
+
             if (poster != null) {
                 paramPoster.Size = poster.Length;
                 paramPoster.Value = poster;
@@ -187,6 +197,7 @@ namespace Videoteka {
                     Program.ShowErrorBox(e.Message, "Failed to add movie");
                 }
             }
+
             CloseConnection();
             return result;
         }
@@ -199,6 +210,7 @@ namespace Videoteka {
 
             var cmd = new MySqlCommand(query, connection);
             var paramPoster = new MySqlParameter("@poster", MySqlDbType.Blob);
+
             if (poster != null) {
                 paramPoster.Size = poster.Length;
                 paramPoster.Value = poster;
@@ -224,8 +236,8 @@ namespace Videoteka {
                     Program.ShowErrorBox(e.Message, "Failed to update movie");
                 }
             }
-            CloseConnection();
 
+            CloseConnection();
             return result;
         }
 
@@ -233,9 +245,11 @@ namespace Videoteka {
             var query = "delete from movies where id=" + id + ";";
 
             var result = 0;
+
             if (OpenConnection()) {
                 result = new MySqlCommand(query, connection).ExecuteNonQuery();
             }
+
             CloseConnection();
             return result;
         }
@@ -244,18 +258,22 @@ namespace Videoteka {
             if(sortBy == "rating") {
                 sortBy = "if(rating_amount = 0, 1, rating_sum / rating_amount)";
             }
+
             var query = "select movies.id, title, year, genre, duration, director, stars, description, poster, rating_amount, rating_sum, rating, watchlist_id, is_watched from movies" +
                 " left outer join reviews on reviews.movie_id = movies.id and reviews.user_id = " + Profile.UID +
                 " left outer join watchlist on watchlist.movie_id = movies.id and watchlist.user_id = " + Profile.UID +
                 (where == "" ? "" : " where " + where) + 
                 (sortBy == "" ? "" : " order by " + sortBy + " " + order) + 
                 " limit " + amount + " offset " + offset +  ";";
+
             Debug.WriteLine(query);
             var cmd = new MySqlCommand(query, connection);
             var results = new List<MovieData>();
+
             if (OpenConnection()) {
                 try {
                     var reader = cmd.ExecuteReader();
+
                     while (reader.Read()) {
                         var rating = Profile.IsLoggedIn.Checked && !(reader["rating"] is DBNull) ? reader.GetInt32("rating") : 0;
                         var watchlistId = Profile.IsLoggedIn.Checked && !(reader["watchlist_id"] is DBNull) ? reader.GetInt32("watchlist_id") : 0;
@@ -277,12 +295,14 @@ namespace Videoteka {
                             isWatched = isWatched
                         });
                     }
+
                     reader.Close();
                 }
                 catch (MySqlException e) {
                     Program.ShowErrorBox(e.Message, "Failed to get movies");
                 }
             }
+
             CloseConnection();
             return results;
         }
@@ -346,8 +366,8 @@ namespace Videoteka {
                     Program.ShowErrorBox(e.Message, "Failed to add review");
                 }
             }
-            CloseConnection();
 
+            CloseConnection();
             return result;
         }
 
@@ -373,8 +393,8 @@ namespace Videoteka {
                     Program.ShowErrorBox(e.Message, "Failed to update review");
                 }
             }
-            CloseConnection();
 
+            CloseConnection();
             return result;
         }
 
@@ -385,6 +405,7 @@ namespace Videoteka {
             if (OpenConnection()) {
                 result = new MySqlCommand(query, connection).ExecuteNonQuery();
             }
+
             CloseConnection();
             return result;
         }
@@ -396,6 +417,7 @@ namespace Videoteka {
             if (OpenConnection()) {
                 result = new MySqlCommand(query, connection).ExecuteNonQuery();
             }
+
             CloseConnection();
             return result;
         }
@@ -407,12 +429,15 @@ namespace Videoteka {
                 (where == "" ? "" : " where " + where) +
                 (sortBy == "" ? "" : " order by " + sortBy + " " + order) +
                 " limit " + amount + " offset " + offset + ";";
+
             Debug.WriteLine(query);
             var cmd = new MySqlCommand(query, connection);
             var results = new List<ReviewData>();
+
             if (OpenConnection()) {
                 try {
                     var reader = cmd.ExecuteReader();
+
                     while (reader.Read()) {
                         results.Add(new ReviewData {
                             id = reader.GetInt32("id"),
@@ -424,12 +449,14 @@ namespace Videoteka {
                             text = reader.GetString("review")
                         });
                     }
+
                     reader.Close();
                 }
                 catch (MySqlException e) {
                     Program.ShowErrorBox(e.Message, "Failed to get review");
                 }
             }
+
             CloseConnection();
             return results;
         }
@@ -468,8 +495,8 @@ namespace Videoteka {
                     Program.ShowErrorBox(e.Message, "Failed to add movie to watchlist");
                 }
             }
-            CloseConnection();
 
+            CloseConnection();
             return result;
         }
 
@@ -477,9 +504,11 @@ namespace Videoteka {
             var query = "delete from watchlist where watchlist_id=" + id + ";";
 
             var result = 0;
+
             if (OpenConnection()) {
                 result = new MySqlCommand(query, connection).ExecuteNonQuery();
             }
+
             CloseConnection();
             return result;
         }
@@ -520,50 +549,62 @@ namespace Videoteka {
 
         public static string FormatFilterMovies(string title, string director, string star, int duration, int genre, int year, int rating) {
             var filterStr = "";
+
             if (title != "") {
                 filterStr += "INSTR(title, '" + MySqlHelper.EscapeString(title) + "') > 0";
             }
+
             if (director != "") {
                 filterStr = AddAnd(filterStr);
                 filterStr += "INSTR(director, '" + MySqlHelper.EscapeString(director) + "') > 0";
             }
+
             if (star != "") {
                 filterStr = AddAnd(filterStr);
                 filterStr += "INSTR(stars, '" + MySqlHelper.EscapeString(star) + "') > 0";
             }
+
             if(duration > 1) {
                 filterStr = AddAnd(filterStr);
                 filterStr += "duration >= " + duration;
             }
+
             if (genre > 0) {
                 filterStr = AddAnd(filterStr);
                 filterStr += "genre = " + genre;
             }
+
             if (year > 1950) {
                 filterStr = AddAnd(filterStr);
                 filterStr += "year >= " + year;
             }
+
             if (rating > 1) {
                 filterStr = AddAnd(filterStr);
                 filterStr += "if(rating_amount = 0, 1, rating_sum / rating_amount) >= " + rating;
             }
+
             Debug.WriteLine(filterStr);
             return filterStr;
         }
 
         public static string FormatFilterReviews(string title, string username, int rating) {
             var filterStr = "";
+
             if (title != "") {
                 filterStr += "INSTR(title, '" + MySqlHelper.EscapeString(title) + "') > 0";
             }
+
             if (username != "") {
                 filterStr = AddAnd(filterStr);
                 filterStr += "INSTR(username, '" + MySqlHelper.EscapeString(username) + "') > 0";
             }
+
             if (rating > 1) {
                 filterStr = AddAnd(filterStr);
                 filterStr += "reviews.rating >= " + rating;
             }
+
             Debug.WriteLine(filterStr);
             return filterStr;
         }

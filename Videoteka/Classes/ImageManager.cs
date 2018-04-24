@@ -24,6 +24,7 @@ namespace Videoteka {
             if (defaultPoster != null) {
                 return defaultPoster;
             }
+
             try {
                 return Image.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream(defaultPosterResourceName));
             }
@@ -71,12 +72,14 @@ namespace Videoteka {
 
         public static byte[] OpenImage(string imagePath) {
             byte[] image = null;
+
             try {
                 image = File.ReadAllBytes(imagePath);
             }
             catch {
                 Program.ShowErrorBox("Failed to open poster image");
             }
+
             return image;
         }
     }

@@ -57,6 +57,7 @@ namespace Videoteka {
             addDescription.Text = movieData.description;
             addDirector.Text = movieData.director;
             addStars.Text = movieData.stars;
+
             if (movieData.poster != null) {
                 addPosterPath.Text = posterExistsText;
             }
@@ -69,6 +70,7 @@ namespace Videoteka {
         // Click events
         private void buttonAdd_Click(object sender, EventArgs e) {
             if (movieId != -1) {
+
                 if (MovieManager.UpdateMovie(
                     movieData.id,
                     addTitle.Text,
@@ -95,6 +97,7 @@ namespace Videoteka {
                     addDescription.Text,
                     addPosterPath.Text
                 );
+
                 if (id != -1) {
                     Program.OpenMovieForm(id);
                     Close();

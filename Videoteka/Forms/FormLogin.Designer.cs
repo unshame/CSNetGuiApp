@@ -124,6 +124,7 @@ namespace Videoteka {
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormLogin";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.groupLogin.ResumeLayout(false);
             this.groupLogin.PerformLayout();

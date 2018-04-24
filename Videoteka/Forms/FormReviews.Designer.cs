@@ -349,6 +349,7 @@ namespace Videoteka {
             this.MaximumSize = new System.Drawing.Size(484, 900);
             this.MinimumSize = new System.Drawing.Size(484, 511);
             this.Name = "FormReviews";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Reviews";
             this.Load += new System.EventHandler(this.OnLoad);
             this.groupFilter.ResumeLayout(false);

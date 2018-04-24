@@ -24,21 +24,27 @@ namespace Videoteka {
 
         public FormSingleMovie(int id) {
             this.id = id;
-            InitializeComponent();
-            InitializeTemplatedForm();
+
             FormClosing += OnClosing;
             Paint += OnResize;
+
+            InitializeComponent();
+            InitializeTemplatedForm();
         }
 
         // Events
         void OnLoad(object sender, EventArgs e) {
             CreateControlsFromTemplate(template, panelReviews, "review", reviews, itemsPerPage);
+
             labelRatingValue.DataBindings.Add("Text", reviewRating, "Value");
             buttonEditMovie.DataBindings.Add("Enabled", Profile.IsAdmin, "Checked");
             buttonEditMovie.DataBindings.Add("Visible", Profile.IsAdmin, "Checked");
+
             Height = Program.formHeight;
+
             reviewsLocation = panelReviews.Location;
             reviewsHeight = panelReviews.Height;
+
             LoadData();
         }
 
@@ -61,7 +67,6 @@ namespace Videoteka {
             panelReviews.VerticalScroll.Value = 0;
 
             if (Profile.IsLoggedIn.Checked) {
-
                 groupMyReview.Show();
 
                 LoadOwnReview();
@@ -73,12 +78,11 @@ namespace Videoteka {
                 buttonAddToWatchlist.Text = buttonAddToWatchlist.Enabled ? MovieManager.NotInWatchlistText : (movieData.isWatched ? MovieManager.WatchedText : MovieManager.InWatchlistText);
             }
             else {
+                groupMyReview.Hide();
+
                 isEditing = false;
                 reviewText.ResetText();
                 reviewRating.Value = 5;
-
-                groupMyReview.Hide();
-
                 reviewRating.Enabled = false;
                 reviewText.Enabled = false;
 
@@ -125,6 +129,7 @@ namespace Videoteka {
 
             if (reviewsData.Count > 0) {
                 reviewData = reviewsData[0];
+
                 if (!isEditing) {
                     groupMyReviewPublished.Show();
                 }
@@ -141,7 +146,9 @@ namespace Videoteka {
             }
             else {
                 isEditing = false;
+
                 groupMyReviewPublished.Hide();
+
                 buttonDeleteReview.Enabled = false;
                 buttonCancelReview.Enabled = true;
                 reviewRating.Enabled = true;
@@ -152,14 +159,18 @@ namespace Videoteka {
 
         public void LoadReviews() {
             var filterStr = "movie_id = " + id + " and user_id != " + Profile.UID + " and review != ''";
+
             UpdatePagination(DB.GetReviewsCount(filterStr), itemsPerPage, buttonPrev, buttonNext, labelPagination);
             var reviewsData = DB.GetReviews(itemsPerPage, currentPage * itemsPerPage, filterStr, "id", "DESC");
+
             for (int i = 0; i < itemsPerPage; i++) {
                 var review = reviews[i];
+
                 if (i >= reviewsData.Count) {
                     review.Hide();
                     continue;
                 }
+
                 var reviewData = reviewsData[i];
                 review.Text = reviewData.username;
                 review.Controls["labelReviewMovieRating"].Text = reviewData.FormatRating();
@@ -171,11 +182,14 @@ namespace Videoteka {
         private void ResizeReviews() {
             var baseOffset = reviews[0].Location.Y;
             var offset = baseOffset;
+
             for (int i = 0; i < itemsPerPage; i++) {
                 var review = reviews[i];
+
                 if (!review.Visible) {
                     continue;
                 }
+
                 review.Location = new Point(review.Location.X, offset);
                 offset += baseOffset + review.Height;
             }
@@ -189,6 +203,7 @@ namespace Videoteka {
 
         private void reviewPublish_Click(object sender, EventArgs e) {
             var success = false;
+
             if (isEditing) {
                 success = ReviewManager.UpdateReview(reviewData.id, id, reviewRating.Value, reviewText.Text);
             }
@@ -196,10 +211,12 @@ namespace Videoteka {
                 success = ReviewManager.AddReview(id, reviewRating.Value, reviewText.Text) != -1;
             }
             if (success) {
+
                 if (isEditing) {
                     isEditing = false;
                     Program.ReloadForms();
                 }
+
                 reviewText.ResetText();
                 reviewRating.Value = 5;
             }
@@ -225,7 +242,9 @@ namespace Videoteka {
 
         private void buttonEditReview_Click(object sender, EventArgs e) {
             isEditing = true;
+
             groupMyReviewPublished.Hide();
+
             reviewText.Text = reviewData.text;
             reviewRating.Value = reviewData.rating;
             buttonDeleteReview.Enabled = false;

@@ -56,10 +56,12 @@ namespace Videoteka {
         public static void Init() {
             Genres = DB.GetGenres();
             GenresBindingWithEmpty.Add(new DropdownItem<int>(0, "Any"));
+
             foreach(var genre in Genres) { 
                 GenresBinding.Add(genre.Value);
                 GenresBindingWithEmpty.Add(genre.Value);
             }
+
             for (int i = 1; i <= 10; i++) {
                 RatingBinding.Add(new DropdownItem<int>(i, i + (i == 10 ? "" : "+")));
             }
@@ -68,16 +70,20 @@ namespace Videoteka {
 
         public static Binding GetFormattedBindingLoggedIn(string prop) {
             var binding = new Binding(prop, Profile.IsLoggedIn, "Checked", true);
+
             binding.Format += (object s, ConvertEventArgs ee) => {
                 ee.Value = (bool)ee.Value ? "Logout" : "Login";
             };
+
             return binding;
         }
 
         static void AddBindingToDropdown(ComboBox dropdown, ArrayList bindData) {
+
             BindingSource source = new BindingSource {
                 DataSource = bindData
             };
+
             dropdown.DataSource = source.DataSource;
             dropdown.ValueMember = "Id";
             dropdown.DisplayMember = "Value";

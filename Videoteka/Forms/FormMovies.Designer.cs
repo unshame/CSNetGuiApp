@@ -34,6 +34,7 @@ namespace Videoteka {
             this.buttonReviews = new System.Windows.Forms.Button();
             this.buttonAddToWatchlist = new System.Windows.Forms.Button();
             this.textMovieDescription = new System.Windows.Forms.Label();
+            this.poster = new System.Windows.Forms.PictureBox();
             this.textMovieInfo = new System.Windows.Forms.Label();
             this.panelMovies = new System.Windows.Forms.Panel();
             this.groupFilter = new System.Windows.Forms.GroupBox();
@@ -66,13 +67,12 @@ namespace Videoteka {
             this.buttonPrev = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
             this.labelPagination = new System.Windows.Forms.Label();
-            this.poster = new System.Windows.Forms.PictureBox();
             this.template.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
             this.panelMovies.SuspendLayout();
             this.groupFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.filterYear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.filterDuration)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
             this.SuspendLayout();
             // 
             // template
@@ -174,6 +174,14 @@ namespace Videoteka {
             this.textMovieDescription.Size = new System.Drawing.Size(286, 74);
             this.textMovieDescription.TabIndex = 2;
             this.textMovieDescription.Text = resources.GetString("textMovieDescription.Text");
+            // 
+            // poster
+            // 
+            this.poster.Location = new System.Drawing.Point(7, 20);
+            this.poster.Name = "poster";
+            this.poster.Size = new System.Drawing.Size(122, 170);
+            this.poster.TabIndex = 1;
+            this.poster.TabStop = false;
             // 
             // textMovieInfo
             // 
@@ -524,14 +532,6 @@ namespace Videoteka {
             this.labelPagination.TabIndex = 3;
             this.labelPagination.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // poster
-            // 
-            this.poster.Location = new System.Drawing.Point(7, 20);
-            this.poster.Name = "poster";
-            this.poster.Size = new System.Drawing.Size(122, 170);
-            this.poster.TabIndex = 1;
-            this.poster.TabStop = false;
-            // 
             // FormMovies
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -552,16 +552,17 @@ namespace Videoteka {
             this.MinimumSize = new System.Drawing.Size(484, 511);
             this.Name = "FormMovies";
             this.RightToLeftLayout = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Movies";
             this.Load += new System.EventHandler(this.OnLoad);
             this.template.ResumeLayout(false);
             this.template.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();
             this.panelMovies.ResumeLayout(false);
             this.groupFilter.ResumeLayout(false);
             this.groupFilter.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.filterYear)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.filterDuration)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.poster)).EndInit();
             this.ResumeLayout(false);
 
         }

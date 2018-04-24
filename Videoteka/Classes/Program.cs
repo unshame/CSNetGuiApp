@@ -32,6 +32,7 @@ namespace Videoteka {
             var password = args.Length > 3 ? args[3] : "";
 
             DB.Init(host, database, username, password);
+
             if (DB.ConnectionIsWorking()) {
 
                 Profile.Init();
@@ -57,6 +58,7 @@ namespace Videoteka {
 
         static public FormSingleMovie OpenMovieForm(int id) {
             FormSingleMovie movieForm;
+
             if (openedMovieForms.ContainsKey(id)) {
                 movieForm = openedMovieForms[id];
                 movieForm.LoadData();
@@ -67,6 +69,7 @@ namespace Videoteka {
                 openedMovieForms.Add(id, movieForm);
                 movieForm.Show();
             }
+
             return movieForm;
         }
 
@@ -78,9 +81,11 @@ namespace Videoteka {
 
         static public void ReloadAllMovieForms() {
             var forms = new List<FormSingleMovie>();
+
             foreach(var formPair in openedMovieForms) {
                 forms.Add(formPair.Value);
             }
+
             for(int i = 0; i < forms.Count; i++) {
                 forms[i].LoadData();
             }
@@ -98,6 +103,7 @@ namespace Videoteka {
                 formWatchlist = new FormWatchlist();
                 formWatchlist.Show();
             }
+
             formWatchlist.Focus();
             formWatchlist.Text += Profile.FormTextUsername();
         }
@@ -113,6 +119,7 @@ namespace Videoteka {
                 formAddMovie = new FormAddMovie();
                 formAddMovie.Show();
             }
+
             formAddMovie.Focus();
         }
 
@@ -126,12 +133,15 @@ namespace Videoteka {
             if (formMovies.Visible) {
                 formMovies.LoadMovies();
             }
+
             if (formReviews.Visible) {
                 formReviews.LoadReviews();
             }
+
             if(formWatchlist != null) {
                 formWatchlist.LoadWatchlist();
             }
+
             ReloadAllMovieForms();
         }
 

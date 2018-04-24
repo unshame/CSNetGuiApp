@@ -17,9 +17,9 @@ namespace Videoteka {
         public ReviewData[] reviewsData = new ReviewData[itemsPerPage];
 
         public FormReviews() : base() {
-            StartPosition = FormStartPosition.Manual;
             FormClosed += OnClosed;
             Resize += OnResize;
+
             InitializeComponent();
             InitializeTemplatedForm();
         }
@@ -65,6 +65,7 @@ namespace Videoteka {
 
             var filterStr = DB.AddAnd(DB.FormatFilterReviews(filterTitle.Text, filterUser.Text, (int)filterRating.SelectedValue));
             filterStr += "review != ''";
+
             UpdatePagination(DB.GetReviewsCount(filterStr), itemsPerPage, buttonPrev, buttonNext, labelPagination);
             var newReviewsData = DB.GetReviews(
                 itemsPerPage,
@@ -73,14 +74,18 @@ namespace Videoteka {
                 (string)filterSortBy.SelectedValue,
                 (string)filterSortOrder.SelectedValue
             );
+
             var baseOffset = reviews[0].Location.Y;
             var offset = baseOffset;
+
             for (int i = 0; i < itemsPerPage; i++) {
                 var review = reviews[i];
+
                 if (i >= newReviewsData.Count) {
                     review.Hide();
                     continue;
                 }
+
                 var reviewData = newReviewsData[i];
                 reviewsData[i] = reviewData;
                 review.Text = reviewData.FormatUsername();
@@ -88,12 +93,14 @@ namespace Videoteka {
                 review.Controls["labelReviewRating"].Text = reviewData.FormatRating();
                 review.Controls["textReview"].Text = reviewData.text;
                 review.Location = new Point(review.Location.X, offset);
-                offset += baseOffset + review.Height;
                 review.Show();
+
+                offset += baseOffset + review.Height;
             }
 
             panelReviews.VerticalScroll.Value = savedScrollValue;
             panelReviews.PerformLayout();
+
             Refresh();
         }
 

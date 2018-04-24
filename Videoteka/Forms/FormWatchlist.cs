@@ -20,6 +20,7 @@ namespace Videoteka {
             CreateControlsFromTemplate(template, panelMovies, "movie", movies, itemsPerPage);
             BindingManager.AddOrderingBinding(filterSortOrder);
             BindingManager.AddSortByWatchlistBinding(filterSortBy);
+
             Height = Program.formHeight;
 
             for (int i = 0; i < itemsPerPage; i++) {
@@ -54,14 +55,18 @@ namespace Videoteka {
 
             ValidateFilter();
             var filterStr = FormatFilter();
+
             UpdatePagination(DB.GetMoviesCount(filterStr), itemsPerPage, buttonPrev, buttonNext, labelPagination);
             var newMoviesData = DB.GetMovies(itemsPerPage, currentPage * itemsPerPage, filterStr, (string)filterSortBy.SelectedValue, (string)filterSortOrder.SelectedValue);
+
             for (int i = 0; i < itemsPerPage; i++) {
                 var movie = movies[i];
+
                 if (i >= newMoviesData.Count) {
                     movie.Hide();
                     continue;
                 }
+
                 moviesData[i] = newMoviesData[i];
                 var movieData = moviesData[i];
                 movie.Text = movieData.title;
@@ -71,6 +76,7 @@ namespace Videoteka {
                 movie.Controls["textMovieDirector"].Text = movieData.director;
                 movie.Controls["textMovieStars"].Text = movieData.stars;
                 var watchlistButton = movie.Controls["buttonAddToWatched"];
+
                 if (radioReviewed.Checked) {
                     watchlistButton.Enabled = movieData.watchlistId == 0;
                     watchlistButton.Text = watchlistButton.Enabled ? MovieManager.NotInWatchlistText : (movieData.isWatched ? MovieManager.WatchedText : MovieManager.InWatchlistText);
@@ -86,6 +92,7 @@ namespace Videoteka {
                 poster.Image = ImageManager.FormatPoster(movieData.poster, poster.Width, poster.Height);
                 movie.Show();
             }
+
             panelMovies.PerformLayout();
             Refresh();
         }

@@ -27,11 +27,11 @@ namespace Videoteka {
 
 
         // Events
-        private void OnPaint(object sender, PaintEventArgs e) {
+        void OnPaint(object sender, PaintEventArgs e) {
             DrawDividers(e.Graphics);
         }
 
-        private void OnResize(object sender, EventArgs e) {
+        void OnResize(object sender, EventArgs e) {
             Refresh();
         }
 
@@ -53,84 +53,61 @@ namespace Videoteka {
 
         protected void CreateControlsFromTemplate(Control template, Control panel, string name, Control[] controls, int numControls) {
             var offset = template.Location.Y + template.Height;
+
             for (int i = 0; i < numControls; i++) {
-                var controlGroup = new GroupBox {
-                    Width = template.Width,
-                    Height = template.Height,
-                    Location = new Point(template.Location.X, offset * i + template.Location.Y),
-                    Name = name + i,
-                    Text = name + " " + i,
-                    MaximumSize = template.MaximumSize,
-                    MinimumSize = template.MinimumSize,
-                    TabIndex = template.TabIndex,
-                    AutoSize = template.AutoSize
-                };
+                var controlGroup = CopyProperties(template, new GroupBox());
+                controlGroup.Location = new Point(template.Location.X, offset * i + template.Location.Y);
+                controlGroup.Name = name + i;
+                controlGroup.Text = name + " " + i;
+
                 foreach (Control control in template.Controls) {
-                    Control newControl = null;
-                    if (control is Label) {
-                        newControl = new Label {
-                            Text = control.Text,
-                            Width = control.Width,
-                            Height = control.Height,
-                            Location = control.Location,
-                            Font = control.Font,
-                            Name = control.Name,
-                            MaximumSize = control.MaximumSize,
-                            MinimumSize = control.MinimumSize,
-                            TabIndex = control.TabIndex,
-                            AutoSize = control.AutoSize
-                        };
-                        controlGroup.Controls.Add(newControl);
-                    }
-                    else if (control is Button) {
-                        newControl = new Button {
-                            Text = control.Text,
-                            Width = control.Width,
-                            Height = control.Height,
-                            Location = control.Location,
-                            Name = control.Name,
-                            MaximumSize = control.MaximumSize,
-                            MinimumSize = control.MinimumSize,
-                            TabIndex = control.TabIndex,
-                            AutoSize = control.AutoSize
-                        };
-                    }
-                    else if (control is PictureBox) {
-                        newControl = new PictureBox {
-                            Text = control.Text,
-                            Width = control.Width,
-                            Height = control.Height,
-                            Location = control.Location,
-                            Name = control.Name,
-                            MaximumSize = control.MaximumSize,
-                            MinimumSize = control.MinimumSize,
-                            TabIndex = control.TabIndex,
-                            AutoSize = control.AutoSize
-                        };
-                    }
+                    Control newControl = CopyProperties(control, (Control)Activator.CreateInstance(control.GetType())); ;
+
                     if (newControl != null) {
                         controlGroup.Controls.Add(newControl);
                     }
                 }
+
                 controlGroup.Hide();
                 controls[i] = controlGroup;
                 panel.Controls.Add(controlGroup);
             }
+
             panel.Controls.Remove(template);
             template.Dispose();
-            mainPanel = panel;
-            mainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+
+            panel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
 
             MaximumSize = new Size(width, maxHeight);
             MinimumSize = new Size(width, minHeight);
+
+            mainPanel = panel;
         }
 
-        public void UpdatePagination(int total, int perPage, Control prev, Control next, Control label) {
+        Control CopyProperties(Control source, Control dest) {
+            dest.Text = source.Text;
+            dest.Width = source.Width;
+            dest.Height = source.Height;
+            dest.Location = source.Location;
+            dest.Name = source.Name;
+            dest.MaximumSize = source.MaximumSize;
+            dest.MinimumSize = source.MinimumSize;
+            dest.TabIndex = source.TabIndex;
+            dest.AutoSize = source.AutoSize;
+            dest.Font = source.Font;
+
+            return dest;
+        }
+
+        protected void UpdatePagination(int total, int perPage, Control prev, Control next, Control label) {
             var pageCount = total / perPage + (total % perPage > 0 ? 1 : 0);
+
             if (currentPage >= pageCount || currentPage < 0) {
                 currentPage = 0;
             }
+
             var offset = currentPage * perPage;
+
             if (total > 0) {
                 var rangeStart = offset + 1;
                 var rangeEnd = Math.Min(offset + perPage, total);
@@ -139,6 +116,7 @@ namespace Videoteka {
             else {
                 label.Text = "";
             }
+
             prev.Enabled = currentPage > 0;
             next.Enabled = currentPage < (pageCount - 1);
         }

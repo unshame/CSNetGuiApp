@@ -25,6 +25,7 @@ namespace Videoteka {
                 "Confirm Deletion",
                 MessageBoxButtons.YesNo
             );
+
             if (confirmResult == DialogResult.Yes) {
                 if (DB.DeleteMovie(id) > 0) {
                     var reviewsDeleted = DB.DeleteReviewsOfMovie(id);
@@ -37,6 +38,7 @@ namespace Videoteka {
                     Program.ShowErrorBox("Movie couldn't be deleted", "Failed to delete movie");
                 }
             }
+
             return false;
         }
 
@@ -47,10 +49,12 @@ namespace Videoteka {
             if (!VerifyAddParams(title, genre)) return -1;
 
             byte[] poster = null;
+
             if (posterPath != "") {
                 poster = ImageManager.OpenImage(posterPath);
                 if (poster == null) return -1;
             }
+
             var id = DB.AddMovie(
                 title,
                 (int)year,
@@ -61,9 +65,11 @@ namespace Videoteka {
                 description,
                 poster
             );
+
             if (id != -1) {
                 Program.ReloadForms();
             }
+
             return id;
         }
 
@@ -91,22 +97,27 @@ namespace Videoteka {
                 description,
                 poster
             ) > 0;
+
             if (success) {
                 Program.ReloadForms();
             }
+
             return success;
         }
 
         private static bool VerifyAddParams(string title, object genre) {
             var errorTitle = "Failed to add movie";
+
             if (title == "") {
                 Program.ShowErrorBox("Please enter title", errorTitle);
                 return false;
             }
+
             if (genre == null) {
                 Program.ShowErrorBox("Please select genre", errorTitle);
                 return false;
             }
+
             return true;
         }
 
@@ -114,6 +125,7 @@ namespace Videoteka {
             if (!Profile.IsLoggedIn.Checked) return -1;
 
             var id = DB.AddToWatchlist(movieId);
+
             if (id != -1) {
                 Program.ReloadForms();
             }
