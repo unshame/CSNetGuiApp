@@ -11,12 +11,15 @@ namespace Videoteka {
 
         public FormWatchlist() {
             FormClosing += OnClosing;
+
             InitializeComponent();
             InitializeTemplatedForm();
+
+            AcceptButton = buttonFilter;
         }
 
         // Events
-         void OnLoad(object sender, EventArgs e) {
+        void OnLoad(object sender, EventArgs e) {
             CreateControlsFromTemplate(template, panelMovies, "movie", movies, itemsPerPage);
             BindingManager.AddOrderingBinding(filterSortOrder);
             BindingManager.AddSortByWatchlistBinding(filterSortBy);

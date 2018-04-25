@@ -22,6 +22,8 @@ namespace Videoteka {
 
             InitializeComponent();
             InitializeTemplatedForm();
+
+            AcceptButton = buttonFilter;
         }
 
         // Events
