@@ -27,9 +27,6 @@ namespace Videoteka {
             this.labelPagination = new System.Windows.Forms.Label();
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonPrev = new System.Windows.Forms.Button();
-            this.buttonAddMovie = new System.Windows.Forms.Button();
-            this.buttonLogin = new System.Windows.Forms.Button();
-            this.buttonWatchlist = new System.Windows.Forms.Button();
             this.buttonAllMovies = new System.Windows.Forms.Button();
             this.groupFilter = new System.Windows.Forms.GroupBox();
             this.labelSortOrder = new System.Windows.Forms.Label();
@@ -51,6 +48,10 @@ namespace Videoteka {
             this.buttonMovieInfo = new System.Windows.Forms.Button();
             this.textReview = new System.Windows.Forms.Label();
             this.labelMovieTitle = new System.Windows.Forms.Label();
+            this.buttonStats = new System.Windows.Forms.Button();
+            this.buttonAddMovie = new System.Windows.Forms.Button();
+            this.buttonLogin = new System.Windows.Forms.Button();
+            this.buttonWatchlist = new System.Windows.Forms.Button();
             this.groupFilter.SuspendLayout();
             this.panelReviews.SuspendLayout();
             this.template.SuspendLayout();
@@ -88,43 +89,10 @@ namespace Videoteka {
             this.buttonPrev.UseVisualStyleBackColor = true;
             this.buttonPrev.Click += new System.EventHandler(this.buttonPrev_Click);
             // 
-            // buttonAddMovie
-            // 
-            this.buttonAddMovie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddMovie.Location = new System.Drawing.Point(353, 773);
-            this.buttonAddMovie.Name = "buttonAddMovie";
-            this.buttonAddMovie.Size = new System.Drawing.Size(108, 23);
-            this.buttonAddMovie.TabIndex = 8;
-            this.buttonAddMovie.Text = "Add Movie";
-            this.buttonAddMovie.UseVisualStyleBackColor = true;
-            this.buttonAddMovie.Click += new System.EventHandler(this.buttonAddMovie_Click);
-            // 
-            // buttonLogin
-            // 
-            this.buttonLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLogin.Location = new System.Drawing.Point(9, 773);
-            this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(108, 23);
-            this.buttonLogin.TabIndex = 5;
-            this.buttonLogin.Text = "Login";
-            this.buttonLogin.UseVisualStyleBackColor = true;
-            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
-            // 
-            // buttonWatchlist
-            // 
-            this.buttonWatchlist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonWatchlist.Location = new System.Drawing.Point(239, 773);
-            this.buttonWatchlist.Name = "buttonWatchlist";
-            this.buttonWatchlist.Size = new System.Drawing.Size(108, 23);
-            this.buttonWatchlist.TabIndex = 7;
-            this.buttonWatchlist.Text = "My Watchlist";
-            this.buttonWatchlist.UseVisualStyleBackColor = true;
-            this.buttonWatchlist.Click += new System.EventHandler(this.buttonWatchlist_Click);
-            // 
             // buttonAllMovies
             // 
             this.buttonAllMovies.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAllMovies.Location = new System.Drawing.Point(125, 773);
+            this.buttonAllMovies.Location = new System.Drawing.Point(62, 774);
             this.buttonAllMovies.Name = "buttonAllMovies";
             this.buttonAllMovies.Size = new System.Drawing.Size(108, 23);
             this.buttonAllMovies.TabIndex = 6;
@@ -330,17 +298,62 @@ namespace Videoteka {
             this.labelMovieTitle.TabIndex = 0;
             this.labelMovieTitle.Text = "Movie Title";
             // 
+            // buttonStats
+            // 
+            this.buttonStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonStats.Location = new System.Drawing.Point(403, 774);
+            this.buttonStats.Name = "buttonStats";
+            this.buttonStats.Size = new System.Drawing.Size(58, 23);
+            this.buttonStats.TabIndex = 13;
+            this.buttonStats.Text = "Stats";
+            this.buttonStats.UseVisualStyleBackColor = true;
+            this.buttonStats.Click += new System.EventHandler(this.buttonStats_Click);
+            // 
+            // buttonAddMovie
+            // 
+            this.buttonAddMovie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddMovie.Location = new System.Drawing.Point(290, 774);
+            this.buttonAddMovie.Name = "buttonAddMovie";
+            this.buttonAddMovie.Size = new System.Drawing.Size(108, 23);
+            this.buttonAddMovie.TabIndex = 12;
+            this.buttonAddMovie.Text = "Add Movie";
+            this.buttonAddMovie.UseVisualStyleBackColor = true;
+            this.buttonAddMovie.Click += new System.EventHandler(this.buttonAddMovie_Click);
+            // 
+            // buttonLogin
+            // 
+            this.buttonLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonLogin.Location = new System.Drawing.Point(9, 774);
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Size = new System.Drawing.Size(47, 23);
+            this.buttonLogin.TabIndex = 10;
+            this.buttonLogin.Text = "Login";
+            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
+            // 
+            // buttonWatchlist
+            // 
+            this.buttonWatchlist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonWatchlist.Location = new System.Drawing.Point(176, 774);
+            this.buttonWatchlist.Name = "buttonWatchlist";
+            this.buttonWatchlist.Size = new System.Drawing.Size(108, 23);
+            this.buttonWatchlist.TabIndex = 11;
+            this.buttonWatchlist.Text = "My Watchlist";
+            this.buttonWatchlist.UseVisualStyleBackColor = true;
+            this.buttonWatchlist.Click += new System.EventHandler(this.buttonWatchlist_Click);
+            // 
             // FormReviews
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(468, 809);
-            this.Controls.Add(this.labelPagination);
-            this.Controls.Add(this.buttonNext);
-            this.Controls.Add(this.buttonPrev);
+            this.Controls.Add(this.buttonStats);
             this.Controls.Add(this.buttonAddMovie);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.buttonWatchlist);
+            this.Controls.Add(this.labelPagination);
+            this.Controls.Add(this.buttonNext);
+            this.Controls.Add(this.buttonPrev);
             this.Controls.Add(this.buttonAllMovies);
             this.Controls.Add(this.groupFilter);
             this.Controls.Add(this.panelReviews);
@@ -367,9 +380,6 @@ namespace Videoteka {
         private System.Windows.Forms.Label labelPagination;
         private System.Windows.Forms.Button buttonNext;
         private System.Windows.Forms.Button buttonPrev;
-        private System.Windows.Forms.Button buttonAddMovie;
-        private System.Windows.Forms.Button buttonLogin;
-        private System.Windows.Forms.Button buttonWatchlist;
         private System.Windows.Forms.Button buttonAllMovies;
         private System.Windows.Forms.GroupBox groupFilter;
         private System.Windows.Forms.Button buttonFilterReset;
@@ -391,5 +401,9 @@ namespace Videoteka {
         private System.Windows.Forms.ComboBox filterSortBy;
         private System.Windows.Forms.Label labelSortOrder;
         private System.Windows.Forms.ComboBox filterSortOrder;
+        private System.Windows.Forms.Button buttonStats;
+        private System.Windows.Forms.Button buttonAddMovie;
+        private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Button buttonWatchlist;
     }
 }

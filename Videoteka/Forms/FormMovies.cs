@@ -187,5 +187,9 @@ namespace Videoteka {
             currentPage--;
             LoadMovies();
         }
+
+        private void buttonStats_Click(object sender, EventArgs e) {
+            Program.OpenStatsForm();
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace Videoteka {
         public static FormWatchlist formWatchlist;
         public static FormReviews formReviews;
         public static FormAddMovie formAddMovie;
+        public static FormStats formStats;
 
         public static Dictionary<int, FormSingleMovie> openedMovieForms = new Dictionary<int, FormSingleMovie>();
 
@@ -41,6 +42,7 @@ namespace Videoteka {
                 formMovies = new FormMovies();
                 formReviews = new FormReviews();
 
+                formStats = null;
                 formWatchlist = null;
                 formAddMovie = null;
 
@@ -141,7 +143,26 @@ namespace Videoteka {
                 formWatchlist.LoadWatchlist();
             }
 
+            if(formStats != null) {
+                formStats.LoadStats();
+            }
+
             ReloadAllMovieForms();
+        }
+
+        static public void OpenStatsForm() {
+            if (formStats == null) {
+                formStats = new FormStats();
+                formStats.Show();
+            }
+
+            formStats.Focus();
+        }
+
+        static public void CloseStatsForm() {
+            if (formStats != null) {
+                formStats.Close();
+            }
         }
 
         static public void ShowErrorBox(string text, string title = "Error") {

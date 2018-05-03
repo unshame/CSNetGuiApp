@@ -67,6 +67,7 @@ namespace Videoteka {
             this.buttonPrev = new System.Windows.Forms.Button();
             this.buttonNext = new System.Windows.Forms.Button();
             this.labelPagination = new System.Windows.Forms.Label();
+            this.buttonStats = new System.Windows.Forms.Button();
             this.template.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.poster)).BeginInit();
             this.panelMovies.SuspendLayout();
@@ -458,7 +459,7 @@ namespace Videoteka {
             // buttonAllReviews
             // 
             this.buttonAllReviews.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAllReviews.Location = new System.Drawing.Point(125, 774);
+            this.buttonAllReviews.Location = new System.Drawing.Point(62, 774);
             this.buttonAllReviews.Name = "buttonAllReviews";
             this.buttonAllReviews.Size = new System.Drawing.Size(108, 23);
             this.buttonAllReviews.TabIndex = 6;
@@ -469,7 +470,7 @@ namespace Videoteka {
             // buttonWatchlist
             // 
             this.buttonWatchlist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonWatchlist.Location = new System.Drawing.Point(239, 774);
+            this.buttonWatchlist.Location = new System.Drawing.Point(176, 774);
             this.buttonWatchlist.Name = "buttonWatchlist";
             this.buttonWatchlist.Size = new System.Drawing.Size(108, 23);
             this.buttonWatchlist.TabIndex = 7;
@@ -482,7 +483,7 @@ namespace Videoteka {
             this.buttonLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLogin.Location = new System.Drawing.Point(9, 774);
             this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(108, 23);
+            this.buttonLogin.Size = new System.Drawing.Size(47, 23);
             this.buttonLogin.TabIndex = 5;
             this.buttonLogin.Text = "Login";
             this.buttonLogin.UseVisualStyleBackColor = true;
@@ -491,7 +492,7 @@ namespace Videoteka {
             // buttonAddMovie
             // 
             this.buttonAddMovie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddMovie.Location = new System.Drawing.Point(353, 774);
+            this.buttonAddMovie.Location = new System.Drawing.Point(290, 774);
             this.buttonAddMovie.Name = "buttonAddMovie";
             this.buttonAddMovie.Size = new System.Drawing.Size(108, 23);
             this.buttonAddMovie.TabIndex = 8;
@@ -532,11 +533,23 @@ namespace Videoteka {
             this.labelPagination.TabIndex = 3;
             this.labelPagination.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // buttonStats
+            // 
+            this.buttonStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonStats.Location = new System.Drawing.Point(403, 774);
+            this.buttonStats.Name = "buttonStats";
+            this.buttonStats.Size = new System.Drawing.Size(58, 23);
+            this.buttonStats.TabIndex = 9;
+            this.buttonStats.Text = "Stats";
+            this.buttonStats.UseVisualStyleBackColor = true;
+            this.buttonStats.Click += new System.EventHandler(this.buttonStats_Click);
+            // 
             // FormMovies
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(468, 809);
+            this.Controls.Add(this.buttonStats);
             this.Controls.Add(this.labelPagination);
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.buttonPrev);
@@ -612,6 +625,7 @@ namespace Videoteka {
         private System.Windows.Forms.NumericUpDown filterDuration;
         private System.Windows.Forms.NumericUpDown filterYear;
         private System.Windows.Forms.Label labelYearPlus;
+        private System.Windows.Forms.Button buttonStats;
     }
 }
 

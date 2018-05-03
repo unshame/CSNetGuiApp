@@ -88,6 +88,61 @@ namespace Videoteka {
         }
 
 
+        public static List<Tuple<string, int>> GetStatsGenre() {
+            var query = "SELECT genre_name, (SELECT COUNT(*) FROM movies WHERE genre_id = genre) as num_movies FROM genres order by num_movies desc";
+            var cmd = new MySqlCommand(query, connection);
+            var results = new List<Tuple<string, int>>();
+
+            if (OpenConnection()) {
+                try {
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read()) {
+                        results.Add(new Tuple<string, int>(
+                            reader.GetString("genre_name"),
+                            reader.GetInt32("num_movies")
+                        ));
+                    }
+
+                    reader.Close();
+                }
+                catch (MySqlException e) {
+                    Program.ShowErrorBox(e.Message, "Failed to get stats");
+                }
+            }
+
+            CloseConnection();
+            return results;
+        }
+
+        public static List<Tuple<string, int>> GetStatsBy(string column, string orderBy = "num_movies", string order = "desc") {
+            var query = "SELECT " + column + ", COUNT(*) as num_movies from movies group by " + column +" order by " + orderBy + " " + order;
+            var cmd = new MySqlCommand(query, connection);
+            var results = new List<Tuple<string, int>>();
+
+            if (OpenConnection()) {
+                try {
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read()) {
+                        results.Add(new Tuple<string, int>(
+                            reader.GetString(column),
+                            reader.GetInt32("num_movies")
+                        ));
+                    }
+
+                    reader.Close();
+                }
+                catch (MySqlException e) {
+                    Program.ShowErrorBox(e.Message, "Failed to get stats");
+                }
+            }
+
+            CloseConnection();
+            return results;
+        }
+
+
         // Users
 
         static public Tuple<int, string, bool> Login(string username, string password) {
@@ -540,7 +595,6 @@ namespace Videoteka {
             CloseConnection();
             return result;
         }
-
 
         // Filter
 
