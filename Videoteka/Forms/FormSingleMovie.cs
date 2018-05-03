@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using System.Drawing.Printing;
 
 namespace Videoteka {
     public partial class FormSingleMovie : TemplatedForm {
@@ -264,5 +265,53 @@ namespace Videoteka {
                 reviewRating.Value = 5;
             }
         }
+
+        private void buttonPrint_Click(object sender, EventArgs e) {
+            var printDocument = new PrintDocument();
+            PrintDialog printDialog = new PrintDialog {
+                Document = printDocument
+            };
+            if (printDialog.ShowDialog() == DialogResult.OK) {
+                printDocument.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+                printDocument.Print();
+            }
+        }
+
+        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e) {
+           
+            Graphics g = e.Graphics;
+            SolidBrush brush = new SolidBrush(Color.Black);
+
+            var font = new Font("arial", 12);
+            var bounds = e.PageBounds;
+            var offset = 30;
+            bounds.X = offset;
+            bounds.Y = offset;
+            bounds.Width -= offset;
+            bounds.Height -= offset;
+
+            g.DrawString("Videoteka Movie Info", new Font("arial", 16, FontStyle.Bold), brush, bounds);
+            bounds.Y += offset;
+            bounds.Height -= offset;
+
+            g.DrawImage(poster.Image, new Rectangle(bounds.X, bounds.Y, poster.Image.Width, poster.Image.Height));
+            bounds.X += offset/2 + poster.Image.Width;
+            bounds.Width -= offset / 2 + poster.Image.Width;
+
+            g.DrawString(groupMovie.Text, new Font("arial", 14, FontStyle.Bold), brush, bounds);
+            bounds.Y += offset;
+            bounds.Height -= offset;
+
+            g.DrawString(movieData.FormatInfo(), font, brush, bounds);
+            bounds.Y += offset;
+            bounds.Height -= offset;
+
+            g.DrawString(movieData.FormatRating(), font, brush, bounds);
+            bounds.Y += offset;
+            bounds.Height -= offset;
+
+            g.DrawString(textMovieDescription.Text, font, brush, bounds);
+        }
+
     }
 }

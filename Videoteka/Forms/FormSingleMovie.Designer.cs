@@ -55,6 +55,7 @@ namespace Videoteka {
             this.template = new System.Windows.Forms.GroupBox();
             this.labelReviewMovieRating = new System.Windows.Forms.Label();
             this.textReview = new System.Windows.Forms.Label();
+            this.buttonPrint = new System.Windows.Forms.Button();
             this.groupMyReview.SuspendLayout();
             this.groupMyReviewPublished.SuspendLayout();
             this.panelPublishedReviewText.SuspendLayout();
@@ -200,6 +201,7 @@ namespace Videoteka {
             // 
             // groupMovie
             // 
+            this.groupMovie.Controls.Add(this.buttonPrint);
             this.groupMovie.Controls.Add(this.buttonEditMovie);
             this.groupMovie.Controls.Add(this.textMovieRating);
             this.groupMovie.Controls.Add(this.textMovieStars);
@@ -219,7 +221,7 @@ namespace Videoteka {
             // 
             // buttonEditMovie
             // 
-            this.buttonEditMovie.Location = new System.Drawing.Point(243, 167);
+            this.buttonEditMovie.Location = new System.Drawing.Point(324, 167);
             this.buttonEditMovie.Name = "buttonEditMovie";
             this.buttonEditMovie.Size = new System.Drawing.Size(78, 23);
             this.buttonEditMovie.TabIndex = 8;
@@ -381,6 +383,16 @@ namespace Videoteka {
             this.textReview.Text = "texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext " +
     "texttexttexttexttexttexttexttexttexttexttexttexttexttexttext";
             // 
+            // buttonPrint
+            // 
+            this.buttonPrint.Location = new System.Drawing.Point(243, 167);
+            this.buttonPrint.Name = "buttonPrint";
+            this.buttonPrint.Size = new System.Drawing.Size(75, 23);
+            this.buttonPrint.TabIndex = 9;
+            this.buttonPrint.Text = "Print";
+            this.buttonPrint.UseVisualStyleBackColor = true;
+            this.buttonPrint.Click += new System.EventHandler(this.buttonPrint_Click);
+            // 
             // FormSingleMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -447,5 +459,6 @@ namespace Videoteka {
         private System.Windows.Forms.Panel panelPublishedReviewText;
         private System.Windows.Forms.Button buttonEditReview;
         private System.Windows.Forms.Button buttonCancelReview;
+        private System.Windows.Forms.Button buttonPrint;
     }
 }
